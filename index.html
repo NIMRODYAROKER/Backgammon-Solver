@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>מהלך – אימון החלטות בשש בש</title>
+<meta name="description" content="מאמן שש בש אינטראקטיבי בעברית: 72 תרגילים על לוח אמיתי, ארבעה שלבי משחק ושלוש רמות קושי, עם משוב מיידי והסבר מלא לכל מהלך.">
+<meta name="theme-color" content="#5b4cf0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Rubik:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===== Design tokens ===== */
+:root{
+  --bg:#f6f7fc; --card:#ffffff; --ink:#131833; --ink-2:#2b3150; --muted:#5d6580; --line:#e5e8f3;
+  --brand:#5b4cf0; --brand-600:#4a3bdc; --brand-50:#efedff; --brand-100:#e1ddff;
+  --teal:#0ea89a; --teal-50:#e3f7f4; --amber:#d98a06; --amber-50:#fff4dc; --rose:#e0445c; --rose-50:#ffe8ec; --green:#13a26b; --green-50:#e2f7ee;
+  --shadow-sm:0 1px 2px rgba(19,24,51,.06),0 1px 3px rgba(19,24,51,.05);
+  --shadow:0 10px 30px -12px rgba(40,35,120,.25),0 4px 10px -6px rgba(19,24,51,.08);
+  --r:16px; --r-lg:24px;
+  --font:'Heebo',system-ui,-apple-system,'Segoe UI',Arial,sans-serif; --font-h:'Rubik','Heebo',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;overflow-x:hidden;font-family:var(--font);color:var(--ink);background:var(--bg);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--font-h);line-height:1.2;margin:0 0 .5em;letter-spacing:-.01em}
+p{margin:0 0 1em}
+a{color:var(--brand);text-decoration:none}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:3px solid #8f84ff;outline-offset:2px;border-radius:8px}
+.wrap{width:100%;max-width:1160px;margin:0 auto;padding:0 18px}
+.ltr{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ===== Buttons ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;border:0;border-radius:12px;padding:.8em 1.3em;font-weight:600;font-size:1rem;transition:transform .15s ease,box-shadow .2s ease,background .2s ease;white-space:nowrap;min-height:46px}
+.btn:active{transform:translateY(1px) scale(.99)}
+.btn-primary{background:linear-gradient(135deg,#6a5cff,#4f3fe6);color:#fff;box-shadow:0 8px 20px -8px rgba(79,63,230,.7)}
+.btn-primary:hover{box-shadow:0 12px 26px -8px rgba(79,63,230,.8);transform:translateY(-1px)}
+.btn-lg{padding:1em 1.7em;font-size:1.08rem;border-radius:14px;min-height:54px}
+.btn-ghost{background:#fff;color:var(--ink-2);border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+.btn-ghost:hover{border-color:#cfd3ea;background:#fbfbff}
+.btn-soft{background:var(--brand-50);color:var(--brand-600)}
+.btn-soft:hover{background:var(--brand-100)}
+.btn-teal{background:var(--teal);color:#fff}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.btn svg{width:1.15em;height:1.15em;flex:none}
+.chip{display:inline-flex;align-items:center;gap:.4em;padding:.3em .75em;border-radius:99px;background:var(--brand-50);color:var(--brand-600);font-weight:600;font-size:.82rem}
+
+/* ===== Header ===== */
+.top{position:sticky;top:0;z-index:40;background:rgba(246,247,252,.82);backdrop-filter:saturate(1.6) blur(12px);-webkit-backdrop-filter:saturate(1.6) blur(12px);border-bottom:1px solid rgba(229,232,243,.8)}
+.top .wrap{display:flex;align-items:center;gap:10px;height:62px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-h);font-weight:800;font-size:1.3rem;color:var(--ink);background:none;border:0;padding:0}
+.logo small{display:none;font-family:var(--font);font-weight:500;font-size:.8rem;color:var(--muted)}
+.logo-mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#6a5cff,#12b8a6);display:grid;place-items:center;box-shadow:0 6px 14px -6px rgba(91,76,240,.8)}
+.nav{margin-inline-start:auto;display:flex;gap:4px;align-items:center}
+.nav button{background:none;border:0;padding:.5em .7em;border-radius:10px;font-weight:600;color:var(--ink-2);display:flex;align-items:center;gap:.4em;font-size:.95rem;min-height:40px}
+.nav button:hover{background:#fff}
+.nav button.on{background:#fff;color:var(--brand-600);box-shadow:var(--shadow-sm)}
+.nav svg{width:18px;height:18px}
+.nav .lbl{display:none}
+[hidden]{display:none!important}
+.badge{min-width:20px;height:20px;padding:0 6px;border-radius:99px;background:var(--rose);color:#fff;font-size:.72rem;display:inline-grid;place-items:center;font-weight:700}
+@media (min-width:720px){.nav .lbl{display:inline}.logo small{display:inline}}
+
+/* ===== Views ===== */
+.view{display:none;animation:fade .35s ease}
+.view.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+/* ===== Landing ===== */
+.hero{position:relative;overflow:hidden;padding:42px 0 56px}
+.hero::before{content:"";position:absolute;inset:-20% -10% auto -10%;height:900px;z-index:-1;
+  background:radial-gradient(40% 45% at 85% 20%,rgba(123,108,255,.28),transparent 70%),radial-gradient(35% 40% at 10% 30%,rgba(18,184,166,.22),transparent 70%),radial-gradient(45% 40% at 50% 85%,rgba(255,170,200,.22),transparent 70%),linear-gradient(180deg,#f3f1ff 0%,#f6f7fc 100%)}
+.hero-grid{display:grid;gap:36px;align-items:center}
+.hero h1{font-size:clamp(2rem,6.5vw,3.4rem);font-weight:800;margin:.35em 0 .4em}
+.grad{background:linear-gradient(90deg,#5b4cf0,#0ea89a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lead{font-size:clamp(1.02rem,2.6vw,1.2rem);color:var(--ink-2);max-width:36em}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 14px}
+.trust{display:flex;flex-wrap:wrap;gap:6px 16px;color:var(--muted);font-size:.9rem}
+.trust span{display:inline-flex;align-items:center;gap:6px}
+.trust svg{width:16px;height:16px;color:var(--teal)}
+.stats-row{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.stat-pill{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 14px;box-shadow:var(--shadow-sm)}
+.stat-pill b{display:block;font-family:var(--font-h);font-size:1.35rem;color:var(--brand-600);line-height:1.1}
+.stat-pill span{font-size:.82rem;color:var(--muted)}
+.preview{background:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.9);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:14px;backdrop-filter:blur(8px)}
+.preview-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;font-size:.88rem;color:var(--muted)}
+.dots{display:flex;gap:6px}.dots i{width:10px;height:10px;border-radius:50%;background:#e2e4f0;display:block}
+.preview-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;flex-wrap:wrap}
+.toast-ok{display:inline-flex;align-items:center;gap:8px;background:var(--green-50);color:#0b7a50;padding:.45em .8em;border-radius:10px;font-weight:600;font-size:.9rem;opacity:0;transform:translateY(4px);transition:.35s}
+.toast-ok.show{opacity:1;transform:none}
+@media (min-width:960px){.hero{padding:70px 0 80px}.hero-grid{grid-template-columns:1fr 1.05fr}}
+
+.section{padding:56px 0}
+.section-head{text-align:center;max-width:680px;margin:0 auto 34px}
+.section-head h2{font-size:clamp(1.6rem,4.4vw,2.3rem);font-weight:800}
+.section-head p{color:var(--muted);font-size:1.05rem}
+.eyebrow{display:inline-block;font-weight:700;color:var(--brand-600);font-size:.85rem;letter-spacing:.02em;margin-bottom:8px}
+.grid{display:grid;gap:16px}
+@media (min-width:640px){.g2{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:960px){.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:640px) and (max-width:959px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:var(--shadow-sm);transition:transform .25s ease,box-shadow .25s ease,border-color .25s}
+.card.hov:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:#d9dcf0}
+.card h3{font-size:1.15rem;margin-bottom:.35em}
+.card p{color:var(--muted);margin:0;font-size:.97rem}
+.ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;margin-bottom:14px}
+.ico svg{width:24px;height:24px}
+.ico.v{background:var(--brand-50);color:var(--brand-600)}.ico.t{background:var(--teal-50);color:var(--teal)}.ico.a{background:var(--amber-50);color:var(--amber)}.ico.r{background:var(--rose-50);color:var(--rose)}
+.lvl-card .lvl-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.bars{display:flex;gap:3px;align-items:flex-end;height:22px}
+.bars i{width:6px;border-radius:2px;background:#dfe2f1;display:block}
+.bars i:nth-child(1){height:8px}.bars i:nth-child(2){height:14px}.bars i:nth-child(3){height:20px}
+.bars.l1 i:nth-child(-n+1),.bars.l2 i:nth-child(-n+2),.bars.l3 i:nth-child(-n+3){background:var(--brand)}
+.explain-demo{display:grid;gap:20px;align-items:center}
+@media (min-width:900px){.explain-demo{grid-template-columns:1fr 1fr}}
+.check-list{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:12px}
+.check-list li{display:flex;gap:10px;align-items:flex-start}
+.check-list svg{flex:none;width:22px;height:22px;color:var(--teal);margin-top:2px}
+.mock-exp{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:20px;box-shadow:var(--shadow)}
+.steps{counter-reset:s}
+.step-card{position:relative;padding-top:26px}
+.step-num{position:absolute;top:-16px;inset-inline-start:22px;width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#6a5cff,#12b8a6);color:#fff;font-weight:800;display:grid;place-items:center;font-family:var(--font-h);box-shadow:0 8px 16px -8px rgba(91,76,240,.8)}
+.cta-band{margin:20px 0 60px;border-radius:28px;padding:42px 24px;text-align:center;color:#fff;background:radial-gradient(60% 120% at 90% 0%,rgba(18,184,166,.55),transparent 60%),linear-gradient(135deg,#4c3de0,#6d5cff 55%,#7d6bff);box-shadow:var(--shadow)}
+.cta-band h2{font-size:clamp(1.5rem,4vw,2.2rem)}
+.cta-band p{opacity:.9}
+.cta-band .btn{background:#fff;color:var(--brand-600)}
+footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--muted);font-size:.9rem;text-align:center}
+
+/* ===== Practice selection ===== */
+.page{padding:26px 0 60px}
+.page-title{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.page-title h1{font-size:clamp(1.6rem,4.5vw,2.1rem);margin:0}
+.page-title p{margin:4px 0 0;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
+@media (min-width:800px){.kpis{grid-template-columns:repeat(4,1fr)}}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;gap:12px;align-items:center;box-shadow:var(--shadow-sm)}
+.kpi .ico{margin:0;width:42px;height:42px;flex:none}
+.kpi b{font-family:var(--font-h);font-size:1.4rem;display:block;line-height:1.1}
+.kpi span{color:var(--muted);font-size:.85rem}
+.kpi.clickable{cursor:pointer;text-align:start;font:inherit;color:inherit}
+.kpi.clickable:hover{border-color:#d4d0ff}
+.reco{display:flex;gap:14px;align-items:center;flex-wrap:wrap;background:linear-gradient(135deg,#f1efff,#e8f8f5);border:1px solid #dcd8ff;border-radius:var(--r);padding:16px 18px;margin-bottom:22px}
+.reco .ico{margin:0;background:#fff}
+.reco div{flex:1;min-width:200px}
+.reco b{display:block;font-family:var(--font-h)}
+.reco span{color:var(--ink-2);font-size:.95rem}
+.seg{display:inline-flex;background:#eceefa;border-radius:14px;padding:4px;gap:4px}
+.seg button{border:0;background:none;padding:.55em 1em;border-radius:10px;font-weight:600;color:var(--ink-2);display:flex;gap:8px;align-items:center;min-height:42px}
+.seg button.on{background:#fff;color:var(--brand-600);box-shadow:var(--shadow-sm)}
+.cat-card{display:flex;flex-direction:column;gap:12px}
+.cat-card .ico{margin:0}
+.cat-head{display:flex;gap:12px;align-items:center}
+.cat-head h3{margin:0}
+.progress{height:8px;background:#eceefa;border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,#6a5cff,#12b8a6);border-radius:99px;transition:width .6s ease}
+.cat-meta{display:flex;justify-content:space-between;font-size:.88rem;color:var(--muted);gap:8px}
+.cat-meta b{color:var(--ink)}
+.lvl-dots{display:flex;gap:6px}
+.lvl-dots span{flex:1;font-size:.75rem;text-align:center;color:var(--muted);background:#f3f4fb;border-radius:8px;padding:4px 0}
+.lvl-dots span.done{background:var(--green-50);color:#0b7a50;font-weight:600}
+.cat-card .btn{margin-top:auto}
+
+/* ===== Exercise screen ===== */
+.ex-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.ex-top .back{background:#fff;border:1px solid var(--line);border-radius:10px;width:40px;height:40px;display:grid;place-items:center}
+.ex-top .back svg{width:20px;height:20px}
+.ex-progress{flex:1;min-width:120px}
+.ex-progress small{color:var(--muted);font-weight:600;display:block;margin-bottom:4px}
+.ex-layout{display:grid;gap:16px;grid-template-areas:"task" "board" "panel"}
+.ex-task{grid-area:task}.ex-board{grid-area:board}.ex-panel{grid-area:panel}
+@media (min-width:980px){.ex-layout{grid-template-columns:minmax(330px,390px) 1fr;grid-template-areas:"task board" "panel board";align-items:start}.ex-board{position:sticky;top:78px}}
+.task-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow-sm)}
+.task-card h2{font-size:1.15rem;margin-bottom:6px}
+.task-card p{margin:0;color:var(--ink-2)}
+.task-ctx{margin-top:8px!important;font-size:.93rem;color:var(--muted)!important}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.leg{display:flex;gap:8px;align-items:center;background:#f6f7fc;border-radius:12px;padding:8px 10px;font-size:.86rem}
+.leg i{width:22px;height:22px;border-radius:50%;flex:none;display:block}
+.leg i.w{background:radial-gradient(circle at 35% 30%,#fff,#e9e6dc);border:2px solid #8b8fa3}
+.leg i.b{background:radial-gradient(circle at 35% 30%,#4b5175,#171b31);border:2px solid #6b7196}
+.leg b{display:block;font-size:.88rem}
+.leg span{color:var(--muted);font-size:.78rem;line-height:1.3;display:block}
+.board-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:10px;box-shadow:var(--shadow)}
+.board-card svg{display:block;width:100%;height:auto;touch-action:none;user-select:none;-webkit-user-select:none}
+.board-tools{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 4px 2px;flex-wrap:wrap;font-size:.86rem;color:var(--muted)}
+.pip{display:flex;gap:12px}
+.pip b{color:var(--ink);font-variant-numeric:tabular-nums}
+.linkbtn{background:none;border:0;color:var(--brand-600);font-weight:600;padding:6px 4px;display:inline-flex;align-items:center;gap:6px;min-height:36px}
+.linkbtn svg{width:16px;height:16px}
+.panel-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow-sm)}
+.hint{display:flex;gap:8px;align-items:flex-start;color:var(--muted);font-size:.9rem;margin-bottom:12px}
+.hint svg{width:18px;height:18px;flex:none;margin-top:3px;color:var(--brand)}
+.moves-line{min-height:28px;margin-bottom:12px;font-size:.95rem}
+.moves-line .ltr{background:#f3f4fb;border-radius:8px;padding:2px 8px;font-weight:600}
+.actions{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:8px}
+.actions .btn{padding:.7em .6em}
+.opts{display:grid;gap:10px}
+.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px 16px;text-align:start;font-weight:600;transition:.2s;min-height:52px}
+.opt:hover{border-color:#bfb7ff;background:#faf9ff}
+.opt.right{border-color:var(--green);background:var(--green-50)}
+.opt.wrong{border-color:var(--rose);background:var(--rose-50)}
+.opt[disabled]{cursor:default}
+
+/* feedback + explanation */
+.fb{margin-top:14px;border-radius:14px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;animation:pop .35s ease}
+@keyframes pop{from{transform:scale(.97);opacity:0}to{transform:none;opacity:1}}
+.fb .ico{margin:0;width:40px;height:40px;flex:none;background:#fff}
+.fb b{font-family:var(--font-h);font-size:1.12rem;display:block}
+.fb p{margin:2px 0 0;font-size:.95rem}
+.fb.correct{background:var(--green-50);color:#0b6a46}.fb.correct .ico{color:var(--green)}
+.fb.near{background:var(--amber-50);color:#8a5600}.fb.near .ico{color:var(--amber)}
+.fb.wrong{background:var(--rose-50);color:#a3243a}.fb.wrong .ico{color:var(--rose)}
+.exp{margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
+.exp h3{font-size:1.12rem;margin-bottom:4px}
+.principle{display:flex;gap:10px;background:var(--brand-50);color:#3b2fb8;border-radius:12px;padding:10px 12px;font-weight:600;font-size:.95rem;margin:10px 0}
+.principle svg{width:20px;height:20px;flex:none;margin-top:2px}
+.exp p{color:var(--ink-2)}
+.alts{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:8px}
+.alts li{border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:.93rem}
+.alts .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:3px}
+.tag{font-size:.74rem;font-weight:700;border-radius:99px;padding:.15em .6em}
+.tag.best{background:var(--green-50);color:#0b7a50}.tag.near{background:var(--amber-50);color:#8a5600}.tag.bad{background:var(--rose-50);color:#a3243a}.tag.you{background:#eef0fb;color:var(--ink-2)}
+.metric{margin-inline-start:auto;font-size:.8rem;color:var(--muted)}
+.alts p{margin:0;color:var(--muted)}
+.exp-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.exp-actions .btn{flex:1;min-width:140px}
+.term{background:none;border:0;padding:0;color:inherit;border-bottom:2px dotted #a79dff;cursor:help;font:inherit}
+
+/* summary */
+.sum-card{max-width:620px;margin:20px auto;text-align:center;padding:30px 22px}
+.score-ring{width:140px;height:140px;margin:0 auto 14px;position:relative}
+.score-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.score-ring b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--font-h);font-size:2rem}
+.sum-split{display:flex;justify-content:center;gap:10px;margin:14px 0 20px;flex-wrap:wrap}
+.sum-split span{padding:.4em .8em;border-radius:10px;font-weight:600;font-size:.9rem}
+.sum-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.empty{text-align:center;padding:40px 20px}
+
+/* glossary modal */
+.modal{position:fixed;inset:0;z-index:80;display:none;align-items:flex-end;justify-content:center;background:rgba(19,24,51,.45);backdrop-filter:blur(3px)}
+.modal.on{display:flex;animation:fade .2s}
+.sheet{background:#fff;width:100%;max-width:640px;max-height:86vh;border-radius:22px 22px 0 0;display:flex;flex-direction:column;box-shadow:var(--shadow)}
+@media (min-width:700px){.modal{align-items:center}.sheet{border-radius:22px}}
+.sheet-head{display:flex;align-items:center;gap:10px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.sheet-head h2{margin:0;font-size:1.25rem;flex:1}
+.x{background:#f3f4fb;border:0;border-radius:10px;width:38px;height:38px;display:grid;place-items:center}
+.x svg{width:18px;height:18px}
+.sheet-body{overflow:auto;padding:12px 18px 22px}
+.gsearch{width:100%;border:1px solid var(--line);border-radius:12px;padding:.7em 1em;font:inherit;margin-bottom:10px;background:#f8f9fd}
+.gitem{padding:12px 0;border-bottom:1px solid var(--line)}
+.gitem:last-child{border:0}
+.gitem b{font-family:var(--font-h);color:var(--brand-600);font-size:1.05rem}
+.gitem small{color:var(--muted);margin-right:8px}
+.gitem p{margin:2px 0 0;color:var(--ink-2)}
+.gitem.flash{background:var(--brand-50);border-radius:10px;padding-inline:10px}
+</style>
+</head>
+<body>
+<!-- ===== Header ===== -->
+<header class="top">
+  <div class="wrap">
+    <button class="logo" data-go="#/" aria-label="דף הבית">
+      <span class="logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="11" height="11" rx="3" fill="#fff"/><circle cx="6.5" cy="6.5" r="1.3" fill="#5b4cf0"/><circle cx="10.5" cy="10.5" r="1.3" fill="#5b4cf0"/><rect x="11" y="11" width="10" height="10" rx="3" fill="#fff" opacity=".85"/><circle cx="16" cy="16" r="1.3" fill="#0ea89a"/></svg></span>
+      מהלך <small>אימון החלטות בשש בש</small>
+    </button>
+    <nav class="nav" aria-label="ניווט ראשי">
+      <button data-go="#/practice" data-nav="practice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span class="lbl">תרגול</span><span class="sr">תרגול</span></button>
+      <button data-go="#/review" data-nav="review"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg><span class="lbl">טעויות</span><span class="sr">חזרה על טעויות</span><span class="badge" id="missBadge" hidden>0</span></button>
+      <button data-glossary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg><span class="lbl">מילון</span><span class="sr">מילון מושגים</span></button>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- ===== Landing ===== -->
+<section class="view" id="v-home">
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg> 72 תרגילים עם הסבר מלא</span>
+        <h1>תפסיקו לנחש.<br><span class="grad">תתחילו להבין את המהלך.</span></h1>
+        <p class="lead">מאמן שש בש אינטראקטיבי למתחילים ולשחקנים בינוניים. מזיזים חיילים על לוח אמיתי, מקבלים משוב מיידי, ומבינים בדיוק למה המהלך הנכון הוא הנכון.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary btn-lg" data-go="#/practice">התחילו לתרגל בחינם
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <button class="btn btn-ghost btn-lg" data-scroll="#how">איך זה עובד?</button>
+        </div>
+        <div class="trust">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>בלי הרשמה</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>ההתקדמות נשמרת בדפדפן</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>מותאם לטלפון</span>
+        </div>
+        <div class="stats-row">
+          <div class="stat-pill"><b>72</b><span>תרגילים</span></div>
+          <div class="stat-pill"><b>4</b><span>שלבי משחק</span></div>
+          <div class="stat-pill"><b>3</b><span>רמות קושי</span></div>
+        </div>
+      </div>
+      <div class="preview" aria-label="תצוגה מקדימה של לוח תרגול">
+        <div class="preview-bar"><div class="dots"><i></i><i></i><i></i></div><span>הטלה ראשונה · מתחיל</span></div>
+        <svg id="heroBoard" viewBox="0 0 814 608" role="img" aria-label="לוח שש בש: הפתיחה 3-1"></svg>
+        <div class="preview-foot">
+          <span style="color:var(--muted);font-size:.92rem">הטלתם <b class="ltr">3-1</b> – מה המהלך הנכון?</span>
+          <span class="toast-ok" id="heroToast"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>נכון! נבנתה נקודת החמש</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="eyebrow">ארבעה שלבי משחק</span><h2>כל מה שצריך כדי להשתפר במשחק אמיתי</h2><p>התרגילים מחולקים לפי השלבים של כל משחק, כך שתדעו בדיוק מה לעשות בכל רגע.</p></div>
+      <div class="grid g4" id="stageCards"></div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:10px">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="eyebrow">שלוש רמות קושי</span><h2>מתקדמים בקצב שלכם</h2><p>הקושי עולה בצורה מדודה – מתחילים מהחלטות ברורות ומגיעים למצבים עדינים שדורשים חשיבה אמיתית.</p></div>
+      <div class="grid g3" id="levelCards"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap explain-demo">
+      <div class="reveal">
+        <span class="eyebrow">הסבר מנומק לכל תרגיל</span>
+        <h2 style="font-size:clamp(1.6rem,4.4vw,2.2rem)">לא רק "נכון" או "לא נכון"</h2>
+        <p style="color:var(--muted);font-size:1.05rem">אחרי כל תרגיל המהלך הנכון מוצג בהנפשה על הלוח, יחד עם הסבר בשפה פשוטה: איזה עיקרון עומד מאחוריו, ולמה החלופות חלשות יותר.</p>
+        <ul class="check-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="10" stroke-width="2"/><path d="m8 12 3 3 5-6"/></svg><span><b>משוב מיידי</b> – נכון, כמעט נכון או לא מדויק, עם אפשרות לנסות שוב.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="10" stroke-width="2"/><path d="m8 12 3 3 5-6"/></svg><span><b>עיקרון אחד ברור</b> בכל תרגיל, במונחים עקביים לאורך כל האתר.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="10" stroke-width="2"/><path d="m8 12 3 3 5-6"/></svg><span><b>מספרים אמיתיים</b> – כמה הטלות פוגעות בכל בליטה, וכמה הטלות נשארו לסיום ההוצאה.</span></li>
+        </ul>
+      </div>
+      <div class="mock-exp reveal">
+        <div class="fb correct" style="margin:0 0 12px"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>נכון!</b><p>זה בדיוק המהלך הטוב ביותר.</p></div></div>
+        <h3 style="font-size:1.1rem">חשיפה עקיפה עדיפה על ישירה</h3>
+        <div class="principle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>בליטה במרחק 7 ומעלה קשה הרבה יותר לפגיעה.</div>
+        <ul class="alts">
+          <li><div class="row"><span class="tag best">הטוב ביותר</span><span class="ltr">12/6 10/5</span><span class="metric">חשיפה: 2 מתוך 36</span></div></li>
+          <li><div class="row"><span class="tag near">כמעט</span><span class="ltr">8/2 12/7</span><span class="metric">חשיפה: 11 מתוך 36</span></div><p>משאיר בליטה על 2 – כל 1 של היריב פוגע בה.</p></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:10px">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="eyebrow">כלים שעוזרים להשתפר</span><h2>תרגול חכם, לא רק עוד תרגיל</h2></div>
+      <div class="grid g4" id="toolCards"></div>
+    </div>
+  </section>
+
+  <section class="section" id="how">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="eyebrow">איך זה עובד</span><h2>שלושה צעדים לשיפור אמיתי</h2></div>
+      <div class="grid g3">
+        <div class="card step-card reveal"><span class="step-num">1</span><h3>בוחרים שלב ורמה</h3><p>הטלה ראשונה, תחילת משחק, אמצע משחק או סוף משחק – ברמה שמתאימה לכם.</p></div>
+        <div class="card step-card reveal"><span class="step-num">2</span><h3>משחקים את המהלך</h3><p>גוררים או לוחצים על חיילים לפי הקוביות. המערכת מאפשרת רק מהלכים חוקיים ומדגישה את האפשרויות.</p></div>
+        <div class="card step-card reveal"><span class="step-num">3</span><h3>מבינים ומשתפרים</h3><p>רואים את המהלך הנכון בהנפשה, קוראים למה הוא עדיף, וחוזרים על הטעויות עד שהן נעלמות.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="cta-band reveal">
+      <h2>המהלך הבא שלכם מתחיל כאן</h2>
+      <p>חמש דקות ביום מספיקות כדי לראות את ההבדל ליד הלוח.</p>
+      <button class="btn btn-lg" data-go="#/practice">התחילו לתרגל בחינם</button>
+    </div>
+  </div>
+  <footer><div class="wrap">מהלך · אימון החלטות בשש בש · כל ההתקדמות נשמרת רק בדפדפן שלכם</div></footer>
+</section>
+
+<!-- ===== Practice selection ===== -->
+<section class="view" id="v-practice">
+  <div class="wrap page">
+    <div class="page-title"><div><h1>בחרו מה לתרגל</h1><p>כל קטגוריה כוללת 6 תרגילים בכל רמה.</p></div>
+      <div class="seg" role="tablist" aria-label="רמת קושי" id="lvlSeg"></div></div>
+    <div class="kpis" id="kpis"></div>
+    <div id="reco"></div>
+    <div class="grid g4" id="catCards"></div>
+  </div>
+</section>
+
+<!-- ===== Exercise ===== -->
+<section class="view" id="v-play">
+  <div class="wrap page" style="padding-top:16px">
+    <div class="ex-top">
+      <button class="back" id="exBack" aria-label="חזרה לבחירת תרגול"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+      <span class="chip" id="exChip"></span>
+      <div class="ex-progress"><small id="exCount"></small><div class="progress"><i id="exBar" style="width:0"></i></div></div>
+      <button class="linkbtn" data-glossary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/></svg>מילון</button>
+    </div>
+    <div class="ex-layout">
+      <div class="ex-task task-card">
+        <h2 id="exQ"></h2>
+        <p id="exSub"></p>
+        <p class="task-ctx" id="exCtx" hidden></p>
+        <div class="legend">
+          <div class="leg"><i class="w"></i><div><b>אתם – לבן</b><span>נעים מ-24 עד 1, הבית: 1–6 למטה</span></div></div>
+          <div class="leg"><i class="b"></i><div><b>היריב – שחור</b><span>נע בכיוון ההפוך, הבית שלו: 19–24</span></div></div>
+        </div>
+      </div>
+      <div class="ex-board board-card">
+        <svg id="board" viewBox="0 0 814 608" role="img" aria-label="לוח שש בש"></svg>
+        <div class="board-tools">
+          <div class="pip">פיפ קאונט: <span>אתם <b id="pipW"></b></span><span>היריב <b id="pipB"></b></span></div>
+          <button class="linkbtn" id="flipBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 7h13l-3-3M17 17H4l3 3"/></svg>היפוך צד הבית</button>
+        </div>
+      </div>
+      <div class="ex-panel panel-card" id="panel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Session summary ===== -->
+<section class="view" id="v-summary"><div class="wrap page"><div class="card sum-card" id="sumCard"></div></div></section>
+</main>
+
+<!-- ===== Glossary modal ===== -->
+<div class="modal" id="gloss" role="dialog" aria-modal="true" aria-labelledby="glossTitle">
+  <div class="sheet">
+    <div class="sheet-head"><h2 id="glossTitle">מילון מושגים</h2><button class="x" id="glossClose" aria-label="סגירה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <div class="sheet-body"><input class="gsearch" id="gsearch" type="search" placeholder="חיפוש מושג..." aria-label="חיפוש מושג"><div id="glist"></div></div>
+  </div>
+</div>
+
+<script>
+/* ===== Backgammon rules engine =====
+   Coordinates are always from the player's (white) perspective:
+   points 1..24, white moves 24 -> 1 and bears off from 1..6.
+   pts[i] > 0 = white checkers, pts[i] < 0 = black checkers.
+   wb / bb = checkers on the bar. Step: {from (25 = bar), to (0 = off), die, hit} */
+const Engine = (() => {
+  function fromDef(d) {
+    const pts = new Array(25).fill(0);
+    for (const k in d.w) pts[+k] += d.w[k];
+    for (const k in d.b) pts[+k] -= d.b[k];
+    return { pts, wb: d.wb || 0, bb: d.bb || 0 };
+  }
+  const clone = s => ({ pts: s.pts.slice(), wb: s.wb, bb: s.bb });
+  function counts(s) {
+    let w = s.wb, b = s.bb;
+    for (let i = 1; i <= 24; i++) { if (s.pts[i] > 0) w += s.pts[i]; else b -= s.pts[i]; }
+    return { w, b, wOff: 15 - w, bOff: 15 - b };
+  }
+  function allHome(s) {
+    if (s.wb) return false;
+    for (let i = 7; i <= 24; i++) if (s.pts[i] > 0) return false;
+    return true;
+  }
+  // All single-checker moves for one die value
+  function stepsForDie(s, d) {
+    const res = [];
+    if (s.wb > 0) { // must enter from the bar first
+      const to = 25 - d;
+      if (s.pts[to] >= -1) res.push({ from: 25, to, die: d, hit: s.pts[to] === -1 });
+      return res;
+    }
+    const home = allHome(s);
+    for (let p = 24; p >= 1; p--) {
+      if (s.pts[p] <= 0) continue;
+      const to = p - d;
+      if (to >= 1) {
+        if (s.pts[to] >= -1) res.push({ from: p, to, die: d, hit: s.pts[to] === -1 });
+      } else if (home) {
+        if (to === 0) res.push({ from: p, to: 0, die: d, hit: false });
+        else { // higher die: only from the highest occupied point
+          let higher = false;
+          for (let q = p + 1; q <= 6; q++) if (s.pts[q] > 0) { higher = true; break; }
+          if (!higher) res.push({ from: p, to: 0, die: d, hit: false });
+        }
+      }
+    }
+    return res;
+  }
+  function apply(s, st) {
+    const n = clone(s);
+    if (st.from === 25) n.wb--; else n.pts[st.from]--;
+    if (st.to > 0) {
+      if (n.pts[st.to] === -1) { n.pts[st.to] = 0; n.bb++; }
+      n.pts[st.to]++;
+    }
+    return n;
+  }
+  const key = s => s.pts.join(',') + '|' + s.wb + '|' + s.bb;
+  // Every legal full play (all orders), honoring "use both dice / the larger die" rules
+  function plays(s, dice) {
+    const ds = dice[0] === dice[1] ? [dice[0], dice[0], dice[0], dice[0]] : [dice[0], dice[1]];
+    const seqs = []; let maxLen = 0;
+    (function rec(st, rem, seq) {
+      let moved = false; const tried = new Set();
+      for (let i = 0; i < rem.length; i++) {
+        const d = rem[i]; if (tried.has(d)) continue; tried.add(d);
+        const steps = stepsForDie(st, d);
+        if (!steps.length) continue;
+        const r2 = rem.slice(); r2.splice(i, 1);
+        for (const stp of steps) { moved = true; rec(apply(st, stp), r2, seq.concat([stp])); }
+      }
+      if (!moved) { seqs.push({ seq, final: st }); if (seq.length > maxLen) maxLen = seq.length; }
+    })(s, ds, []);
+    let out = seqs.filter(x => x.seq.length === maxLen);
+    if (maxLen === 1 && ds.length === 2 && ds[0] !== ds[1]) {
+      const hi = Math.max(ds[0], ds[1]);
+      if (out.some(x => x.seq[0].die === hi)) out = out.filter(x => x.seq[0].die === hi);
+    }
+    return out;
+  }
+  // Swap sides so the opponent becomes "white"
+  function mirror(s) {
+    const pts = new Array(25).fill(0);
+    for (let i = 1; i <= 24; i++) pts[i] = -s.pts[25 - i];
+    return { pts, wb: s.bb, bb: s.wb };
+  }
+  // Number of opponent rolls (out of 36) that hit at least one white blot
+  function shots(s) {
+    const m = mirror(s); let n = 0;
+    for (let a = 1; a <= 6; a++) for (let b = a; b <= 6; b++) {
+      const ps = plays(m, [a, b]);
+      if (ps.some(p => p.seq.some(x => x.hit))) n += a === b ? 1 : 2;
+    }
+    return n;
+  }
+  function pips(s) {
+    let w = s.wb * 25, b = s.bb * 25;
+    for (let i = 1; i <= 24; i++) { if (s.pts[i] > 0) w += s.pts[i] * i; else if (s.pts[i] < 0) b += -s.pts[i] * (25 - i); }
+    return { w, b };
+  }
+  // Move notation such as "8/5 6/5", "24/18*/13", "bar/20*", "6/off(2)"
+  function parse(str) {
+    const hops = [];
+    for (const tok of str.trim().split(/\s+/)) {
+      const m = tok.match(/^(.*?)(?:\((\d)\))?$/);
+      const nums = m[1].split('/').map(x => x.replace('*', '')).map(x => x === 'bar' ? 25 : x === 'off' ? 0 : +x);
+      const rep = +(m[2] || 1);
+      for (let r = 0; r < rep; r++) for (let i = 0; i < nums.length - 1; i++) hops.push([nums[i], nums[i + 1]]);
+    }
+    return hops;
+  }
+  function applyNotation(s, str) {
+    let n = clone(s);
+    for (const [a, b] of parse(str)) {
+      if (a === 25) n.wb--; else n.pts[a]--;
+      if (b > 0) { if (n.pts[b] === -1) { n.pts[b] = 0; n.bb++; } n.pts[b]++; }
+    }
+    return n;
+  }
+  // Human-readable notation for a step sequence
+  function notate(seq) {
+    return seq.map(st => (st.from === 25 ? 'bar' : st.from) + '/' + (st.to === 0 ? 'off' : st.to) + (st.hit ? '*' : '')).join(' ');
+  }
+  return { fromDef, clone, counts, allHome, stepsForDie, apply, key, plays, mirror, shots, pips, parse, applyNotation, notate };
+})();
+
+</script>
+<script>
+/* ===== Exercise bank =====
+   Points are numbered from YOUR side: you (white) move 24 -> 1, home board = 1..6.
+   w / b: checkers per point for white / black; wb / bb: checkers on the bar.
+   d: dice. best: accepted best plays. near: [play, why] almost-right. bad: [play, why].
+   t: title, p: one-line principle, why: plain explanation.
+   flag 'shots' -> explanation shows exposure counts; 'bear' -> shows expected rolls.
+   type 'cube' -> doubling-cube question with options [label, correct, why]. */
+const SW = { 24: 2, 13: 5, 8: 3, 6: 5 };           // white starting position
+const SB = { 1: 2, 12: 5, 17: 3, 19: 5 };           // black starting position
+const RACE_B = { 19: 5, 20: 5, 21: 5 };             // opponent far away (no contact)
+const ACE_B = { 1: 2, 19: 4, 20: 4, 21: 3, 22: 2 }; // opponent holds your 1-point
+
+const EXERCISES = [
+/* ---------------- OPENING: beginner ---------------- */
+{ id:'opening-1-1', c:'opening', l:1, w:SW, b:SB, d:[3,1],
+  best:['8/5 6/5'],
+  bad:[['13/10 6/5','משאיר שתי בליטות (על 10 ועל 5) במקום לבנות נקודה אחת חזקה.'],
+       ['24/20','מזיז חייל אחורי בלי לבנות דבר, ומשאיר שתי בליטות בצד של היריב.']],
+  t:'בונים את נקודת החמש', p:'נקודת החמש היא הנקודה החשובה ביותר בבית שלכם.',
+  why:'3-1 היא אחת הפתיחות הטובות ביותר. חייל מנקודה 8 וחייל מנקודה 6 נוחתים יחד על נקודה 5 ובונים אותה. הנקודה הזו חוסמת את החיילים האחוריים של היריב, ולא נשארת אף בליטה.' },
+{ id:'opening-1-2', c:'opening', l:1, w:SW, b:SB, d:[4,2],
+  best:['8/4 6/4'],
+  bad:[['13/9 13/11','מביא בונים, אבל מוותר על נקודה שאפשר לבנות כבר עכשיו.'],
+       ['24/18','מריץ חייל אחורי בלי מטרה ומשאיר שתי בליטות.']],
+  t:'בונים את נקודת הארבע', p:'כשאפשר לבנות נקודה טובה בבית – בונים.',
+  why:'4-2 מאפשרת לבנות את נקודה 4: חייל מ-8 עם ה-4 וחייל מ-6 עם ה-2. עכשיו יש לכם שלוש נקודות (8, 6, 4) שמקשות על היריב לצאת, ואין אף בליטה.' },
+{ id:'opening-1-3', c:'opening', l:1, w:SW, b:SB, d:[6,1],
+  best:['13/7 8/7'],
+  bad:[['24/18 24/23','מפצל את החיילים האחוריים ומוותר על נקודת הבר.'],
+       ['13/6','מעמיס חייל נוסף על נקודה 6 ומפספס את נקודת הבר.']],
+  t:'נקודת הבר – בלוק של שלוש', p:'שלוש נקודות רצופות הן תחילתו של בלוק.',
+  why:'חייל מנקודת האמצע (13) עם ה-6 וחייל מ-8 עם ה-1 בונים את נקודה 7, נקודת הבר. יחד עם 8 ו-6 נוצר בלוק של שלוש נקודות רצופות שחוסם את ה-6 של החיילים האחוריים של היריב.' },
+{ id:'opening-1-4', c:'opening', l:1, w:SW, b:SB, d:[5,3],
+  best:['8/3 6/3'],
+  bad:[['13/8 13/10','משאיר בליטה על 10 ולא בונה נקודה בבית.'],
+       ['24/16','חייל בודד באמצע הלוח, בטווח של הרבה חיילים של היריב.']],
+  t:'עוד נקודה בבית', p:'נקודות בבית מקשות על היריב לחזור מהבר.',
+  why:'עם 5-3 בונים את נקודה 3: חייל מ-8 עם ה-5 וחייל מ-6 עם ה-3. היא עמוקה יותר מנקודות 5 ו-4, אבל עדיין נקודה בבית שתעזור מאוד אם תפגעו ביריב. המהלך לא משאיר אף בליטה.' },
+{ id:'opening-1-5', c:'opening', l:1, w:SW, b:SB, d:[6,5],
+  best:['24/18/13'],
+  bad:[['13/7 13/8','משאיר בליטה על נקודה 7, בטווח ישיר של שני החיילים האחוריים של היריב.'],
+       ['13/2','בליטה עמוקה בבית שלא תורמת לבלוק וחשופה לפגיעה.']],
+  t:'ריצת הנוסע', p:'6-5 בפתיחה מריץ חייל אחורי עד הבית הבטוח בנקודה 13.',
+  why:'ה-6-5 מוביל חייל מנקודה 24 עד נקודה 13 – "ריצת הנוסע". החייל יוצא מהמלכודת מאחורי קווי היריב ומגיע למקום בטוח עם החברים שלו, בלי להשאיר שום בליטה חדשה.' },
+{ id:'opening-1-6', c:'opening', l:1, w:SW, b:{1:2,12:5,17:2,19:4,20:2}, d:[6,6],
+  ctx:'היריב פתח ב-3-1 ובנה את נקודת החמש שלו.',
+  best:['24/18(2) 13/7(2)'],
+  bad:[['13/7(2) 8/2(2)','בונה נקודות, אבל משאיר את שני החיילים האחוריים תקועים מול בלוק שהולך ומתחזק.'],
+       ['13/7(4)','מעמיס ארבעה חיילים על נקודה אחת ומשאיר בליטה בנקודת האמצע.']],
+  t:'שתי נקודות בר בבת אחת', p:'עם 6-6 בפתיחה תופסים את שתי נקודות הבר.',
+  why:'שני חיילים מ-24 ל-18 תופסים את נקודת הבר של היריב (עוגן מצוין), ושני חיילים מ-13 ל-7 בונים את נקודת הבר שלכם. יצאתם קדימה במרוץ, חסמתם את היריב, ולא השארתם אף בליטה.' },
+
+/* ---------------- OPENING: intermediate ---------------- */
+{ id:'opening-2-1', c:'opening', l:2, w:SW, b:SB, d:[6,2],
+  best:['24/18 13/11'],
+  near:[['13/5','מניח חייל בודד על נקודה 5 ("סלוט"). אם לא יפגעו בו זה מצוין, אבל כל 4 של היריב פוגע בו – סיכון גבוה מדי בפתיחה.']],
+  bad:[['24/16','שתי בליטות במרחב פתוח, בלי תועלת אמיתית.']],
+  t:'פיצול ובונה', p:'כשאין נקודה לבנות – מגוונים: פיצול מאחור ובונה מקדימה.',
+  why:'אי אפשר לבנות נקודה עם 6-2, ולכן מכינים את הקרקע. 24/18 תופס עמדה על נקודת הבר של היריב, ו-13/11 מביא בונה שיעזור לבנות נקודות בתור הבא. הסיכון מתפזר ולא מתרכז במקום אחד.' },
+{ id:'opening-2-2', c:'opening', l:2, w:SW, b:SB, d:[6,3],
+  best:['24/18 13/10'],
+  near:[['24/15','ריצה עם חייל אחד – סבירה, אבל הבליטה הרחוקה חשופה ואין בונה חדש לבית.'],
+        ['13/7 13/10','שני בונים מקדימה, אבל הבליטה על 7 בטווח ישיר של החיילים האחוריים של היריב.']],
+  bad:[['8/2 8/5','שובר את נקודה 8 ומשאיר שלוש בליטות.']],
+  t:'פיצול לנקודת הבר של היריב', p:'בפתיחה מאזנים בין התקדמות מאחור לבניית בונים.',
+  why:'24/18 מתפצל לנקודת הבר של היריב ומקשה עליו לבנות אותה, ו-13/10 מוסיף בונה לנקודות 4, 5 ו-7. הבליטות מפוזרות כך שקשה ליריב לפגוע בשתיהן יחד.' },
+{ id:'opening-2-3', c:'opening', l:2, w:SW, b:SB, d:[5,2],
+  best:['13/8 13/11'],
+  near:[['13/8 24/22','פיצול קטן מדי – הבונה על 11 שימושי הרבה יותר.']],
+  bad:[['8/3 6/4','שתי בליטות בבית ובליטה נוספת על 8 – הרבה מטרות ליריב.']],
+  t:'מביאים בונים מנקודת האמצע', p:'בונים בטווח של 6 מהנקודה הרצויה מגדילים את הסיכוי לבנות אותה.',
+  why:'13/8 בטוח לגמרי, ו-13/11 מניח בונה שמכוון לנקודות 5, 4 ו-7. בליטה על 11 רחוקה יחסית מהחיילים האחוריים של היריב, ולכן הסיכון נמוך והתועלת גבוהה.' },
+{ id:'opening-2-4', c:'opening', l:2, w:SW, b:SB, d:[4,1],
+  best:['24/23 13/9'],
+  near:[['13/8','בטוח לגמרי אבל פסיבי – לא מוסיף בונה ולא מפצל.']],
+  bad:[['6/2 6/5','שתי בליטות בבית, כל אחת חשופה לפגיעה ישירה.']],
+  t:'בונה על 9 ופיצול קטן', p:'מהלך טוב משרת גם את ההתקפה וגם את הגמישות.',
+  why:'13/9 מביא בונה מצוין לנקודה 5 ולנקודה 4, ו-24/23 מפצל קלות את החיילים האחוריים כך שיהיה קל יותר לבנות עוגן או לברוח בהמשך.' },
+{ id:'opening-2-5', c:'opening', l:2, w:SW, b:SB, d:[5,1],
+  best:['13/8 24/23'],
+  near:[['13/8 6/5','"סלוט" לנקודת החמש: אגרסיבי, אבל הבליטה על 5 חשופה לכל 4 של היריב.']],
+  bad:[['24/18','מותיר שתי בליטות אחוריות, אחת מהן על נקודת הבר של היריב.']],
+  t:'בטוח מקדימה, גמיש מאחור', p:'כשה-1 לא בונה כלום, פיצול קטן מאחור הוא שימוש טוב בו.',
+  why:'ה-5 משוחק בבטחה 13/8. את ה-1 משחקים 24/23: פיצול קטן שנותן יותר אפשרויות לבנות עוגן ומקשה על היריב לבנות נקודות לפני החיילים שלכם.' },
+{ id:'opening-2-6', c:'opening', l:2, w:SW, b:SB, d:[5,4],
+  best:['24/20 13/8'],
+  near:[['13/8 13/9','מהלך טוב כמעט באותה מידה – אבל מוותר על המאבק על נקודת החמש של היריב.']],
+  bad:[['24/15','חייל רץ לבד ומשאיר בליטה גם על 24 וגם באמצע הלוח.']],
+  t:'מאבק על נקודת החמש של היריב', p:'נקודה 20 (נקודת החמש של היריב) היא העוגן הטוב ביותר.',
+  why:'24/20 מאיים לתפוס את נקודת החמש של היריב – עוגן שקשה מאוד לחסום. 13/8 משוחק בבטחה. כך אתם מתחרים על נקודת מפתח בלי לקחת סיכון מיותר.' },
+
+/* ---------------- OPENING: advanced ---------------- */
+{ id:'opening-3-1', c:'opening', l:3, w:SW, b:SB, d:[6,4],
+  best:['24/14','24/18 13/9'],
+  near:[['8/2 6/2','בונה נקודה – אבל עמוקה מדי. בתחילת המשחק נקודה 2 שווה הרבה פחות מנקודות 5 ו-4.']],
+  bad:[['13/3','בליטה עמוקה בבית שלא תורמת כמעט כלום.']],
+  t:'6-4: ריצה או פיצול', p:'נקודה עמוקה מוקדם מדי שווה פחות מגמישות.',
+  why:'ב-6-4 אין מהלך מושלם. הריצה 24/14 מוציאה חייל אחורי ומתקדמת במרוץ, והפיצול 24/18 13/9 בונה עמדות. שני המהלכים כמעט שקולים לפי ניתוחי מחשב, ושניהם טובים יותר מבניית נקודה 2.' },
+{ id:'opening-3-2', c:'opening', l:3, w:SW, b:SB, d:[4,3],
+  best:['24/20 13/10','13/9 13/10'],
+  near:[['24/21 13/9','סביר, אבל נקודה 21 פחות חשובה מנקודה 20.']],
+  bad:[['13/6','מעמיס על נקודה 6 ומבזבז את הבונים.']],
+  t:'4-3: שני סגנונות טובים', p:'כמה מהלכים יכולים להיות טובים – מה שחשוב הוא העיקרון.',
+  why:'24/20 13/10 נלחם על נקודת החמש של היריב ומביא בונה. 13/9 13/10 מביא שני בונים ומאיים לבנות נקודות בבית. שניהם מצוינים; בונים על 9 ו-10 נמצאים בדיוק בטווח של הנקודות שאתם רוצים.' },
+{ id:'opening-3-3', c:'opening', l:3, w:SW, b:SB, d:[3,2],
+  best:['24/21 13/11','13/11 13/10'],
+  near:[['24/22 13/10','שימושי, אבל פיצול ל-22 פחות טוב מפיצול ל-21.']],
+  bad:[['6/3 6/4','שתי בליטות בבית, בטווח ישיר של היריב.']],
+  t:'3-2: בונים ופיצול', p:'בונים בנקודות 10-11 מכינים את נקודות 5 ו-4.',
+  why:'גם 24/21 13/11 וגם 13/11 13/10 נחשבים לפתיחות טובות. הם מוסיפים בונים ומשאירים בליטות רחוקות יחסית מהחיילים של היריב.' },
+{ id:'opening-3-4', c:'opening', l:3, w:SW, b:SB, d:[2,1],
+  best:['13/11 24/23'],
+  near:[['13/11 6/5','ה"סלוט" הקלאסי. היה פופולרי בעבר, היום ידוע שהוא מעט חלש יותר כי הבליטה על 5 חשופה ל-15 הטלות.']],
+  bad:[['24/21','חייל אחורי עובר לבליטה שלא תורמת כלום.']],
+  t:'2-1: בונה ופיצול', p:'במקום להמר על נקודה – מגדילים את מספר הדרכים לבנות אותה.',
+  why:'13/11 מוסיף בונה ו-24/23 מפצל קלות. המהלך כמעט לא מסתכן, ובתור הבא תוכלו לבנות נקודה במגוון הטלות.' },
+{ id:'opening-3-5', c:'opening', l:3, w:SW, b:{1:1,12:6,17:3,19:5}, d:[1,1],
+  ctx:'היריב פתח ב-6-5 והריץ חייל אחד ל-12. נשאר לו חייל אחורי בודד על נקודה 1 שלכם.',
+  best:['8/7(2) 6/5(2)'],
+  near:[['6/5(2) 24/23(2)','נקודת החמש מצוינת, אבל נקודת הבר חשובה יותר מהזזת החיילים האחוריים.']],
+  bad:[['24/22(2)','מזיז את החיילים האחוריים במקום לבנות נקודות שחוסמות.']],
+  t:'1-1: שתי נקודות מפתח', p:'נקודות 7 ו-5 יחד עם 6 ו-8 הן בסיס לבלוק חזק.',
+  why:'8/7(2) בונה את נקודת הבר ו-6/5(2) בונה את נקודת החמש. עכשיו יש לכם ארבע נקודות (8, 7, 6, 5) – בלוק שקשה מאוד לחייל האחורי של היריב לעבור.' },
+{ id:'opening-3-6', c:'opening', l:3, w:SW, b:{1:1,12:6,17:3,19:5}, d:[2,2],
+  ctx:'היריב פתח ב-6-5 והריץ חייל אחד ל-12.',
+  best:['13/11(2) 6/4(2)'],
+  near:[['24/22(2) 6/4(2)','גם מהלך טוב, אבל נקודה 11 נותנת יותר שליטה באמצע הלוח.']],
+  bad:[['6/2(2)','בונה נקודה עמוקה מדי ומשאיר את נקודה 6 עם מעט חיילים.']],
+  t:'2-2: נקודה 4 ונקודה 11', p:'מעדיפים נקודות קדמיות על פני נקודות עמוקות.',
+  why:'6/4(2) בונה את נקודה 4 בבית, ו-13/11(2) בונה נקודה בחוץ שתעזור להביא חיילים לבית ולחסום את החייל הבודד של היריב.' },
+
+/* ---------------- EARLY GAME: beginner ---------------- */
+{ id:'early-1-1', c:'early', l:1, w:{24:2,13:4,11:1,8:3,6:4,5:1}, b:SB, d:[6,1],
+  best:['11/5 24/23','11/5 6/5'],
+  bad:[['13/7 8/7','בונה את נקודת הבר אבל משאיר את הבליטה על 5 חשופה לכל 4 של היריב.'],
+       ['24/18 24/23','מתעלם מהבליטה על 5 – הבליטה החשובה ביותר שלכם.']],
+  t:'סוגרים את נקודת החמש', p:'בליטה על נקודה חשובה – מכסים אותה מיד.',
+  why:'הבליטה על נקודה 5 חשופה, והיא גם הנקודה החשובה ביותר בבית. ה-6 מביא את החייל מ-11 ומשלים את הנקודה. את ה-1 משחקים בבטחה – 24/23 או 6/5.' },
+{ id:'early-1-2', c:'early', l:1, w:{24:2,13:3,11:1,8:3,6:4,5:2}, b:SB, d:[4,1],
+  best:['11/7 8/7'],
+  bad:[['13/9 6/5','לא בונה נקודה חדשה ומשאיר בליטות.'],
+       ['24/20 24/23','שתי בליטות מאחור ואף נקודה חדשה.']],
+  t:'בלוק של ארבע', p:'נקודות רצופות יוצרות בלוק – ככל שהוא ארוך יותר, קשה יותר לעבור אותו.',
+  why:'11/7 ו-8/7 בונים את נקודת הבר. עכשיו נקודות 8, 7, 6 ו-5 רצופות – בלוק של ארבע שחוסם את החיילים האחוריים של היריב.' },
+{ id:'early-1-3', c:'early', l:1, w:{24:2,13:3,9:1,8:2,6:5,5:2}, b:SB, d:[5,2],
+  best:['9/4 6/4'],
+  bad:[['13/8 13/11','לא בונה נקודה, ומשאיר בליטות גם על 13 וגם על 9.']],
+  t:'עוד נקודה בבית', p:'בכל פעם שאפשר לבנות נקודה טובה בבית – עשו זאת.',
+  why:'9/4 עם ה-5 ו-6/4 עם ה-2 בונים את נקודה 4. יש לכם עכשיו ארבע נקודות (8, 6, 5, 4) והבליטה על 9 נעלמה.' },
+{ id:'early-1-4', c:'early', l:1, w:{24:1,22:1,13:4,8:3,6:5,5:1}, b:{1:2,12:4,17:3,18:2,19:4}, d:[4,2],
+  ctx:'היריב בנה את נקודת הבר שלו (18) ומאיים על החיילים האחוריים שלכם.',
+  best:['24/20 22/20'],
+  bad:[['8/4 6/4','בונה נקודה בבית, אבל משאיר שתי בליטות מאחור מול התקפה.'],
+       ['13/9 13/11','לא פותר את הבעיה: החיילים האחוריים נשארים חשופים.']],
+  t:'עוגן על נקודת החמש של היריב', p:'עוגן מתקדם מגן על החיילים האחוריים ונותן בסיס בטוח.',
+  why:'24/20 ו-22/20 בונים עוגן על נקודה 20 – נקודת החמש של היריב. החיילים האחוריים כבר לא בליטות, ומהעוגן קל לצאת קדימה בהמשך.' },
+{ id:'early-1-5', c:'early', l:1, w:{24:2,13:2,10:1,9:2,8:3,6:3,5:2}, b:SB, d:[3,1],
+  best:['10/7 8/7'],
+  bad:[['13/10 6/5','מכסה את 10 אבל מפספס את נקודת הבר.']],
+  t:'בלוק של חמש', p:'חמש נקודות רצופות כמעט כולאות את היריב.',
+  why:'10/7 ו-8/7 בונים את נקודת הבר. עכשיו נקודות 9 עד 5 רצופות – בלוק של חמש. החיילים של היריב על נקודה 1 צריכים 6 בדיוק כדי לקפוץ מעליו.' },
+{ id:'early-1-6', c:'early', l:1, w:{24:2,13:4,11:1,8:3,6:4,4:1}, b:SB, d:[4,3],
+  best:['8/4 11/8'],
+  bad:[['13/9 13/10','משאיר את הבליטה על 4 בטווח ישיר של היריב.'],
+       ['6/2 6/3','מוסיף עוד בליטות בבית במקום לסגור את הקיימת.']],
+  t:'מכסים את הבליטה בבית', p:'בליטה בבית שלכם היא מטרה קלה – סגרו אותה.',
+  why:'8/4 מכסה את הבליטה ובונה את נקודה 4, ו-11/8 משלים את החסר בנקודה 8. התוצאה: אין אף בליטה ויש לכם ארבע נקודות טובות.' },
+
+/* ---------------- EARLY GAME: intermediate ---------------- */
+{ id:'early-2-1', c:'early', l:2, w:{24:2,13:3,10:1,9:1,8:3,6:5}, b:SB, d:[5,4],
+  best:['10/5 9/5'],
+  near:[['9/4 8/4','בונה נקודה טובה, אבל נקודה 4 שווה פחות מנקודה 5.']],
+  bad:[['24/15','בליטה נוספת באמצע הלוח בלי שום תועלת.']],
+  t:'נקודה 5 לפני נקודה 4', p:'כשאפשר לבחור – בונים את הנקודה החשובה יותר.',
+  why:'גם 10/5 9/5 וגם 9/4 8/4 בונים נקודה. נקודת החמש עדיפה: היא חוסמת יותר הטלות של היריב ומשמשת קרש קפיצה לבניית בלוק.' },
+{ id:'early-2-2', c:'early', l:2, w:{24:2,13:4,11:1,10:1,8:2,6:5}, b:SB, d:[6,3],
+  best:['13/7 10/7'],
+  near:[['24/18 13/10','פיצול סביר, אבל מפספס הזדמנות לבנות את נקודת הבר.']],
+  bad:[['8/2 8/5','שובר את נקודה 8 ומשאיר שלוש בליטות.']],
+  t:'בונים את נקודת הבר', p:'נקודת הבר עוצרת את ה-6 של החיילים האחוריים של היריב.',
+  why:'13/7 ו-10/7 בונים את נקודה 7. יחד עם 8 ו-6 נוצר בלוק של שלוש נקודות רצופות. הבליטה שנשארת על 11 רחוקה יחסית ופחות מסוכנת.' },
+{ id:'early-2-3', c:'early', l:2, w:{24:2,13:2,10:2,8:3,6:4,5:2}, b:SB, d:[6,5],
+  best:['24/18/13'],
+  near:[['13/7 13/8','מפרק את נקודת האמצע ומשאיר בליטה על 7, והחיילים האחוריים נשארים תקועים.']],
+  bad:[['10/4 10/5','שובר את נקודה 10 ומשאיר בליטה על 4.']],
+  t:'ריצת הנוסע באמצע הפתיחה', p:'6-5 עם חיילים על 24 – רצים לנקודה 13.',
+  why:'24/13 מוציא חייל אחורי לבית בטוח בנקודת האמצע ומחזק אותה. הבית שלכם נשאר שלם, ואין בליטה חדשה.' },
+{ id:'early-2-4', c:'early', l:2, w:{24:2,13:4,8:3,6:4,5:2}, b:SB, d:[3,2],
+  best:['13/10 13/11'],
+  near:[['24/21 13/11','גם סביר, אבל שני בונים מקדימה מכינים טוב יותר את נקודות 4 ו-7.']],
+  bad:[['6/3 6/4','שתי בליטות בבית, בטווח ישיר של היריב.']],
+  t:'מגוון בונים', p:'כמה שיותר בונים בטווח – כך יותר הטלות יבנו נקודה.',
+  why:'בונים על 10 ו-11 נמצאים בטווח של נקודות 7, 4 ו-3. עם בונים מגוונים כמעט כל הטלה בתור הבא תבנה נקודה חדשה.' },
+{ id:'early-2-5', c:'early', l:2, w:{24:2,13:2,11:1,8:3,7:2,6:4,5:1}, b:SB, d:[6,1],
+  best:['11/5 6/5','11/5 24/23'],
+  near:[['13/7 6/5','סוגר את נקודה 5, אבל משאיר בליטות גם על 13 וגם על 11.']],
+  bad:[['13/7 8/7','משאיר את הבליטה על 5 פתוחה.']],
+  t:'משלימים בלוק של ארבע', p:'כיסוי הבליטה הוא גם השלמת הבלוק.',
+  why:'11/5 מכסה את נקודה 5 ובונה בלוק של ארבע נקודות (8, 7, 6, 5). לכן זה המהלך הטבעי, וה-1 משוחק בבטחה.' },
+{ id:'early-2-6', c:'early', l:2, w:{24:2,13:4,9:1,8:3,6:4,5:1}, b:SB, d:[4,1],
+  best:['13/9 6/5'],
+  near:[['9/5 6/5','סוגר את נקודה 5 בבטחה, אבל מוותר על נקודה 9.']],
+  bad:[['24/20 24/23','משאיר את שתי הבליטות בבית ובחוץ ומוסיף עוד שתיים מאחור.']],
+  t:'שתי בליטות – שתי נקודות', p:'לפעמים אפשר לכסות את כל הבליטות ולהוסיף נקודה.',
+  why:'13/9 בונה את נקודה 9 ו-6/5 בונה את נקודה 5. שתי הבליטות נסגרו ונוספה נקודה – בלי שום חשיפה.' },
+
+/* ---------------- EARLY GAME: advanced ---------------- */
+{ id:'early-3-1', c:'early', l:3, w:{24:2,13:3,11:1,10:1,8:3,6:5}, b:SB, d:[6,1],
+  best:['11/5 6/5'],
+  near:[['13/7 8/7','בונה את נקודת הבר – מהלך טוב, אבל נקודת החמש חשובה יותר.']],
+  bad:[['24/18 24/23','לא בונה כלום כשאפשר לבנות נקודה חשובה.']],
+  t:'נקודה 5 לפני נקודת הבר', p:'סדר העדיפויות: 5, אחר כך 4 או 7.',
+  why:'שני המהלכים בונים נקודה, אבל נקודת החמש עמוקה בבית: היא חוסמת, עוזרת לסגור את היריב אם תפגעו בו, ואי אפשר לאבד אותה בקלות.' },
+{ id:'early-3-2', c:'early', l:3, w:{24:2,13:4,10:1,8:3,6:5}, b:{1:2,12:4,17:3,18:2,19:4}, d:[4,4],
+  ctx:'היריב בנה בלוק של שלוש נקודות (17, 18, 19) מול החיילים האחוריים שלכם.',
+  best:['24/20(2) 13/9(2)'],
+  near:[['13/5(2)','בונה את נקודת החמש – חזק, אבל משאיר את החיילים האחוריים מול בלוק מתחזק.']],
+  bad:[['8/4(2) 6/2(2)','שתי נקודות עמוקות שלא עוזרות והחיילים האחוריים עדיין תקועים.']],
+  t:'עוגן לפני בניה', p:'כשהיריב בונה בלוק מול החיילים האחוריים – דאגו להם קודם.',
+  why:'24/20(2) בונה עוגן על נקודת החמש של היריב. משם קשה לחסום אתכם ויש לכם בסיס בטוח. 13/9(2) מוסיף נקודה בחוץ שתעזור להביא חיילים הביתה.' },
+{ id:'early-3-3', c:'early', l:3, w:{24:2,13:4,8:3,6:5,5:1}, b:SB, d:[2,1],
+  best:['13/11 6/5'],
+  near:[['24/22 6/5','סוגר את הנקודה, אבל בונה על 11 שווה יותר מפיצול קטן.']],
+  bad:[['5/2','מעביר את הבליטה לעומק הבית, שם היא שווה פחות ועדיין חשופה.']],
+  t:'סגירה ובונה נוסף', p:'אחרי שסגרתם נקודה – הוסיפו בונה לנקודה הבאה.',
+  why:'6/5 סוגר את נקודת החמש. ה-2 משוחק 13/11, ומביא בונה שמכוון לנקודות 7 ו-4 – הנקודות הבאות שתרצו לבנות.' },
+{ id:'early-3-4', c:'early', l:3, w:{24:2,13:3,8:3,7:1,6:4,5:1,4:1}, b:SB, d:[3,1],
+  best:['7/4 6/5'],
+  near:[['8/5 8/7','בונה שתי נקודות, אבל משאיר בליטות על 8 ועל 4.']],
+  bad:[['8/4','מכסה רק את נקודה 4 ומשאיר בליטות על 7 ועל 5.']],
+  t:'פתרון לכל הבליטות', p:'חפשו מהלך שסוגר כמה בליטות בבת אחת.',
+  why:'יש לכם שלוש בליטות (7, 5, 4). המהלך 7/4 6/5 סוגר את 4 ואת 5 ומעלים את הבליטה על 7. בסוף אין אף בליטה ויש חמש נקודות.' },
+{ id:'early-3-5', c:'early', l:3, w:{24:2,13:3,11:1,9:1,8:2,7:2,6:3,5:1}, b:SB, d:[6,2],
+  best:['11/5 9/7'],
+  near:[['11/5 13/11','סוגר את 5 ומביא בונה, אבל משאיר בליטות על 11 ועל 9.']],
+  bad:[['8/2 7/5','סוגר את 5 אבל שובר שתי נקודות ומשאיר חמש בליטות.']],
+  t:'בלוק נקי של ארבע', p:'כשאפשר לבנות בלוק בלי בליטות – זה כמעט תמיד הטוב ביותר.',
+  why:'11/5 סוגר את נקודה 5 ו-9/7 מעלים את הבליטה על 9. נקודות 8 עד 5 רצופות, ואין אף בליטה.' },
+{ id:'early-3-6', c:'early', l:3, w:{24:2,13:3,9:1,8:3,7:1,6:5}, b:SB, d:[5,3],
+  best:['9/4 7/4'],
+  near:[['8/3 6/3','בונה נקודה, אבל משאיר בליטות על 9 ועל 7.']],
+  bad:[['13/8 13/10','לא בונה נקודה בבית ומשאיר בליטות.']],
+  t:'רואים את הצירוף הנכון', p:'בדקו את כל דרכי הבנייה לפני שבוחרים.',
+  why:'9/4 עם ה-5 ו-7/4 עם ה-3 בונים את נקודה 4 ומעלימים שתי בליטות בבת אחת. מהלך שקל לפספס – ולכן כדאי תמיד לבדוק את כל האפשרויות.' },
+
+/* ---------------- MIDDLE GAME: beginner ---------------- */
+{ id:'middle-1-1', c:'middle', l:1, w:SW, b:{1:1,5:1,12:5,17:3,19:5}, d:[3,1],
+  ctx:'היריב הניח חייל בודד על נקודה 5 שלכם.',
+  best:['8/5* 6/5'],
+  bad:[['6/5* 24/21','פוגע, אבל משאיר בליטה על 5 שהיריב יכול לפגוע בה כשייכנס מהבר.'],
+       ['24/21 24/23','לא פוגע ומאפשר ליריב לבנות עוגן על נקודה 5 שלכם.']],
+  t:'פוגעים ובונים בבת אחת', p:'הכי טוב לפגוע ולבנות נקודה באותו מהלך.',
+  why:'8/5* פוגע בחייל של היריב ושולח אותו לבר, ו-6/5 מצטרף ובונה את הנקודה. היריב מאבד זמן, ונקודת החמש שלכם כבר בידיים שלכם.' },
+{ id:'middle-1-2', c:'middle', l:1, w:SW, b:{1:1,7:1,12:5,17:3,19:5}, d:[6,1],
+  ctx:'היריב הניח חייל בודד על נקודת הבר שלכם (7).',
+  best:['13/7* 8/7'],
+  bad:[['13/7* 24/23','פוגע אבל משאיר בליטה על 7 – החייל שחוזר מהבר יכול לפגוע בה.'],
+       ['24/18 6/5','מתעלם מהחייל של היריב.']],
+  t:'פוגעים על נקודת הבר', p:'פגיעה + בניית נקודה = מהלך כמעט מושלם.',
+  why:'13/7* פוגע ו-8/7 מכסה. בניתם את נקודת הבר, החייל של היריב על הבר, ואין לכם בליטה.' },
+{ id:'middle-1-3', c:'middle', l:1, w:{24:2,13:4,10:1,8:3,6:4,5:1}, b:SB, d:[5,1],
+  best:['10/5 6/5','10/5 24/23'],
+  near:[['13/8 6/5','גם סוגר את נקודה 5, אבל הבליטה על 10 נשארת.'],
+        ['10/5 8/7','סוגר את 5 אבל פותח בליטה חדשה על 7.']],
+  bad:[['24/18','מתעלם מהבליטה על 5 ופותח עוד בליטה מאחור.']],
+  t:'מכסים לפני שמסתכנים', p:'קודם סוגרים בליטות, אחר כך מתקדמים.',
+  why:'10/5 מכסה את הבליטה על נקודה 5 וגם מעלים את הבליטה על 10 – שתי בעיות נפתרות בתנועה אחת. את ה-1 משחקים בבטחה.' },
+{ id:'middle-1-4', c:'middle', l:1, w:{24:1,13:5,8:3,6:5}, wb:1, b:{1:1,12:5,17:3,19:5,20:1}, d:[5,4],
+  ctx:'אחד החיילים שלכם על הבר. היריב השאיר בליטה על נקודה 20 (נקודת החמש שלו).',
+  best:['bar/20* 24/20'],
+  bad:[['bar/21 13/8','נכנס בלי לפגוע ומשאיר את שני החיילים מאחור כבליטות.'],
+       ['bar/20* 13/9','פוגע, אבל משאיר בליטה על 20 במקום לבנות עוגן.']],
+  t:'נכנסים, פוגעים ובונים עוגן', p:'כשנכנסים מהבר – חפשו פגיעה ועוגן.',
+  why:'עם ה-5 נכנסים ישר לנקודה 20 ופוגעים בבליטה. ה-4 מביא את החייל מ-24 לאותה נקודה, וכך נבנה עוגן על נקודת החמש של היריב.' },
+{ id:'middle-1-5', c:'middle', l:1, w:SW, b:{1:1,4:1,12:5,17:3,19:5}, d:[4,2],
+  ctx:'היריב הניח חייל בודד על נקודה 4 שלכם.',
+  best:['8/4* 6/4'],
+  bad:[['13/9 13/11','מוותר על פגיעה ונקודה בבת אחת.'],
+       ['6/4* 24/20','פוגע אבל משאיר בליטה על 4.']],
+  t:'פוגעים על הראש', p:'"פגיעה על הראש": פוגעים ובונים נקודה על החייל של היריב.',
+  why:'8/4* פוגע ו-6/4 מכסה. היריב מאבד תור, ואתם מקבלים נקודה נוספת בבית בלי שום סיכון.' },
+{ id:'middle-1-6', c:'middle', l:1, w:{13:2,8:3,7:2,6:3,5:2,4:2,3:1}, b:{2:1,19:5,20:3,21:3,22:3}, d:[6,1],
+  ctx:'לחייל האחרון של היריב נשאר לברוח מנקודה 2.',
+  best:['8/2* 3/2'],
+  bad:[['13/7 3/2*','פוגע אבל משאיר בליטה על 2 ועוד בליטה על 13.']],
+  t:'פוגעים ונועלים', p:'פגיעה עם כיסוי שומרת עליכם ומשאירה את היריב בבר.',
+  why:'8/2* פוגע ו-3/2 מכסה. היריב בבר מול בית כמעט סגור, ואין לכם אף בליטה שאפשר לפגוע בה.' },
+
+/* ---------------- MIDDLE GAME: intermediate ---------------- */
+{ id:'middle-2-1', c:'middle', l:2, type:'cube', w:{11:2,9:2,8:2,6:3,5:2,4:2,3:2}, b:{13:3,14:1,15:1,16:1,19:3,20:2,21:2,22:2},
+  q:'זה מרוץ נקי (אין מגע). תורכם להטיל. האם להכפיל?',
+  opts:[['להכפיל',true,'אתם מובילים בכ-10% – מספיק כדי להכפיל, והיריב עדיין יכול לקבל.'],
+        ['לא להכפיל',false,'ההובלה שלכם גדולה מספיק. אם תחכו, ייתכן שהיריב פשוט יוותר ותפסידו ערך.']],
+  t:'הכפלה במרוץ: כלל 8-9-12', p:'במרוץ: מכפילים כשההובלה 8% ומעלה מהפיפ קאונט שלכם.',
+  why:'הפיפ קאונט שלכם 98 ושל היריב 108 – הובלה של 10, כלומר כ-10%. לפי כלל 8-9-12: הכפלה ראשונה מ-8%, הכפלה חוזרת מ-9%, והיריב יכול לקבל עד 12%. לכן זו הכפלה נכונה.' },
+{ id:'middle-2-2', c:'middle', l:2, type:'cube', w:{12:3,11:1,10:1,9:1,6:3,5:2,4:2,3:2}, b:{14:2,16:2,17:2,19:3,20:2,21:2,22:2},
+  q:'היריב הכפיל אתכם במרוץ נקי. לקבל או לוותר?',
+  opts:[['לקבל',true,'פיגור של כ-10% עדיין מתחת ל-12%, ולכן קבלה נכונה.'],
+        ['לוותר',false,'ויתור מפסיד נקודה בטוחה במצב שבו יש לכם עדיין סיכוי טוב.']],
+  t:'קבלה במרוץ', p:'אפשר לקבל הכפלה במרוץ כשהפיגור עד כ-12%.',
+  why:'הפיפ קאונט שלכם 108 ושל היריב 98 – פיגור של 10 נקודות, כ-10%. סיכויי הזכייה שלכם עדיין מעל 25%, ולכן כדאי לקבל.' },
+{ id:'middle-2-3', c:'middle', l:2, w:{13:3,10:2,8:3,7:2,6:3,5:2}, b:ACE_B, d:[6,4], flag:'shots',
+  ctx:'היריב מחזיק עוגן על נקודה 1 שלכם ומחכה לבליטה.',
+  best:['10/4 8/4'],
+  near:[['8/2 6/2','בטוח לגמרי, אבל נקודה 2 עמוקה מדי ופחות שימושית.']],
+  bad:[['10/4 10/6','משאיר בליטה על 4 – בטווח ישיר של העוגן.']],
+  t:'מכניסים הביתה בבטחה', p:'מול עוגן – בוחרים מהלך בלי חשיפה, ועדיף שיבנה נקודה טובה.',
+  why:'10/4 ו-8/4 בונים את נקודה 4. נשארת בליטה על 10, אבל אין הטלה שמגיעה אליה – כל הנקודות בדרך חסומות. גם 8/2 6/2 בטוח, אבל נקודה 4 שווה הרבה יותר מנקודה 2.' },
+{ id:'middle-2-4', c:'middle', l:2, w:{13:2,11:1,9:2,8:3,6:4,5:3}, b:ACE_B, d:[6,5], flag:'shots',
+  ctx:'היריב מחזיק עוגן על נקודה 1 שלכם.',
+  best:['11/5 13/8'],
+  near:[['9/3 8/3','בונה נקודה, אבל משאיר שתי בליטות (9 ו-11).']],
+  bad:[['13/7 13/8','משאיר בליטות על 7 ועל 11 – הרבה הטלות פוגעות.']],
+  t:'ספירת חשיפות', p:'לפני שזזים – ספרו כמה הטלות של היריב פוגעות.',
+  why:'11/5 13/8 משאיר רק בליטה אחת, על 13, במרחק 12 מהעוגן – רק הטלות כפולות פוגעות בה. כל מהלך אחר משאיר בליטה בטווח ישיר.' },
+{ id:'middle-2-5', c:'middle', l:2, w:{13:3,8:3,7:2,6:3,5:2,4:2}, b:{9:1,17:2,19:4,20:3,21:3,22:2}, d:[4,1],
+  ctx:'החייל האחרון של היריב מנסה לברוח מנקודה 9.',
+  best:['13/9*/8'],
+  near:[['13/9* 13/12','פוגע, אבל משאיר שתי בליטות שאפשר לפגוע בהן אחרי הכניסה.']],
+  bad:[['13/8','לא פוגע – החייל של היריב יכול לברוח והמשחק הופך למרוץ.']],
+  t:'פוגעים מאחורי בלוק', p:'כשיש לכם בלוק חזק – פגיעה בחייל האחרון יכולה להכריע.',
+  why:'13/9* שולח את החייל לבר, ו-9/8 מחזיר את החייל הפוגע לבטחון. היריב צריך להיכנס לנקודות 1-3 ואז לעבור בלוק של חמש נקודות (8 עד 4) – משימה קשה מאוד.' },
+{ id:'middle-2-6', c:'middle', l:2, w:{24:1,13:4,8:3,6:4,5:2}, wb:1, b:{1:2,12:4,17:3,19:5,21:1}, d:[4,3],
+  ctx:'חייל שלכם על הבר, והיריב השאיר בליטה על נקודה 21.',
+  best:['bar/21* 24/21'],
+  near:[['bar/21* 13/10','פוגע אבל לא בונה עוגן – החייל על 21 נשאר בליטה.']],
+  bad:[['bar/22 24/20','נכנס בלי לפגוע ומשאיר שתי בליטות מאחור.']],
+  t:'נכנסים ובונים עוגן', p:'הכניסה מהבר יכולה להיות גם פגיעה וגם עוגן.',
+  why:'ה-4 מכניס את החייל לנקודה 21 עם פגיעה, וה-3 מביא את החייל מ-24 לאותה נקודה. עכשיו יש לכם עוגן על נקודת הארבע של היריב, והוא זה שצריך להיכנס.' },
+
+/* ---------------- MIDDLE GAME: advanced ---------------- */
+{ id:'middle-3-1', c:'middle', l:3, type:'cube', w:{1:2,2:2,3:2,4:2,5:2,6:2,8:2,9:1}, b:{12:4,17:4,18:4}, bb:3,
+  q:'שלושה חיילים של היריב על הבר מול בית סגור. האם להכפיל?',
+  opts:[['לא להכפיל – לשחק על גמון',true,'נכון. אם תכפילו, היריב פשוט יוותר ויפסיד נקודה אחת – במקום סיכוי טוב לגמון ששווה שתיים.'],
+        ['להכפיל',false,'היריב יוותר מיד, ותקבלו נקודה אחת בלבד במקום סיכוי טוב לגמון.']],
+  t:'טוב מדי בשביל להכפיל', p:'כשסיכויי הגמון גבוהים והסיכון נמוך – משחקים בלי להכפיל.',
+  why:'הבית שלכם סגור, שלושה חיילים של היריב על הבר ושאר החיילים שלו רחוקים מהבית. הוא כמעט בטוח לא יוציא חייל לפני שתסיימו – גמון. במצב כזה עדיף לא להכפיל ולשחק על שתי נקודות.' },
+{ id:'middle-3-2', c:'middle', l:3, type:'cube', w:{13:2,12:2,10:1,9:1,6:3,5:2,4:3,3:1}, b:{14:2,16:2,17:2,19:3,20:2,21:2,22:2},
+  q:'היריב הכפיל אתכם במרוץ נקי. לקבל או לוותר?',
+  opts:[['לוותר',true,'פיגור של יותר מ-12% במרוץ – הויתור עולה פחות מהפסד כפול.'],
+        ['לקבל',false,'בפיגור כזה סיכויי הזכייה שלכם נמוכים מדי, והפסד יעלה שתי נקודות.']],
+  t:'מתי מוותרים', p:'במרוץ: מעל פיגור של כ-12% – מוותרים.',
+  why:'הפיפ קאונט שלכם 112 ושל היריב 98. הפיגור הוא 14 נקודות – כ-14% מהספירה של היריב. זה מעבר לגבול 12% של כלל 8-9-12, ולכן נכון לוותר.' },
+{ id:'middle-3-3', c:'middle', l:3, w:{12:1,10:2,8:3,7:2,6:4,5:3}, b:ACE_B, d:[6,5], flag:'shots',
+  ctx:'היריב מחזיק עוגן על נקודה 1 שלכם. אין מהלך בטוח לגמרי.',
+  best:['12/6 10/5'],
+  near:[['8/2 12/7','משאיר בליטה על 2 – כל 1 של היריב פוגע בה.']],
+  bad:[['8/2 10/5','שלוש בליטות, אחת מהן על 2 בטווח ישיר.']],
+  t:'חשיפה עקיפה עדיפה על ישירה', p:'בליטה במרחק 7 ומעלה קשה הרבה יותר לפגיעה.',
+  why:'12/6 10/5 משאיר רק בליטה על 10, במרחק 9 מהעוגן. כדי לפגוע בה היריב צריך צירוף של שתי קוביות – מעט מאוד הטלות. כל חלופה משאירה בליטה במרחק 6 ומטה.' },
+{ id:'middle-3-4', c:'middle', l:3, w:{13:1,11:1,9:2,8:2,6:5,5:4}, b:ACE_B, d:[6,3], flag:'shots',
+  ctx:'היריב מחזיק עוגן על נקודה 1 שלכם. כל מהלך משאיר משהו.',
+  best:['11/5 13/10'],
+  near:[['11/5 9/6','שובר את נקודה 9 ומשאיר בליטות על 9 ועל 13.']],
+  bad:[['9/3 6/3','בונה נקודה עמוקה ומשאיר שלוש בליטות.']],
+  t:'מקטינים את הנזק', p:'כשאין מהלך בטוח – בחרו את הבליטה הרחוקה ביותר.',
+  why:'11/5 13/10 משאיר בליטה אחת על 10 – במרחק 9 מהעוגן. החלופות משאירות בליטה במרחק 8 או פחות, ושם יש יותר הטלות פוגעות.' },
+{ id:'middle-3-5', c:'middle', l:3, w:SW, b:{1:1,5:1,12:4,15:1,17:3,19:5}, d:[2,1],
+  ctx:'היריב פתח ב-4-3: פיצל חייל לנקודה 5 שלכם והביא חייל ל-15.',
+  best:['13/11 6/5*'],
+  near:[['6/5* 24/22','פוגע, אבל בונה על 11 שימושי יותר לכיסוי נקודה 5.']],
+  bad:[['13/11 24/23','לא פוגע – היריב עלול לבנות עוגן על נקודת החמש שלכם.']],
+  t:'פגיעה על נקודת החמש', p:'כשהיריב מתפצל לנקודת החמש שלכם – כמעט תמיד פוגעים.',
+  why:'6/5* פוגע ומונע מהיריב לבנות עוגן על הנקודה החשובה ביותר שלכם. 13/11 מוסיף בונה, כך שבתור הבא יהיו לכם הרבה דרכים לכסות את נקודה 5.' },
+{ id:'middle-3-6', c:'middle', l:3, type:'cube', w:{11:2,9:2,8:2,6:3,5:2,4:2,3:2}, b:{13:1,14:2,15:2,16:1,19:3,20:2,21:2,22:2},
+  q:'זה מרוץ נקי ותורכם להטיל. האם להכפיל?',
+  opts:[['לא להכפיל',true,'הובלה של כ-7% – עדיין מתחת לסף של 8%.'],
+        ['להכפיל',false,'ההובלה קטנה מדי: היריב יקבל בשמחה, ואתם מוותרים על השליטה בקובייה.']],
+  t:'עוד לא – הובלה קטנה מדי', p:'מתחת ל-8% הובלה במרוץ – לא מכפילים.',
+  why:'הפיפ קאונט שלכם 98 ושל היריב 105 – הובלה של 7, כ-7%. לפי כלל 8-9-12 עוד מוקדם להכפיל. אם תמשיכו להוביל, תוכלו להכפיל בתור הבא כשהיתרון יגדל.' },
+
+/* ---------------- ENDGAME: beginner ---------------- */
+{ id:'end-1-1', c:'end', l:1, w:{6:1,5:1,4:3,3:3,2:2,1:2}, b:RACE_B, d:[6,5], flag:'bear',
+  best:['6/off 5/off'],
+  bad:[['6/1 5/off','מזיז חייל במקום להוציא אותו – מבזבזים חצי הטלה.']],
+  t:'מוציאים שניים', p:'בהוצאה – כל הטלה שמוציאה שני חיילים היא ניצחון קטן.',
+  why:'ה-6 מוציא את החייל מנקודה 6 וה-5 מוציא את החייל מנקודה 5. שני חיילים יוצאים, וזה המהלך המהיר ביותר.' },
+{ id:'end-1-2', c:'end', l:1, w:{5:2,4:2,3:1,2:2,1:1}, b:RACE_B, d:[4,3], flag:'bear',
+  best:['4/off 3/off'],
+  bad:[['5/1 5/2','מזיז שני חיילים בלי להוציא אף אחד.'],
+       ['4/off 5/2','מוציא רק חייל אחד כשאפשר להוציא שניים.']],
+  t:'קודם מוציאים', p:'אם אפשר להוציא חייל – בדרך כלל עדיף להוציא.',
+  why:'ה-4 מוציא חייל מנקודה 4 וה-3 מוציא חייל מנקודה 3. שני חיילים פחות על הלוח – מתקרבים לסיום.' },
+{ id:'end-1-3', c:'end', l:1, w:{6:1,5:2,4:2,3:1,2:2,1:2}, b:RACE_B, d:[5,1], flag:'bear',
+  best:['5/off 1/off'],
+  bad:[['5/off 4/3','מוציא רק חייל אחד.'],
+       ['6/1 1/off','מזיז את החייל מ-6 במקום להוציא חייל מ-5.']],
+  t:'שני חיילים החוצה', p:'גם קובייה קטנה יכולה להוציא חייל מנקודה נמוכה.',
+  why:'ה-5 מוציא מנקודה 5 וה-1 מוציא מנקודה 1. גם ה-1 שווה חייל שלם – כדאי לנצל אותו.' },
+{ id:'end-1-4', c:'end', l:1, w:{8:1,6:3,5:3,4:2,3:2,2:2,1:1}, b:RACE_B, d:[6,2], flag:'bear',
+  best:['8/2/off'],
+  bad:[['8/2 6/4','מכניס את החייל אבל לא מוציא אף אחד.'],
+       ['8/2 5/3','מכניס את החייל ומבזבז את ה-2 על תזוזה בתוך הבית.']],
+  t:'מכניסים את האחרון ומוציאים', p:'אפשר להתחיל להוציא רק כשכל החיילים בבית.',
+  why:'ה-6 מכניס את החייל האחרון מנקודה 8 לנקודה 2, ועכשיו כל החיילים בבית – ולכן ה-2 כבר יכול להוציא חייל. החייל שנכנס יוצא באותו תור.' },
+{ id:'end-1-5', c:'end', l:1, w:{6:2,5:1,3:1,2:2,1:1}, b:RACE_B, d:[5,3], flag:'bear',
+  best:['5/off 3/off'],
+  bad:[['6/1 6/3','מזיז במקום להוציא – מבזבזים הטלה שלמה.']],
+  t:'מספר מדויק = הוצאה', p:'כשהקובייה מתאימה לנקודה שיש בה חייל – מוציאים.',
+  why:'יש חייל על נקודה 5 וחייל על נקודה 3, בדיוק לפי הקוביות. מוציאים את שניהם.' },
+{ id:'end-1-6', c:'end', l:1, w:{6:2,4:2,3:2,1:1}, b:RACE_B, d:[5,1], flag:'bear',
+  best:['6/1/off'],
+  bad:[['6/1 6/5','משתמש ב-1 כדי לזוז בתוך הבית במקום להוציא.']],
+  t:'כשאי אפשר להוציא – זזים מהגבוהה', p:'אם הקובייה לא מוציאה חייל, מזיזים חייל מהנקודה הגבוהה.',
+  why:'אין חייל על נקודה 5, ויש חיילים על 6 – לכן ה-5 לא מוציא כלום. משחקים 6/1, ואז ה-1 מוציא את החייל מנקודה 1.' },
+
+/* ---------------- ENDGAME: intermediate ---------------- */
+{ id:'end-2-1', c:'end', l:2, w:{6:2,5:2,3:2,2:1}, b:RACE_B, d:[4,1], flag:'bear',
+  best:['5/1/off'],
+  near:[['6/2 5/4','לא מוציא חייל עכשיו, אבל מפזר את החיילים טוב יותר.']],
+  bad:[['5/1 2/1','מבזבז את ה-1 על תזוזה בלי להוציא.']],
+  t:'חייל אחד החוצה', p:'כשאפשר להוציא חייל בשתי הקוביות יחד – זה בדרך כלל עדיף.',
+  why:'ה-4 מזיז חייל מ-5 ל-1, וה-1 מוציא אותו. אין חייל על נקודה 4 שאפשר להוציא ישירות, וזו הדרך הטובה להוציא חייל.' },
+{ id:'end-2-2', c:'end', l:2, w:{6:3,5:2,4:2,2:3}, b:RACE_B, d:[4,1], flag:'bear',
+  best:['4/off 2/1'],
+  near:[['5/1/off','גם מוציא חייל, אבל משאיר את נקודה 1 ריקה.']],
+  bad:[['6/2 4/3','לא מוציא אף חייל.']],
+  t:'ממלאים את החור', p:'נקודות ריקות בבית גורמות לפספוסים בהמשך.',
+  why:'4/off מוציא חייל, ו-2/1 ממלא את נקודה 1 הריקה. כך בהטלות הבאות גם 1 יוציא חייל, ופחות הטלות יתבזבזו.' },
+{ id:'end-2-3', c:'end', l:2, w:{6:1,4:2,2:1}, b:RACE_B, d:[3,1], flag:'bear',
+  best:['4/1/off'],
+  near:[['6/3 2/1','מסדר את החיילים יפה, אבל לא מוציא אף אחד.']],
+  bad:[['4/1 2/1','מוריד חיילים לנקודה 1 בלי להוציא.']],
+  t:'פחות חיילים – פחות הטלות', p:'בסוף ההוצאה, מספר החיילים חשוב יותר מהפיפ קאונט.',
+  why:'4/1/off מוציא חייל ומשאיר שלושה. עם פחות חיילים יש סיכוי טוב יותר לסיים בשתי הטלות.' },
+{ id:'end-2-4', c:'end', l:2, w:{6:4,5:2,4:2,3:2}, b:ACE_B, d:[6,3], flag:'shots',
+  ctx:'היריב מחזיק עוגן על נקודה 1 שלכם – כל בליטה מסוכנת.',
+  best:['6/off 6/3'],
+  bad:[['6/off 3/off','מוציא שני חיילים, אבל משאיר בליטה על 3.'],
+       ['6/off 5/2','משאיר שתי בליטות.']],
+  t:'מוציאים מאחור', p:'בהוצאה מול עוגן – מפנים מהנקודה הגבוהה, ושומרים מספר זוגי.',
+  why:'6/off ו-6/3 משאירים בדיוק שני חיילים על 6 ומספר זוגי בכל נקודה – אין אף בליטה. הוצאת חייל נוסף לא שווה את הסיכון של פגיעה.' },
+{ id:'end-2-5', c:'end', l:2, w:{6:3,5:3,4:3,3:2}, b:ACE_B, d:[5,2], flag:'shots',
+  ctx:'היריב מחזיק עוגן על נקודה 1 שלכם.',
+  best:['5/off 6/4'],
+  near:[['5/off 4/2','משאיר בליטה על 2 – כל 1 של היריב פוגע.']],
+  bad:[['5/off 5/3','משאיר בליטה על 5.']],
+  t:'מספרים זוגיים', p:'שני חיילים בכל נקודה = אין בליטות.',
+  why:'5/off מוציא, ו-6/4 מאזן את הנקודות: 2 על 6, 2 על 5, 4 על 4 ו-2 על 3. אין בליטות, והיריב לא יכול לפגוע.' },
+{ id:'end-2-6', c:'end', l:2, w:{9:1,7:2,6:4,5:3,4:3,3:2}, b:ACE_B, d:[5,2], flag:'shots',
+  ctx:'כמעט כל החיילים בבית. היריב מחזיק עוגן על נקודה 1.',
+  best:['9/4 6/4'],
+  near:[['9/4 4/2','החייל האחרון בבית, אבל נשארה בליטה על 2.']],
+  bad:[['7/2 6/4','שובר את נקודה 7 ומשאיר בליטות על 9, 7 ו-2.']],
+  t:'מכניסים בבטחה', p:'כשמכניסים הביתה מול עוגן – לא משאירים בליטות.',
+  why:'9/4 מכניס את החייל האחרון מבחוץ, ו-6/4 שומר על מספר זוגי. אין אף בליטה, והחיילים מוכנים להוצאה.' },
+
+/* ---------------- ENDGAME: advanced ---------------- */
+{ id:'end-3-1', c:'end', l:3, w:{6:3,5:3,4:3,3:2}, b:RACE_B, d:[6,1], flag:'bear',
+  best:['6/off 3/2'],
+  near:[['6/off 5/4','סביר, אבל לא ממלא את הנקודות הנמוכות הריקות.']],
+  bad:[['6/off 6/5','מעמיס על הנקודות הגבוהות ומשאיר נקודות ריקות למטה.']],
+  t:'פיזור נכון מונע פספוסים', p:'מלאו נקודות ריקות – במיוחד 1 ו-2.',
+  why:'אחרי 6/off, ה-1 הכי מועיל כשהוא ממלא את נקודה 2 הריקה. כך בהטלות הבאות גם 2 יוציא חייל, ופחות הטלות יתבזבזו.' },
+{ id:'end-3-2', c:'end', l:3, w:{6:2,5:1,4:1,2:2}, b:RACE_B, d:[4,1], flag:'bear',
+  best:['4/off 2/1'],
+  near:[['4/off 6/5','כמעט שקול, אבל לא ממלא את נקודה 1.'],
+        ['5/1/off','מוציא חייל, אבל משאיר חור בנקודה 5.']],
+  bad:[['6/2 6/5','לא מוציא אף חייל.']],
+  t:'ההבדלים הקטנים', p:'כשכמה מהלכים מוציאים חייל – בוחרים את הפיזור הטוב ביותר.',
+  why:'כל שלושת המהלכים הראשונים מוציאים חייל. 4/off 2/1 משאיר את הפיזור הטוב ביותר: נקודה 1 מתמלאת, ויותר הטלות יוציאו חיילים בתור הבא.' },
+{ id:'end-3-3', c:'end', l:3, w:{6:2,5:2}, b:RACE_B, d:[2,1], flag:'bear',
+  best:['6/4 5/4'],
+  near:[['5/3 5/4','כמעט שקול, אבל משאיר שני חיילים על 6.'],
+        ['6/4/3','מפזר פחות טוב.']],
+  bad:[['6/4 6/5','מעמיס על נקודה 5 בלי לגוון.']],
+  t:'מגוון נקודות', p:'כשאי אפשר להוציא – מפזרים חיילים על כמה שיותר נקודות.',
+  why:'6/4 ו-5/4 משאירים חייל על 6, חייל על 5 ושניים על 4. לחיילים יש מגוון נקודות, וכך יותר הטלות יוציאו חיילים בתורות הבאים.' },
+{ id:'end-3-4', c:'end', l:3, w:{6:2,5:3,4:2,2:2}, b:ACE_B, d:[4,3], flag:'shots',
+  ctx:'היריב מחזיק עוגן על נקודה 1. אין מהלך בטוח לגמרי.',
+  best:['6/2 6/3'],
+  near:[['6/2 5/2','גם משאיר בליטה אחת, על 6 – ושם יותר הטלות פוגעות.'],
+        ['4/off 5/2','מוציא חייל אבל משאיר יותר חשיפות.']],
+  bad:[['4/off 6/3','משאיר שלוש בליטות.']],
+  t:'מפנים מאחור גם כשיש סיכון', p:'פינוי הנקודה הגבוהה מקטין סיכון בתורות הבאים.',
+  why:'6/2 6/3 מפנה לגמרי את נקודה 6. נשארת בליטה על 3, אבל זו החשיפה הקטנה ביותר האפשרית, ובתורות הבאים יהיה הרבה יותר קל להוציא בבטחה.' },
+{ id:'end-3-5', c:'end', l:3, w:{6:2,5:3,4:2,3:3,2:1}, b:ACE_B, d:[6,2], flag:'shots',
+  ctx:'היריב מחזיק עוגן על נקודה 1.',
+  best:['6/off 6/4'],
+  near:[['6/off 2/off','מוציא שניים, אבל משאיר בליטה על 6.']],
+  bad:[['6/off 5/3','משאיר בליטות על 6 ועל 2.']],
+  t:'מפנים את נקודה 6', p:'מנקודה גבוהה ריקה אין סכנה לבליטות בהמשך.',
+  why:'6/off ו-6/4 מפנים את נקודה 6 לגמרי. נשארת רק הבליטה על 2, ובהטלה הבאה כמעט כל מספר יאפשר להוציא בלי להשאיר בליטות חדשות.' },
+{ id:'end-3-6', c:'end', l:3, w:{8:2,7:1,6:3,5:4,4:1,3:2,2:2}, b:ACE_B, d:[6,4], flag:'shots',
+  ctx:'נשארו שלושה חיילים בחוץ. היריב מחזיק עוגן על נקודה 1.',
+  best:['8/2 8/4'],
+  near:[['8/2 7/3','מכניס הביתה, אבל משאיר בליטות על 8 ועל 4.']],
+  bad:[['8/2 6/2','משאיר שלוש בליטות: 8, 7 ו-4.']],
+  t:'מפנים את הנקודה האחורית', p:'מפנים קודם את הנקודה הרחוקה ביותר.',
+  why:'8/2 8/4 מפנה את נקודה 8 לגמרי. נשארת בליטה על 7, אבל במרחק 6 בלבד – פחות הטלות פוגעות בה מאשר בכל חלופה אחרת.' },
+];
+
+const STATS = {"middle-2-3":{"10/4 8/4":0,"8/2 6/2":0,"10/4 10/6":14},"middle-2-4":{"11/5 13/8":2,"9/3 8/3":6,"13/7 13/8":16},"middle-3-3":{"12/6 10/5":2,"8/2 12/7":11,"8/2 10/5":13},"middle-3-4":{"11/5 13/10":3,"11/5 9/6":6,"9/3 6/3":8},"end-1-1":{"6/off 5/off":4.85,"6/1 5/off":5.42},"end-1-2":{"4/off 3/off":3.45,"5/1 5/2":3.83,"4/off 5/2":3.7},"end-1-3":{"5/off 1/off":4.38,"5/off 4/3":4.68,"6/1 1/off":4.72},"end-1-4":{"8/2/off":7.4,"8/2 6/4":7.55,"8/2 5/3":7.62},"end-1-5":{"5/off 3/off":3.27,"6/1 6/3":3.65},"end-1-6":{"6/1/off":3.62,"6/1 6/5":3.84},"end-2-1":{"5/1/off":3.97,"6/2 5/4":4.07,"5/1 2/1":4.24},"end-2-2":{"4/off 2/1":5.56,"5/1/off":5.62,"6/2 4/3":5.79},"end-2-3":{"4/1/off":2.16,"6/3 2/1":2.35,"4/1 2/1":2.58},"end-2-4":{"6/off 6/3":0,"6/off 3/off":12,"6/off 5/2":20},"end-2-5":{"5/off 6/4":0,"5/off 4/2":11,"5/off 5/3":13},"end-2-6":{"9/4 6/4":0,"9/4 4/2":11,"7/2 6/4":20},"end-3-1":{"6/off 3/2":6.28,"6/off 5/4":6.33,"6/off 6/5":6.35},"end-3-2":{"4/off 2/1":3.38,"4/off 6/5":3.41,"5/1/off":3.42,"6/2 6/5":3.63},"end-3-3":{"6/4 5/4":3.04,"5/3 5/4":3.05,"6/4/3":3.05,"6/4 6/5":3.09},"end-3-4":{"6/2 6/3":11,"6/2 5/2":13,"4/off 5/2":13,"4/off 6/3":27},"end-3-5":{"6/off 6/4":11,"6/off 2/off":13,"6/off 5/3":20},"end-3-6":{"8/2 8/4":11,"8/2 7/3":13,"8/2 6/2":20}};
+</script>
+<script>
+/* ===== Mahalach – app ===== */
+(() => {
+'use strict';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+/* ---------- Icons (inline, stroke = currentColor) ---------- */
+const I = {
+  dice: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.2" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>',
+  blocks: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="8.5" y="3" width="7" height="7" rx="1.5"/></svg>',
+  target: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg>',
+  flag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22V4"/><path d="M5 4h12l-2 4 2 4H5"/></svg>',
+  bulb: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>',
+  trend: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>',
+  redo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>',
+  book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>',
+  fire: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4 0 7-3 7-7 0-5-5-7-5-12-3 2-5 5-5 8-1-1-2-2-2-4-2 2-2 5-2 8 0 4 3 7 7 7z"/></svg>',
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+  half: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>',
+  xx: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>',
+  undo: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg>',
+  reset: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>',
+  play: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 5v14L6 12z"/></svg>',
+  next: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
+  hand: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V5a2 2 0 0 1 4 0v6"/><path d="M13 10a2 2 0 0 1 4 0v3"/><path d="M17 12a2 2 0 0 1 4 0v3a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3l-3-5a2 2 0 0 1 3-2l2 2V8a2 2 0 0 1 4 0"/></svg>',
+  eye: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+  shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>'
+};
+
+/* ---------- Static content ---------- */
+const CATS = [
+  { id: 'opening', name: 'הטלה ראשונה', icon: 'dice', cls: 'v', short: 'מהלכי פתיחה לכל צירוף קוביות',
+    desc: 'המהלכים הטובים ביותר לכל צירוף קוביות בפתיחה – מ-3-1 שבונה את נקודת החמש ועד 6-5, ריצת הנוסע.' },
+  { id: 'early', name: 'תחילת משחק', icon: 'blocks', cls: 't', short: 'נקודות, בלוקים ופריים',
+    desc: 'בניית נקודות, בלוקים ופריים – איך הופכים חיילים מפוזרים לחומה שהיריב לא עובר.' },
+  { id: 'middle', name: 'אמצע משחק', icon: 'target', cls: 'a', short: 'פגיעה, הגנה וקוביית הכפלה',
+    desc: 'פגיעה, הגנה, ספירת חשיפות, קרבות על נקודות מפתח ושימוש בסיסי בקוביית ההכפלה.' },
+  { id: 'end', name: 'סוף משחק', icon: 'flag', cls: 'r', short: 'מרוץ, הוצאה ומניעת פספוסים',
+    desc: 'מרוץ, הוצאת חיילים, מגע אחרון ומניעת פספוסים – איפה שמשחקים מוכרעים.' }
+];
+const LV = {
+  1: { name: 'מתחיל', desc: 'מצבים ברורים עם מהלך נכון אחד בולט. בונים ביטחון ולומדים את העקרונות הבסיסיים.' },
+  2: { name: 'בינוני', desc: 'שתי אפשרויות סבירות ושיקולי סיכון. לומדים לשקול סיכון מול תועלת.' },
+  3: { name: 'מתקדם', desc: 'מצבים עדינים עם הבדלים קטנים בין מהלכים. כאן נדרשת חשיבה אמיתית.' }
+};
+const TOOLS = [
+  { icon: 'trend', cls: 'v', t: 'מעקב התקדמות', d: 'רצף ימים, דיוק לפי קטגוריה והמלצה אוטומטית על הנושא החלש ביותר – בלי הרשמה.' },
+  { icon: 'redo', cls: 't', t: 'חזרה על טעויות', d: 'כל תרגיל שפספסתם נאסף למצב חזרה, ומוצג שוב בסדר אקראי עד שתצליחו.' },
+  { icon: 'book', cls: 'a', t: 'מילון מושגים', d: 'בלוק, פריים, בליטה, חשיפה, מרוץ, פיפ קאונט – הסבר קצר זמין מכל מסך.' },
+  { icon: 'eye', cls: 'r', t: 'לוח שקל לקרוא', d: 'צבע ברור לכל צד, כיוון תנועה מסומן, מספור נקודות מהצד שלכם והדגשת מהלכים אפשריים.' }
+];
+const GLOSS = [
+  ['נקודה', 'Point', 'אחד מ-24 המשולשים בלוח. "לבנות נקודה" פירושו להציב עליה שני חיילים או יותר – היריב לא יכול לנחות עליה.'],
+  ['בליטה', 'Blot', 'חייל בודד על נקודה. אם היריב נוחת עליו, החייל נפגע ועובר לבר.'],
+  ['חשיפה', 'Shot', 'הטלה של היריב שיכולה לפגוע בבליטה. סופרים מתוך 36 הטלות: "חשיפה של 11" פירושו 11 הטלות פוגעות.'],
+  ['בלוק', 'Block', 'כמה נקודות רצופות שבניתם. הן מקשות על החיילים של היריב לעבור.'],
+  ['פריים', 'Prime', 'שש נקודות רצופות. חייל של היריב שנמצא מאחוריהן לא יכול לעבור בכלל.'],
+  ['עוגן', 'Anchor', 'נקודה שבניתם בבית של היריב. היא שומרת על החיילים האחוריים ונותנת להם בסיס בטוח.'],
+  ['מרוץ', 'Race', 'שלב שבו כבר אין מגע בין החיילים. כל צד רק מביא את החיילים הביתה ומוציא אותם.'],
+  ['פיפ קאונט', 'Pip count', 'סך הצעדים שכל החיילים שלכם צריכים כדי לצאת מהלוח. מי שהפיפ קאונט שלו נמוך יותר מוביל במרוץ.'],
+  ['בר', 'Bar', 'הפס באמצע הלוח. חייל שנפגע עומד עליו, וחייב להיכנס חזרה לבית של היריב לפני כל מהלך אחר.'],
+  ['הוצאה', 'Bearing off', 'הוצאת חיילים מהלוח. מותר רק כשכל החיילים שלכם נמצאים בבית (נקודות 1–6).'],
+  ['נקודת החמש', 'Golden point', 'נקודה 5 בבית שלכם – הנקודה החשובה ביותר בתחילת המשחק. נקודה 20 היא נקודת החמש של היריב.'],
+  ['נקודת הבר', 'Bar point', 'נקודה 7, ממש מחוץ לבית. יחד עם נקודות 8 ו-6 היא יוצרת בלוק.'],
+  ['נקודת האמצע', 'Midpoint', 'נקודה 13, שבה מתחילים חמישה מהחיילים שלכם.'],
+  ['בונים', 'Builders', 'חיילים שנמצאים עד 6 צעדים מנקודה שאתם רוצים לבנות. ככל שיש יותר בונים מגוונים, יותר הטלות יבנו אותה.'],
+  ['פגיעה', 'Hit', 'נחיתה על בליטה של היריב. החייל שלו עובר לבר. מסומנת בכוכבית, למשל 8/5*.'],
+  ['סלוט', 'Slot', 'הנחת חייל בודד על נקודה חשובה, בתקווה לכסות אותו בתור הבא.'],
+  ['מגע', 'Contact', 'מצב שבו חיילים של שני הצדדים עוד צריכים לעבור זה את זה – ולכן עוד אפשר לפגוע.'],
+  ['פספוס', 'Miss', 'הטלה בזמן ההוצאה שלא מוציאה אף חייל. פיזור טוב של החיילים מקטין פספוסים.'],
+  ['קוביית הכפלה', 'Doubling cube', 'מאפשרת להכפיל את ערך המשחק. היריב בוחר לקבל ולשחק על כפול, או לוותר ולהפסיד את הערך הנוכחי.'],
+  ['גמון', 'Gammon', 'ניצחון כפול: המנצח סיים להוציא את כל החיילים לפני שהיריב הוציא אפילו חייל אחד.'],
+  ['כלל 8-9-12', 'Race rule', 'כלל אצבע למרוץ: מכפילים מהובלה של 8%, מכפילים שוב מ-9%, ומקבלים הכפלה עד פיגור של 12%.'],
+  ['ריצת הנוסע', "Lover's leap", '6-5 בפתיחה: חייל עובר מנקודה 24 ישר לנקודה 13.'],
+  ['סימון מהלכים', 'Notation', '8/5 = חייל מנקודה 8 לנקודה 5. כוכבית (*) = פגיעה, (2) = פעמיים, bar = כניסה מהבר, off = הוצאה.']
+];
+// words in explanations that link to the glossary
+const TERM_FORMS = [['פיפ קאונט', 'פיפ קאונט'], ['נקודת החמש', 'נקודת החמש'], ['נקודת הבר', 'נקודת הבר'], ['נקודת האמצע', 'נקודת האמצע'],
+  ['קוביית הכפלה', 'קוביית הכפלה'], ['כלל 8-9-12', 'כלל 8-9-12'], ['ריצת הנוסע', 'ריצת הנוסע'], ['בליטות', 'בליטה'], ['בליטה', 'בליטה'],
+  ['חשיפה', 'חשיפה'], ['בלוק', 'בלוק'], ['פריים', 'פריים'], ['עוגן', 'עוגן'], ['מרוץ', 'מרוץ'], ['בונים', 'בונים'], ['בונה', 'בונים'],
+  ['גמון', 'גמון'], ['סלוט', 'סלוט'], ['פספוס', 'פספוס'], ['מגע', 'מגע']];
+
+/* ---------- Storage (localStorage, fails safely) ---------- */
+const Store = {
+  k: 'mahalach.v1', d: null,
+  load() {
+    try { this.d = JSON.parse(localStorage.getItem(this.k)); } catch (e) { this.d = null; }
+    if (!this.d || typeof this.d !== 'object') this.d = {};
+    this.d = Object.assign({ res: {}, days: [], missed: [], lvl: 1, homeRight: true }, this.d);
+  },
+  save() { try { localStorage.setItem(this.k, JSON.stringify(this.d)); } catch (e) { /* private mode */ } },
+  today() { const t = new Date(); return t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0'); },
+  record(id, result) {
+    const r = this.d.res[id] || (this.d.res[id] = { a: 0, c: 0, solved: false, last: null });
+    r.a++; if (result === 'correct') { r.c++; r.solved = true; }
+    r.last = result;
+    const t = this.today(); if (!this.d.days.includes(t)) this.d.days.push(t);
+    if (this.d.days.length > 400) this.d.days = this.d.days.slice(-400);
+    const i = this.d.missed.indexOf(id);
+    if (result === 'correct') { if (i >= 0) this.d.missed.splice(i, 1); }
+    else if (i < 0) this.d.missed.push(id);
+    this.save(); updateBadge();
+  },
+  streak() {
+    const set = new Set(this.d.days); let n = 0; const d = new Date();
+    const fmt = x => x.getFullYear() + '-' + String(x.getMonth() + 1).padStart(2, '0') + '-' + String(x.getDate()).padStart(2, '0');
+    if (!set.has(fmt(d))) d.setDate(d.getDate() - 1); // today not played yet: count up to yesterday
+    while (set.has(fmt(d))) { n++; d.setDate(d.getDate() - 1); }
+    return n;
+  },
+  catStats(cat, lvl) {
+    let a = 0, c = 0, solved = 0, total = 0;
+    for (const ex of EXERCISES) {
+      if (ex.c !== cat || (lvl && ex.l !== lvl)) continue;
+      total++; const r = this.d.res[ex.id];
+      if (r) { a += r.a; c += r.c; if (r.solved) solved++; }
+    }
+    return { a, c, solved, total, acc: a ? Math.round(c / a * 100) : null };
+  }
+};
+function updateBadge() {
+  const b = $('#missBadge'); const n = Store.d.missed.length;
+  b.hidden = !n; b.textContent = n;
+}
+
+/* ===================================================================
+   Board renderer (SVG). Point numbers are always from white's side.
+   =================================================================== */
+const G = { W: 814, H: 608, M: 14, PW: 56, BAR: 48, TRAY: 56, GAP: 10, NUM: 24, R: 25, PH: 236 };
+const COL = { frame: '#252b52', field: '#f6f1e7', triA: '#6a5df2', triB: '#c3c8ea', bar: '#2f3663', tray: '#1d2246',
+  num: '#aab1dd', numHome: '#ffffff', hl: '#12b8a6', sel: '#ffb020' };
+
+class Board {
+  constructor(svg, opts = {}) {
+    this.svg = svg; this.homeRight = opts.homeRight !== false; this.uid = 'b' + Math.random().toString(36).slice(2, 7); this.tok = 0;
+  }
+  cancel() { this.tok++; }
+  get left() { return this.homeRight ? G.M : G.M + G.TRAY + G.GAP; }
+  get trayX() { return this.homeRight ? G.M + 12 * G.PW + G.BAR + G.GAP : G.M; }
+  colOf(p) { const c = p <= 12 ? 12 - p : p - 13; return this.homeRight ? c : 11 - c; }
+  cx(col) { return this.left + col * G.PW + (col >= 6 ? G.BAR : 0) + G.PW / 2; }
+  barX() { return this.left + 6 * G.PW + G.BAR / 2; }
+  stepFor(n) { return n <= 5 ? 2 * G.R : (G.PH - 2 * G.R) / (n - 1); }
+  // centre of the k-th checker (0 = base) on point p holding n checkers
+  pos(p, k, n) {
+    const x = this.cx(this.colOf(p)), st = this.stepFor(n);
+    const y = p >= 13 ? G.NUM + G.R + 2 + k * st : G.H - G.NUM - G.R - 2 - k * st;
+    return { x, y };
+  }
+  barPos(white, k) { const st = 2 * G.R - 8; return { x: this.barX(), y: white ? G.H / 2 - 52 - k * st : G.H / 2 + 52 + k * st }; }
+  offPos(white, k) { const x = this.trayX + G.TRAY / 2; return { x, y: white ? G.H - G.NUM - 12 - k * 13 : G.NUM + 12 + k * 13 }; }
+  // which zone is under an svg coordinate: 1..24, 25 = bar, 0 = off tray
+  zoneAt(x, y) {
+    if (x >= this.trayX && x <= this.trayX + G.TRAY) return 0;
+    const bx = this.left + 6 * G.PW;
+    if (x >= bx && x <= bx + G.BAR) return 25;
+    let rel = x - this.left; if (rel < 0) return null;
+    let col; if (rel < 6 * G.PW) col = Math.floor(rel / G.PW); else { rel -= 6 * G.PW + G.BAR; if (rel < 0 || rel >= 6 * G.PW) return null; col = 6 + Math.floor(rel / G.PW); }
+    const c = this.homeRight ? col : 11 - col;
+    return y < G.H / 2 ? 13 + c : 12 - c;
+  }
+  toSvg(e) { const pt = this.svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY; return pt.matrixTransform(this.svg.getScreenCTM().inverse()); }
+
+  checker(x, y, white, extra = '') {
+    const id = this.uid;
+    return `<g ${extra}><circle cx="${x}" cy="${y + 2}" r="${G.R}" fill="rgba(0,0,0,.22)"/>` +
+      `<circle cx="${x}" cy="${y}" r="${G.R}" fill="url(#${id}${white ? 'w' : 'k'})" stroke="${white ? '#8b8fa3' : '#7a80a8'}" stroke-width="2"/>` +
+      `<circle cx="${x}" cy="${y}" r="${G.R - 8}" fill="none" stroke="${white ? 'rgba(120,110,80,.25)' : 'rgba(255,255,255,.16)'}" stroke-width="2"/></g>`;
+  }
+  render(s, o = {}) {
+    const { W, H, M, PW, BAR, TRAY, NUM, R, PH } = G, id = this.uid;
+    const hide = o.hide || {};
+    let h = `<defs><radialGradient id="${id}w" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e7e2d4"/></radialGradient>` +
+      `<radialGradient id="${id}k" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#555c84"/><stop offset="1" stop-color="#151931"/></radialGradient>` +
+      `<filter id="${id}g" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter></defs>`;
+    h += `<rect x="0" y="0" width="${W}" height="${H}" rx="22" fill="${COL.frame}"/>`;
+    const L = this.left;
+    h += `<rect x="${L}" y="${NUM}" width="${6 * PW}" height="${H - 2 * NUM}" rx="6" fill="${COL.field}"/>`;
+    h += `<rect x="${L + 6 * PW + BAR}" y="${NUM}" width="${6 * PW}" height="${H - 2 * NUM}" rx="6" fill="${COL.field}"/>`;
+    h += `<rect x="${L + 6 * PW}" y="${NUM - 6}" width="${BAR}" height="${H - 2 * NUM + 12}" rx="6" fill="${COL.bar}"/>`;
+    h += `<rect x="${this.trayX}" y="${NUM}" width="${TRAY}" height="${H - 2 * NUM}" rx="10" fill="${COL.tray}" ${o.trayHl ? `stroke="${COL.hl}" stroke-width="4"` : ''}/>`;
+    h += `<line x1="${this.trayX + 8}" x2="${this.trayX + TRAY - 8}" y1="${H / 2}" y2="${H / 2}" stroke="rgba(255,255,255,.12)" stroke-width="2"/>`;
+    // triangles + numbers
+    for (let p = 1; p <= 24; p++) {
+      const col = this.colOf(p), x0 = L + col * PW + (col >= 6 ? BAR : 0), top = p >= 13;
+      const base = top ? NUM : H - NUM, tip = top ? NUM + PH : H - NUM - PH;
+      const fill = (col % 2 === 0) ? COL.triA : COL.triB;
+      h += `<path d="M${x0 + 2} ${base} L${x0 + PW / 2} ${tip} L${x0 + PW - 2} ${base}Z" fill="${fill}"/>`;
+      if (o.targets && o.targets.has(p)) h += `<path d="M${x0 + 2} ${base} L${x0 + PW / 2} ${tip} L${x0 + PW - 2} ${base}Z" fill="${COL.hl}" opacity=".38"/>`;
+      const home = p <= 6;
+      h += `<text x="${x0 + PW / 2}" y="${top ? 17 : H - 7}" text-anchor="middle" font-family="Heebo,Arial" font-size="15" font-weight="${home ? 800 : 600}" fill="${home ? COL.numHome : COL.num}">${p}</text>`;
+    }
+    // direction guide + quadrant labels (middle band)
+    const fl = L + 8, fr = L + 12 * PW + BAR - 8, yA = H / 2 - 30, yB = H / 2 + 30;
+    const homeHalfX = this.homeRight ? L + 6 * PW + BAR + 3 * PW : L + 3 * PW;
+    const outerHalfX = this.homeRight ? L + 3 * PW : L + 6 * PW + BAR + 3 * PW;
+    const dpath = this.homeRight
+      ? `M${fr} ${yA} L${fl + 22} ${yA} Q${fl} ${yA} ${fl} ${yA + 20} L${fl} ${yB - 20} Q${fl} ${yB} ${fl + 22} ${yB} L${fr - 14} ${yB}`
+      : `M${fl} ${yA} L${fr - 22} ${yA} Q${fr} ${yA} ${fr} ${yA + 20} L${fr} ${yB - 20} Q${fr} ${yB} ${fr - 22} ${yB} L${fl + 14} ${yB}`;
+    h += `<path d="${dpath}" fill="none" stroke="${COL.hl}" stroke-width="2.5" stroke-dasharray="7 7" opacity=".55"/>`;
+    const ax = this.homeRight ? fr - 14 : fl + 14, dir = this.homeRight ? 1 : -1;
+    h += `<path d="M${ax} ${yB - 7} L${ax + 12 * dir} ${yB} L${ax} ${yB + 7}Z" fill="${COL.hl}" opacity=".8"/>`;
+    h += `<text x="${homeHalfX}" y="${H / 2 - 6}" text-anchor="middle" direction="rtl" font-family="Heebo,Arial" font-size="14" font-weight="600" fill="#8a7f68">הבית של היריב</text>`;
+    h += `<text x="${homeHalfX}" y="${H / 2 + 18}" text-anchor="middle" direction="rtl" font-family="Heebo,Arial" font-size="14" font-weight="800" fill="#4a3bdc">הבית שלכם</text>`;
+    // checkers on points
+    for (let p = 1; p <= 24; p++) {
+      const v = s.pts[p]; if (!v) continue;
+      const white = v > 0, n = Math.abs(v);
+      for (let k = 0; k < n; k++) {
+        if (white && hide.w === p && k === n - 1) continue;
+        const { x, y } = this.pos(p, k, n);
+        h += this.checker(x, y, white);
+        if (k === n - 1) {
+          if (white && o.sel === p) h += `<circle cx="${x}" cy="${y}" r="${R + 3}" fill="none" stroke="${COL.sel}" stroke-width="5"/>`;
+          else if (white && o.movable && o.movable.has(p)) h += `<circle cx="${x}" cy="${y}" r="${R + 2}" fill="none" stroke="${COL.hl}" stroke-width="3.5"/>`;
+          if (n > 5) h += `<text x="${x}" y="${y + 6}" text-anchor="middle" font-family="Rubik,Arial" font-weight="700" font-size="17" fill="${white ? '#3a3f5c' : '#fff'}">${n}</text>`;
+        }
+      }
+    }
+    // landing markers on target points
+    if (o.targets) for (const p of o.targets) {
+      if (p === 0 || p === 25) continue;
+      const n = Math.max(0, s.pts[p]) + 1; const { x, y } = this.pos(p, n - 1, Math.max(n, 1));
+      h += `<circle cx="${x}" cy="${y}" r="${R - 3}" fill="rgba(18,184,166,.18)" stroke="${COL.hl}" stroke-width="3" stroke-dasharray="6 5"/>`;
+    }
+    // bar
+    for (let k = 0; k < s.wb; k++) { if (hide.w === 25 && k === s.wb - 1) continue; const q = this.barPos(true, k); h += this.checker(q.x, q.y, true); if (k === s.wb - 1 && o.movable && o.movable.has(25)) h += `<circle cx="${q.x}" cy="${q.y}" r="${R + 2}" fill="none" stroke="${o.sel === 25 ? COL.sel : COL.hl}" stroke-width="4"/>`; }
+    for (let k = 0; k < s.bb; k++) { if (hide.b === 25 && k === s.bb - 1) continue; const q = this.barPos(false, k); h += this.checker(q.x, q.y, false); }
+    // borne-off checkers in the tray (white bottom, black top)
+    const c = Engine.counts(s);
+    for (let k = 0; k < c.wOff; k++) { if (hide.w === 0 && k === c.wOff - 1) continue; const q = this.offPos(true, k); h += `<rect x="${q.x - 21}" y="${q.y - 5}" width="42" height="11" rx="4" fill="#efeadc" stroke="#9a9eb2"/>`; }
+    for (let k = 0; k < c.bOff; k++) { const q = this.offPos(false, k); h += `<rect x="${q.x - 21}" y="${q.y - 5}" width="42" height="11" rx="4" fill="#2a2f50" stroke="#6b7196"/>`; }
+    if (o.trayHl) h += `<text x="${this.trayX + TRAY / 2}" y="${H / 2 + 22}" text-anchor="middle" font-family="Heebo,Arial" font-size="13" font-weight="700" fill="${COL.hl}">הוצאה</text>`;
+    // dice (in the outer half, like a real table)
+    if (o.dice) {
+      const ds = o.dice[0] === o.dice[1] ? [o.dice[0], o.dice[0], o.dice[0], o.dice[0]] : o.dice;
+      const sz = ds.length === 4 ? 36 : 44, gap = 10, tot = ds.length * sz + (ds.length - 1) * gap;
+      let x = outerHalfX - tot / 2;
+      ds.forEach((d, i) => { h += this.die(x, H / 2 - sz / 2, sz, d, o.used && o.used[i]); x += sz + gap; });
+    }
+    this.svg.innerHTML = h;
+  }
+  die(x, y, s, v, used) {
+    const P = { 1: [[.5, .5]], 2: [[.27, .27], [.73, .73]], 3: [[.27, .27], [.5, .5], [.73, .73]], 4: [[.27, .27], [.73, .27], [.27, .73], [.73, .73]],
+      5: [[.27, .27], [.73, .27], [.5, .5], [.27, .73], [.73, .73]], 6: [[.27, .25], [.73, .25], [.27, .5], [.73, .5], [.27, .75], [.73, .75]] }[v];
+    let h = `<g opacity="${used ? .35 : 1}"><rect x="${x}" y="${y + 2}" width="${s}" height="${s}" rx="9" fill="rgba(0,0,0,.18)"/>` +
+      `<rect x="${x}" y="${y}" width="${s}" height="${s}" rx="9" fill="#fff" stroke="#d6d8e8" stroke-width="1.5"/>`;
+    for (const [a, b] of P) h += `<circle cx="${x + a * s}" cy="${y + b * s}" r="${s * .085}" fill="#4a3bdc"/>`;
+    return h + '</g>';
+  }
+  // animate white step (and a possible hit) from state a to state b
+  animate(a, st, b, o, ms, done) {
+    const from = st.from === 25 ? this.barPos(true, a.wb - 1) : this.pos(st.from, a.pts[st.from] - 1, a.pts[st.from]);
+    let to;
+    if (st.to === 0) to = this.offPos(true, Engine.counts(b).wOff - 1);
+    else to = this.pos(st.to, b.pts[st.to] - 1, b.pts[st.to]);
+    const hitFrom = st.hit ? this.pos(st.to, 0, 1) : null, hitTo = st.hit ? this.barPos(false, b.bb - 1) : null;
+    this.render(b, Object.assign({}, o, { hide: { w: st.to === 0 ? 0 : st.to, b: st.hit ? 25 : null } }));
+    const ns = 'http://www.w3.org/2000/svg';
+    const mk = white => { const g = document.createElementNS(ns, 'g'); g.innerHTML = this.checker(0, 0, white); this.svg.appendChild(g); return g; };
+    const m1 = mk(true), m2 = st.hit ? mk(false) : null;
+    const tok = ++this.tok;
+    const t0 = performance.now(), ease = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    const lift = Math.min(60, Math.hypot(to.x - from.x, to.y - from.y) * .18);
+    const frame = now => {
+      if (tok !== this.tok) return; // cancelled
+      const t = Math.min(1, (now - t0) / ms), e = ease(t);
+      const x = from.x + (to.x - from.x) * e, y = from.y + (to.y - from.y) * e - Math.sin(Math.PI * e) * lift;
+      m1.setAttribute('transform', `translate(${x} ${y})`);
+      if (m2) { const x2 = hitFrom.x + (hitTo.x - hitFrom.x) * e, y2 = hitFrom.y + (hitTo.y - hitFrom.y) * e; m2.setAttribute('transform', `translate(${x2} ${y2})`); }
+      if (t < 1) requestAnimationFrame(frame); else { this.render(b, o); done && done(); }
+    };
+    if (m2) m2.setAttribute('transform', `translate(${hitFrom.x} ${hitFrom.y})`);
+    m1.setAttribute('transform', `translate(${from.x} ${from.y})`);
+    requestAnimationFrame(frame);
+  }
+  ghost(x, y) {
+    let g = this.svg.querySelector('#ghost');
+    if (!g) { g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.id = 'ghost'; g.innerHTML = this.checker(0, 0, true) + `<circle r="${G.R + 3}" fill="none" stroke="${COL.sel}" stroke-width="4"/>`; g.style.pointerEvents = 'none'; this.svg.appendChild(g); }
+    g.setAttribute('transform', `translate(${x} ${y - 6}) scale(1.08)`);
+  }
+}
+
+/* ===================================================================
+   Exercise runtime
+   =================================================================== */
+const byId = Object.fromEntries(EXERCISES.map(e => [e.id, e]));
+const catName = c => CATS.find(x => x.id === c).name;
+let board, SES = null, X = null, drag = null, pendingTarget = null, animTimer = 0;
+
+function diceList(d) { return d[0] === d[1] ? [d[0], d[0], d[0], d[0]] : [d[0], d[1]]; }
+function usedDice() {
+  const ds = diceList(X.ex.d), used = ds.map(() => false);
+  for (const st of X.hist) { const i = ds.findIndex((v, j) => v === st.die && !used[j]); if (i >= 0) used[i] = true; }
+  return used;
+}
+// next legal single steps given a history
+function stepsAfter(hist) {
+  const n = hist.length, map = new Map();
+  for (const p of X.plays) {
+    if (p.seq.length <= n) continue;
+    let ok = true;
+    for (let i = 0; i < n; i++) { const a = p.seq[i], b = hist[i]; if (a.from !== b.from || a.to !== b.to || a.die !== b.die) { ok = false; break; } }
+    if (ok) { const s = p.seq[n]; map.set(s.from + '-' + s.to + '-' + s.die, s); }
+  }
+  return [...map.values()];
+}
+// all destinations for one checker (single and combined moves) -> step path
+function routesFrom(src) {
+  const res = new Map();
+  const walk = (hist, pos, path) => {
+    const steps = stepsAfter(hist).filter(s => s.from === pos).sort((a, b) => a.die - b.die);
+    for (const s of steps) {
+      const np = path.concat([s]);
+      if (!res.has(s.to) || res.get(s.to).length > np.length) res.set(s.to, np);
+      if (s.to > 0) walk(hist.concat([s]), s.to, np);
+    }
+  };
+  walk(X.hist, src, []);
+  return res;
+}
+function boardOpts(extra = {}) {
+  const o = { dice: X.ex.type === 'cube' ? null : X.ex.d, used: X.ex.type === 'cube' ? null : usedDice() };
+  if (!X.checked && !X.busy && X.ex.type !== 'cube') {
+    o.movable = new Set(stepsAfter(X.hist).map(s => s.from));
+    if (X.sel != null) { o.sel = X.sel; o.targets = new Set(X.routes.keys()); o.trayHl = X.routes.has(0); }
+  }
+  return Object.assign(o, extra);
+}
+function draw() { board.render(X.view || X.state, boardOpts()); updatePips(X.view || X.state); }
+function updatePips(s) { const p = Engine.pips(s); $('#pipW').textContent = p.w; $('#pipB').textContent = p.b; }
+
+function loadExercise() {
+  clearTimeout(animTimer); board.cancel();
+  const ex = byId[SES.ids[SES.i]];
+  const start = Engine.fromDef(ex);
+  X = { ex, start, state: Engine.clone(start), hist: [], sel: null, routes: new Map(), checked: false, busy: false, result: null, view: null, choice: null };
+  if (ex.type !== 'cube') {
+    X.plays = Engine.plays(start, ex.d);
+    X.maxLen = X.plays.length ? X.plays[0].seq.length : 0;
+    const k = m => Engine.key(Engine.applyNotation(start, m));
+    X.best = ex.best.map(k); X.near = (ex.near || []).map(x => k(x[0])); X.bad = (ex.bad || []).map(x => k(x[0]));
+    X.bestSeq = (X.plays.find(p => Engine.key(p.final) === X.best[0]) || { seq: [] }).seq;
+  }
+  // header
+  const total = SES.ids.length;
+  $('#exChip').textContent = SES.mode === 'review' ? 'חזרה על טעויות' : catName(ex.c) + ' · ' + LV[ex.l].name;
+  $('#exCount').textContent = `תרגיל ${SES.i + 1} מתוך ${total}` + (SES.mode === 'review' ? ` · ${catName(ex.c)} · ${LV[ex.l].name}` : '');
+  $('#exBar').style.width = (SES.i / total * 100) + '%';
+  if (ex.type === 'cube') { $('#exQ').textContent = 'החלטת קובייה'; $('#exSub').textContent = ex.q; }
+  else { $('#exQ').innerHTML = `הטלתם <span class="ltr">${ex.d[0]}-${ex.d[1]}</span>. מה המהלך הטוב ביותר?`; $('#exSub').textContent = 'אתם משחקים בלבן. הזיזו את החיילים לפי הקוביות ולחצו "בדיקה".'; }
+  const ctx = $('#exCtx'); ctx.hidden = !ex.ctx; ctx.textContent = ex.ctx || '';
+  draw(); renderPanel();
+  window.scrollTo(0, 0);
+}
+
+/* ---------- Pointer interaction (tap-tap or drag) ---------- */
+function sources() { return new Set(stepsAfter(X.hist).map(s => s.from)); }
+function select(z) { X.sel = z; X.routes = z == null ? new Map() : routesFrom(z); draw(); }
+function onDown(e) {
+  if (!X || X.checked || X.busy || X.ex.type === 'cube') return;
+  const pt = board.toSvg(e), z = board.zoneAt(pt.x, pt.y);
+  pendingTarget = null;
+  if (X.sel != null && z !== X.sel && X.routes.has(z)) { pendingTarget = z; return; }
+  if (z != null && sources().has(z)) {
+    if (X.sel !== z) select(z);
+    drag = { src: z, x: pt.x, y: pt.y, moved: false };
+    try { board.svg.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
+    e.preventDefault(); return;
+  }
+  if (X.sel != null) select(null);
+}
+function onMove(e) {
+  if (!drag) return;
+  const pt = board.toSvg(e);
+  if (!drag.moved && Math.hypot(pt.x - drag.x, pt.y - drag.y) > 8) {
+    drag.moved = true;
+    const s = X.state; board.render(s, boardOpts({ hide: { w: drag.src } }));
+  }
+  if (drag.moved) board.ghost(pt.x, pt.y);
+}
+function onUp(e) {
+  if (drag) {
+    const d = drag; drag = null;
+    if (d.moved) {
+      const pt = board.toSvg(e), z = board.zoneAt(pt.x, pt.y);
+      if (z != null && X.routes.has(z)) return runPath(X.routes.get(z), false);
+      draw(); return;
+    }
+    return; // simple tap on a source keeps it selected
+  }
+  if (pendingTarget != null) { const z = pendingTarget; pendingTarget = null; if (X.routes.has(z)) runPath(X.routes.get(z), true); }
+}
+function runPath(path, animate) {
+  X.sel = null; X.routes = new Map();
+  if (!animate) { for (const st of path) { X.state = Engine.apply(X.state, st); X.hist.push(st); } draw(); renderPanel(); return; }
+  X.busy = true; const me = X;
+  const stepOne = i => {
+    if (X !== me) return;
+    if (i >= path.length) { X.busy = false; draw(); renderPanel(); return; }
+    const st = path[i], a = X.state, b = Engine.apply(a, st);
+    X.state = b; X.hist.push(st);
+    board.animate(a, st, b, { dice: X.ex.d, used: usedDice() }, 260, () => stepOne(i + 1));
+  };
+  stepOne(0);
+}
+function undo() { if (!X.hist.length || X.busy) return; X.hist.pop(); X.state = X.hist.reduce((s, st) => Engine.apply(s, st), Engine.clone(X.start)); select(null); renderPanel(); }
+function resetEx() { if (X.busy) return; X.hist = []; X.state = Engine.clone(X.start); select(null); renderPanel(); }
+
+/* ---------- Checking + explanation ---------- */
+function grade() {
+  const k = Engine.key(X.state);
+  return X.best.includes(k) ? 'correct' : X.near.includes(k) ? 'near' : 'wrong';
+}
+function check() {
+  if (X.busy || X.checked) return;
+  if (X.ex.type !== 'cube' && X.hist.length < X.maxLen) return;
+  X.result = grade(); X.checked = true; X.userState = Engine.clone(X.state);
+  finishCheck();
+  animTimer = setTimeout(showCorrect, 650);
+}
+function chooseOpt(i) {
+  if (X.checked) return;
+  X.choice = i; X.result = X.ex.opts[i][1] ? 'correct' : 'wrong'; X.checked = true;
+  finishCheck();
+}
+function finishCheck() {
+  Store.record(X.ex.id, X.result);
+  if (SES.res[SES.i] === undefined) SES.res[SES.i] = X.result; // first attempt counts in the summary
+  draw(); renderPanel();
+  const fb = $('#panel .fb'); if (fb && window.innerWidth < 980) fb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+function showCorrect() {
+  if (!X || !X.checked || X.ex.type === 'cube' || X.busy) return;
+  clearTimeout(animTimer);
+  X.busy = true; const me = X; let s = Engine.clone(X.start); X.view = s; const seq = X.bestSeq; const used = [];
+  board.render(s, { dice: X.ex.d, used: diceList(X.ex.d).map(() => false) }); updatePips(s);
+  const ds = diceList(X.ex.d);
+  const stepOne = i => {
+    if (X !== me) return;
+    if (i >= seq.length) { X.busy = false; X.view = s; renderPanel(); return; }
+    const st = seq[i], b = Engine.apply(s, st);
+    const j = ds.findIndex((v, q) => v === st.die && !used[q]); if (j >= 0) used[j] = true;
+    board.animate(s, st, b, { dice: X.ex.d, used: ds.map((_, q) => !!used[q]) }, 420, () => { if (X !== me) return; s = b; X.view = s; updatePips(s); animTimer = setTimeout(() => stepOne(i + 1), 160); });
+  };
+  animTimer = setTimeout(() => stepOne(0), 350);
+}
+function showMine() { if (X.busy) return; clearTimeout(animTimer); board.cancel(); X.view = X.userState; draw(); renderPanel(); }
+function retry() { clearTimeout(animTimer); loadExercise(); }
+function nextEx() {
+  clearTimeout(animTimer);
+  if (SES.i + 1 >= SES.ids.length) return showSummary();
+  SES.i++; loadExercise();
+}
+
+// wrap glossary words in explanations with a clickable term
+function glossify(text) {
+  let out = esc(text); const used = new Set(); const parts = []; let count = 0;
+  for (const [form, term] of TERM_FORMS) {
+    if (used.has(term) || count >= 3) continue;
+    const i = out.indexOf(form); if (i < 0) continue;
+    parts.push(`<button class="term" data-term="${esc(term)}">${esc(form)}</button>`);
+    out = out.slice(0, i) + '\u0001' + (parts.length - 1) + '\u0002' + out.slice(i + form.length);
+    used.add(term); count++;
+  }
+  return out.replace(/\u0001(\d+)\u0002/g, (_, n) => parts[+n]);
+}
+function metric(m, live) {
+  const ex = X.ex; if (!ex.flag) return '';
+  let v = STATS[ex.id] && STATS[ex.id][m];
+  if (v === undefined && live && ex.flag === 'shots') v = Engine.shots(live);
+  if (v === undefined) return '';
+  return ex.flag === 'shots' ? `<span class="metric">חשיפה: ${v} מתוך 36</span>` : `<span class="metric">ממוצע: <span class="ltr">${Number(v).toFixed(2)}</span> הטלות לסיום</span>`;
+}
+const RES = {
+  correct: { cls: 'correct', icon: 'check', t: 'נכון!', d: 'זה בדיוק המהלך הטוב ביותר.' },
+  near: { cls: 'near', icon: 'half', t: 'כמעט נכון', d: 'מהלך סביר, אבל יש מהלך טוב יותר. ראו את ההסבר.' },
+  wrong: { cls: 'wrong', icon: 'xx', t: 'לא מדויק', d: 'יש מהלך טוב יותר. צפו בו על הלוח וקראו למה.' }
+};
+const nota = m => `<span class="ltr">${esc(m)}</span>`;
+function renderPanel() {
+  const ex = X.ex, P = $('#panel'); let h = '';
+  if (!X.checked) {
+    if (ex.type === 'cube') {
+      h += `<div class="hint">${I.bulb}<span>בדקו את הפיפ קאונט מתחת ללוח והחליטו.</span></div><div class="opts">` +
+        ex.opts.map((o, i) => `<button class="opt" data-opt="${i}">${esc(o[0])}</button>`).join('') + '</div>';
+    } else {
+      const left = X.maxLen - X.hist.length;
+      h += `<div class="hint">${I.hand}<span>לחצו על חייל מסומן ואז על נקודת היעד – או גררו אותו. אפשר להזיז חייל אחד בשתי הקוביות יחד.</span></div>`;
+      h += `<div class="moves-line">${X.hist.length ? 'המהלך שלכם: ' + nota(Engine.notate(X.hist)) : '<span style="color:var(--muted)">עוד לא הזזתם חיילים.</span>'}` +
+        (left > 0 && X.hist.length ? ` <span style="color:var(--muted);font-size:.88rem">· נשארו ${left === 1 ? 'קובייה אחת' : left + ' קוביות'}</span>` : '') + '</div>';
+      h += `<div class="actions"><button class="btn btn-ghost" data-act="undo" ${X.hist.length ? '' : 'disabled'}>${I.undo}בטל צעד</button>` +
+        `<button class="btn btn-ghost" data-act="reset" ${X.hist.length ? '' : 'disabled'}>${I.reset}איפוס</button>` +
+        `<button class="btn btn-primary" data-act="check" ${X.hist.length >= X.maxLen && !X.busy ? '' : 'disabled'}>${I.check}בדיקה</button></div>`;
+    }
+  } else {
+    const r = RES[X.result];
+    if (ex.type === 'cube') {
+      h += '<div class="opts">' + ex.opts.map((o, i) => `<button class="opt ${o[1] ? 'right' : (i === X.choice ? 'wrong' : '')}" disabled>${esc(o[0])}</button>`).join('') + '</div>';
+    }
+    h += `<div class="fb ${r.cls}" role="status"><span class="ico">${I[r.icon]}</span><div><b>${r.t}</b><p>${r.d}</p></div></div>`;
+    h += `<div class="exp"><h3>${esc(ex.t)}</h3><div class="principle">${I.bulb}<span>${esc(ex.p)}</span></div><p>${glossify(ex.why)}</p>`;
+    if (ex.type === 'cube') {
+      h += '<ul class="alts">' + ex.opts.map(o => `<li><div class="row"><span class="tag ${o[1] ? 'best' : 'bad'}">${o[1] ? 'נכון' : 'שגוי'}</span><b>${esc(o[0])}</b></div><p>${esc(o[2])}</p></li>`).join('') + '</ul>';
+    } else {
+      const userKey = Engine.key(X.userState); const listed = [...X.best, ...X.near, ...X.bad].includes(userKey);
+      const you = k => k === userKey ? '<span class="tag you">המהלך שלכם</span>' : '';
+      let li = ex.best.map((m, i) => `<li><div class="row"><span class="tag best">הטוב ביותר</span>${nota(m)}${you(X.best[i])}${metric(m)}</div></li>`).join('');
+      li += (ex.near || []).map((x, i) => `<li><div class="row"><span class="tag near">כמעט</span>${nota(x[0])}${you(X.near[i])}${metric(x[0])}</div><p>${esc(x[1])}</p></li>`).join('');
+      li += (ex.bad || []).map((x, i) => `<li><div class="row"><span class="tag bad">חלש</span>${nota(x[0])}${you(X.bad[i])}${metric(x[0])}</div><p>${esc(x[1])}</p></li>`).join('');
+      if (!listed) li += `<li><div class="row"><span class="tag you">המהלך שלכם</span>${nota(Engine.notate(X.hist))}${metric('__', X.userState)}</div><p>המהלך חוקי, אבל לא עומד בעיקרון של התרגיל. השוו אותו למהלך הטוב ביותר.</p></li>`;
+      h += `<ul class="alts">${li}</ul>`;
+    }
+    h += '</div><div class="exp-actions">';
+    if (ex.type !== 'cube') {
+      h += `<button class="btn btn-soft" data-act="replay" ${X.busy ? 'disabled' : ''}>${I.play}הצגת המהלך הנכון</button>`;
+      if (X.result !== 'correct') h += `<button class="btn btn-ghost" data-act="mine" ${X.busy ? 'disabled' : ''}>${I.eye}המהלך שלי</button>`;
+    }
+    if (X.result !== 'correct') h += `<button class="btn btn-ghost" data-act="retry">${I.reset}נסו שוב</button>`;
+    h += `<button class="btn btn-primary" data-act="next">${SES.i + 1 >= SES.ids.length ? 'לסיכום' : 'התרגיל הבא'}${I.next}</button></div>`;
+  }
+  P.innerHTML = h;
+}
+
+/* ---------- Sessions ---------- */
+function startSession(cat, lvl) {
+  const ids = EXERCISES.filter(e => e.c === cat && e.l === lvl).map(e => e.id);
+  SES = { mode: 'cat', cat, lvl, ids, i: 0, res: [] }; X = null;
+  go('#/play');
+}
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function startReview() {
+  const ids = shuffle(Store.d.missed.filter(id => byId[id]));
+  if (!ids.length) { SES = null; return false; }
+  SES = { mode: 'review', ids, i: 0, res: [] }; X = null;
+  return true;
+}
+function showSummary() {
+  const n = SES.ids.length, c = SES.res.filter(r => r === 'correct').length, nr = SES.res.filter(r => r === 'near').length, w = n - c - nr;
+  const pct = Math.round(c / n * 100), C = 2 * Math.PI * 60;
+  let h = `<div class="score-ring"><svg viewBox="0 0 140 140"><circle cx="70" cy="70" r="60" fill="none" stroke="#eceefa" stroke-width="14"/><circle cx="70" cy="70" r="60" fill="none" stroke="url(#sg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - c / n)}"/><defs><linearGradient id="sg"><stop offset="0" stop-color="#6a5cff"/><stop offset="1" stop-color="#12b8a6"/></linearGradient></defs></svg><b>${pct}%</b></div>`;
+  const msg = pct >= 85 ? 'מצוין! אתם שולטים בעקרונות האלה.' : pct >= 50 ? 'עבודה טובה. עוד קצת תרגול ותשלטו בזה לגמרי.' : 'זו בדיוק המטרה של תרגול – כל טעות היא הזדמנות ללמוד.';
+  h += `<h2>${SES.mode === 'review' ? 'סיימתם סבב חזרה' : 'סיימתם: ' + catName(SES.cat) + ' · ' + LV[SES.lvl].name}</h2><p style="color:var(--muted)">${msg}</p>`;
+  h += `<div class="sum-split"><span style="background:var(--green-50);color:#0b7a50">${c} נכונים</span><span style="background:var(--amber-50);color:#8a5600">${nr} כמעט</span><span style="background:var(--rose-50);color:#a3243a">${w} לא מדויקים</span></div><div class="sum-actions">`;
+  if (SES.mode === 'cat' && SES.lvl < 3) h += `<button class="btn btn-primary" data-sum="next">לרמה הבאה: ${LV[SES.lvl + 1].name}</button>`;
+  if (Store.d.missed.length) h += `<button class="btn btn-soft" data-go="#/review">חזרה על טעויות (${Store.d.missed.length})</button>`;
+  if (SES.mode === 'cat') h += `<button class="btn btn-ghost" data-sum="again">תרגול חוזר</button>`;
+  h += `<button class="btn btn-ghost" data-go="#/practice">לבחירת תרגול</button></div>`;
+  $('#sumCard').innerHTML = h;
+  go('#/summary');
+}
+
+/* ---------- Practice selection screen ---------- */
+function recommendation() {
+  const st = CATS.map(cat => ({ cat, s: Store.catStats(cat.id) }));
+  const tried = st.filter(x => x.s.a >= 3);
+  let pick, why;
+  if (tried.length) { tried.sort((a, b) => a.s.c / a.s.a - b.s.c / b.s.a || a.s.solved - b.s.solved); pick = tried[0]; why = pick.s.acc >= 90 ? 'הדיוק שלכם גבוה בכל השלבים – שווה לחזור על הרמה המתקדמת כדי לשמור על כושר.' : `הדיוק שלכם כאן ${pick.s.acc}% – הנמוך ביותר מבין הקטגוריות.`; }
+  else { st.sort((a, b) => a.s.a - b.s.a); pick = st[0]; why = pick.s.a ? 'עוד לא צברתם מספיק תרגילים כאן כדי למדוד דיוק.' : 'עוד לא התחלתם את השלב הזה – מקום מצוין להתחיל.'; }
+  let lvl = 3; for (const l of [1, 2, 3]) { if (Store.catStats(pick.cat.id, l).solved < 6) { lvl = l; break; } }
+  return { cat: pick.cat, lvl, why };
+}
+function renderPractice() {
+  const all = EXERCISES.length; let a = 0, c = 0, solved = 0;
+  for (const id in Store.d.res) { const r = Store.d.res[id]; if (!byId[id]) continue; a += r.a; c += r.c; if (r.solved) solved++; }
+  const streak = Store.streak(), miss = Store.d.missed.length;
+  $('#kpis').innerHTML =
+    `<div class="kpi"><span class="ico a">${I.fire}</span><div><b>${streak}</b><span>${streak === 1 ? 'יום רצף' : 'ימי רצף'}</span></div></div>` +
+    `<div class="kpi"><span class="ico v">${I.check}</span><div><b>${solved}/${all}</b><span>תרגילים שהושלמו</span></div></div>` +
+    `<div class="kpi"><span class="ico t">${I.trend}</span><div><b>${a ? Math.round(c / a * 100) + '%' : '–'}</b><span>דיוק כללי</span></div></div>` +
+    `<button class="kpi clickable" data-go="#/review"><span class="ico r">${I.redo}</span><div><b>${miss}</b><span>טעויות לחזרה</span></div></button>`;
+  const rc = recommendation();
+  $('#reco').innerHTML = `<div class="reco"><span class="ico ${rc.cat.cls}">${I[rc.cat.icon]}</span><div><b>מומלץ לכם עכשיו: ${rc.cat.name} · ${LV[rc.lvl].name}</b><span>${rc.why}</span></div><button class="btn btn-primary" data-start="${rc.cat.id}:${rc.lvl}">לתרגל עכשיו</button></div>`;
+  const L = Store.d.lvl;
+  $('#lvlSeg').innerHTML = [1, 2, 3].map(l => `<button role="tab" aria-selected="${l === L}" class="${l === L ? 'on' : ''}" data-lvl="${l}"><span class="bars l${l}"><i></i><i></i><i></i></span>${LV[l].name}</button>`).join('');
+  $('#catCards').innerHTML = CATS.map(cat => {
+    const s = Store.catStats(cat.id, L), all3 = Store.catStats(cat.id);
+    const dots = [1, 2, 3].map(l => { const x = Store.catStats(cat.id, l); return `<span class="${x.solved === 6 ? 'done' : ''}">${LV[l].name} ${x.solved}/6</span>`; }).join('');
+    const label = s.solved === 6 ? 'תרגול חוזר' : s.solved ? 'המשיכו לתרגל' : 'התחילו';
+    return `<div class="card hov cat-card"><div class="cat-head"><span class="ico ${cat.cls}">${I[cat.icon]}</span><div><h3>${cat.name}</h3><p>${cat.short}</p></div></div>` +
+      `<div><div class="cat-meta"><span><b>${s.solved}/6</b> הושלמו ברמה ${LV[L].name}</span><span>אחוז הצלחה: <b>${all3.acc === null ? '–' : all3.acc + '%'}</b></span></div><div class="progress" style="margin-top:6px"><i style="width:${s.solved / 6 * 100}%"></i></div></div>` +
+      `<div class="lvl-dots">${dots}</div><button class="btn ${s.solved === 6 ? 'btn-soft' : 'btn-primary'}" data-start="${cat.id}:${L}">${label}</button></div>`;
+  }).join('');
+}
+
+/* ---------- Landing ---------- */
+function renderLanding() {
+  $('#stageCards').innerHTML = CATS.map(c => `<div class="card hov reveal"><span class="ico ${c.cls}">${I[c.icon]}</span><h3>${c.name}</h3><p>${c.desc}</p></div>`).join('');
+  $('#levelCards').innerHTML = [1, 2, 3].map(l => `<div class="card hov lvl-card reveal"><div class="lvl-top"><span class="bars l${l}"><i></i><i></i><i></i></span><h3 style="margin:0">${LV[l].name}</h3></div><p>${LV[l].desc}</p></div>`).join('');
+  $('#toolCards').innerHTML = TOOLS.map(t => `<div class="card hov reveal"><span class="ico ${t.cls}">${I[t.icon]}</span><h3>${t.t}</h3><p>${t.d}</p></div>`).join('');
+}
+let heroTimer = 0, heroBoard;
+function heroLoop() {
+  clearTimeout(heroTimer);
+  if (!$('#v-home').classList.contains('on')) return;
+  const s0 = Engine.fromDef({ w: { 24: 2, 13: 5, 8: 3, 6: 5 }, b: { 1: 2, 12: 5, 17: 3, 19: 5 } });
+  const toast = $('#heroToast'); toast.classList.remove('show');
+  heroBoard.render(s0, { dice: [3, 1], movable: new Set([8, 6]) });
+  const st1 = { from: 8, to: 5, die: 3, hit: false }, s1 = Engine.apply(s0, st1);
+  const st2 = { from: 6, to: 5, die: 1, hit: false }, s2 = Engine.apply(s1, st2);
+  heroTimer = setTimeout(() => {
+    heroBoard.animate(s0, st1, s1, { dice: [3, 1], used: [true, false] }, 520, () => {
+      heroTimer = setTimeout(() => heroBoard.animate(s1, st2, s2, { dice: [3, 1], used: [true, true] }, 520, () => {
+        toast.classList.add('show'); heroTimer = setTimeout(heroLoop, 2600);
+      }), 250);
+    });
+  }, 1300);
+}
+function observeReveal() {
+  const els = $$('.reveal:not(.in)');
+  if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('in')); return; }
+  const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: .12 });
+  els.forEach(e => io.observe(e));
+}
+
+/* ---------- Glossary ---------- */
+function renderGloss(filter = '', flash = '') {
+  const f = filter.trim();
+  $('#glist').innerHTML = GLOSS.filter(g => !f || g[0].includes(f) || g[2].includes(f) || g[1].toLowerCase().includes(f.toLowerCase()))
+    .map(g => `<div class="gitem ${g[0] === flash ? 'flash' : ''}" data-g="${esc(g[0])}"><b>${esc(g[0])}</b><small class="ltr">${esc(g[1])}</small><p>${esc(g[2])}</p></div>`).join('') || '<p style="color:var(--muted)">לא נמצא מושג.</p>';
+}
+function openGloss(term) {
+  $('#gloss').classList.add('on'); $('#gsearch').value = ''; renderGloss('', term || '');
+  if (term) { const el = $(`.gitem[data-g="${CSS.escape(term)}"]`); if (el) el.scrollIntoView({ block: 'center' }); }
+  else $('#gsearch').focus({ preventScroll: true });
+}
+function closeGloss() { $('#gloss').classList.remove('on'); }
+
+/* ---------- Router ---------- */
+function go(h) { if (location.hash === h) route(); else location.hash = h; }
+function show(v) {
+  $$('.view').forEach(x => x.classList.toggle('on', x.id === 'v-' + v));
+  $$('.nav [data-nav]').forEach(b => b.classList.toggle('on', b.dataset.nav === v || (v === 'play' && SES && SES.mode === 'review' && b.dataset.nav === 'review')));
+}
+function route() {
+  const h = location.hash || '#/';
+  clearTimeout(animTimer);
+  if (h === '#/practice') { renderPractice(); show('practice'); }
+  else if (h === '#/review') {
+    if (startReview()) { history.replaceState(null, '', '#/play'); show('play'); loadExercise(); }
+    else { $('#sumCard').innerHTML = `<div class="empty"><span class="ico t" style="margin:0 auto 12px">${I.check}</span><h2>אין טעויות לחזרה</h2><p style="color:var(--muted)">כל תרגיל שתפספסו יופיע כאן, ותוכלו לחזור עליו עד שתצליחו.</p><button class="btn btn-primary" data-go="#/practice">לבחירת תרגול</button></div>`; show('summary'); }
+  }
+  else if (h === '#/play') { if (!SES) return go('#/practice'); show('play'); if (!X || X.ex.id !== SES.ids[SES.i]) loadExercise(); }
+  else if (h === '#/summary') { if (!SES) return go('#/practice'); show('summary'); }
+  else { show('home'); heroLoop(); observeReveal(); }
+  window.scrollTo(0, 0);
+}
+
+/* ---------- Wiring ---------- */
+function init() {
+  Store.load(); updateBadge();
+  board = new Board($('#board'), { homeRight: Store.d.homeRight });
+  heroBoard = new Board($('#heroBoard'));
+  renderLanding();
+  const svg = $('#board');
+  svg.addEventListener('pointerdown', onDown);
+  svg.addEventListener('pointermove', onMove);
+  svg.addEventListener('pointerup', onUp);
+  svg.addEventListener('pointercancel', () => { drag = null; if (X) draw(); });
+  document.addEventListener('click', e => {
+    const t = e.target.closest('[data-go],[data-scroll],[data-glossary],[data-start],[data-lvl],[data-act],[data-opt],[data-sum],.term');
+    if (!t) return;
+    if (t.dataset.go) return go(t.dataset.go);
+    if (t.dataset.scroll) return $(t.dataset.scroll).scrollIntoView({ behavior: 'smooth' });
+    if (t.hasAttribute('data-glossary')) return openGloss();
+    if (t.classList.contains('term')) return openGloss(t.dataset.term);
+    if (t.dataset.start) { const [c, l] = t.dataset.start.split(':'); return startSession(c, +l); }
+    if (t.dataset.lvl) { Store.d.lvl = +t.dataset.lvl; Store.save(); return renderPractice(); }
+    if (t.dataset.opt) return chooseOpt(+t.dataset.opt);
+    if (t.dataset.sum === 'next') return startSession(SES.cat, SES.lvl + 1);
+    if (t.dataset.sum === 'again') return startSession(SES.cat, SES.lvl);
+    const a = t.dataset.act;
+    if (a === 'undo') undo(); else if (a === 'reset') resetEx(); else if (a === 'check') check();
+    else if (a === 'replay') showCorrect(); else if (a === 'mine') showMine(); else if (a === 'retry') retry(); else if (a === 'next') nextEx();
+  });
+  $('#exBack').addEventListener('click', () => go('#/practice'));
+  $('#flipBtn').addEventListener('click', () => { Store.d.homeRight = !Store.d.homeRight; Store.save(); board.homeRight = Store.d.homeRight; if (X && !X.busy) draw(); });
+  $('#glossClose').addEventListener('click', closeGloss);
+  $('#gloss').addEventListener('click', e => { if (e.target.id === 'gloss') closeGloss(); });
+  $('#gsearch').addEventListener('input', e => renderGloss(e.target.value));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeGloss(); });
+  window.addEventListener('hashchange', route);
+  route();
+}
+init();
+})();
+
+</script>
+</body>
+</html>
