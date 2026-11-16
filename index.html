@@ -31,11 +31,11 @@
 <style>
 /* ===== Design tokens ===== */
 :root{
-  --bg:#ddd7ff; --bg2:#c9efe8; --card:#f3f1ff; --card-2:#e9e5ff; --ink:#120f3a; --ink-2:#2a2660; --muted:#5a5687; --line:#c9c1fb;
-  --brand:#4a33f2; --brand-600:#3a22dc; --brand-50:#e2dcff; --brand-100:#d2caff;
+  --bg:#d6e5f5; --bg2:#c9efe8; --card:#f2f7fd; --card-2:#e2ecf9; --ink:#0e1a3a; --ink-2:#22335f; --muted:#52628a; --line:#bccfec;
+  --brand:#2350d0; --brand-600:#3a22dc; --brand-50:#dbe6fb; --brand-100:#c6d7f7;
   --teal:#00a492; --teal-50:#c9f0ea; --amber:#d27a00; --amber-50:#ffe7bd; --rose:#e12c50; --rose-50:#ffd6de; --green:#0b9b62; --green-50:#c8f1df;
-  --shadow-sm:0 1px 2px rgba(18,15,58,.08),0 2px 6px rgba(18,15,58,.06);
-  --shadow:0 12px 30px -14px rgba(48,30,170,.45),0 4px 10px -6px rgba(18,15,58,.12);
+  --shadow-sm:0 1px 2px rgba(14,26,58,.08),0 2px 6px rgba(14,26,58,.06);
+  --shadow:0 12px 30px -14px rgba(25,60,160,.45),0 4px 10px -6px rgba(14,26,58,.12);
   --r:14px; --r-lg:20px; --hdr:54px;
   --font:'Heebo',system-ui,-apple-system,'Segoe UI',Arial,sans-serif; --font-h:'Rubik','Heebo',system-ui,sans-serif;
 }
@@ -43,11 +43,11 @@
 html,body{height:100%}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;overflow:hidden;font-family:var(--font);color:var(--ink);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;
-  background:radial-gradient(70% 50% at 100% 0%,#cfc6ff 0%,transparent 70%),radial-gradient(60% 50% at 0% 100%,var(--bg2) 0%,transparent 70%),var(--bg)}
+  background:radial-gradient(70% 50% at 100% 0%,#bfd4f4 0%,transparent 70%),radial-gradient(60% 50% at 0% 100%,var(--bg2) 0%,transparent 70%),var(--bg)}
 h1,h2,h3{font-family:var(--font-h);line-height:1.2;margin:0;letter-spacing:-.01em}
 p{margin:0}
 button{font:inherit;cursor:pointer;color:inherit}
-:focus-visible{outline:3px solid #7a68ff;outline-offset:2px;border-radius:8px}
+:focus-visible{outline:3px solid #4f7fe8;outline-offset:2px;border-radius:8px}
 .ltr{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 [hidden]{display:none!important}
@@ -55,7 +55,7 @@ button{font:inherit;cursor:pointer;color:inherit}
 /* ===== Buttons ===== */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.45em;border:0;border-radius:12px;padding:.7em 1.1em;font-weight:700;font-size:1rem;transition:transform .15s ease,box-shadow .2s ease,background .2s ease;white-space:nowrap;min-height:46px}
 .btn:active{transform:translateY(1px) scale(.99)}
-.btn-primary{background:linear-gradient(135deg,#5a43ff,#3a22dc);color:#fff;box-shadow:0 8px 18px -8px rgba(58,34,220,.8)}
+.btn-primary{background:linear-gradient(135deg,#3a22dc,#1f5cc4 60%,#0b8fa0);color:#fff;box-shadow:0 8px 18px -8px rgba(35,80,208,.8)}
 .btn-lg{padding:.9em 1.6em;font-size:1.08rem;border-radius:14px;min-height:54px}
 .btn-ghost{background:var(--card);color:var(--ink-2);border:1.5px solid var(--line)}
 .btn-soft{background:var(--brand-50);color:var(--brand-600)}
@@ -67,7 +67,7 @@ button{font:inherit;cursor:pointer;color:inherit}
 .ico.v{background:var(--brand-50);color:var(--brand-600)}.ico.t{background:var(--teal-50);color:var(--teal)}.ico.a{background:var(--amber-50);color:var(--amber)}.ico.r{background:var(--rose-50);color:var(--rose)}
 
 /* ===== Header ===== */
-.top{position:fixed;top:0;left:0;right:0;z-index:40;height:calc(var(--hdr) + env(safe-area-inset-top));padding-top:env(safe-area-inset-top);background:linear-gradient(90deg,#3a22dc,#5a43ff 60%,#2a9d93);color:#fff;box-shadow:0 4px 14px -8px rgba(30,15,120,.7)}
+.top{position:fixed;top:0;left:0;right:0;z-index:40;height:calc(var(--hdr) + env(safe-area-inset-top));padding-top:env(safe-area-inset-top);background:linear-gradient(90deg,#3a22dc,#1f5cc4 55%,#00a492);color:#fff;box-shadow:0 4px 14px -8px rgba(15,40,110,.7)}
 .top .wrap{display:flex;align-items:center;gap:8px;height:100%}
 .wrap{width:100%;max-width:1100px;margin:0 auto;padding:0 14px}
 .logo{display:flex;align-items:center;gap:9px;font-family:var(--font-h);font-weight:800;font-size:1.12rem;color:#fff;white-space:nowrap;background:none;border:0;padding:0}
@@ -110,7 +110,7 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top));left:0;right
 .kpi{background:var(--card);border:1.5px solid var(--line);border-radius:var(--r);padding:8px 6px;text-align:center}
 .kpi b{font-family:var(--font-h);font-size:1.3rem;display:block;line-height:1.1;color:var(--brand-600)}
 .kpi span{color:var(--muted);font-size:.78rem;font-weight:600}
-.reco{display:flex;gap:10px;align-items:center;background:linear-gradient(135deg,#3a22dc,#2a9d93);color:#fff;border:0;border-radius:var(--r);padding:10px 12px;text-align:start;box-shadow:var(--shadow);width:100%}
+.reco{display:flex;gap:10px;align-items:center;background:linear-gradient(135deg,#3a22dc,#00a492);color:#fff;border:0;border-radius:var(--r);padding:10px 12px;text-align:start;box-shadow:var(--shadow);width:100%}
 .reco .ico{background:rgba(255,255,255,.2);color:#fff}
 .reco div{flex:1;min-width:0}
 .reco small{display:block;opacity:.85;font-size:.78rem;font-weight:600}
@@ -119,13 +119,13 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top));left:0;right
 .cats{display:grid;gap:8px}
 @media (min-width:800px){.cats{grid-template-columns:1fr 1fr}}
 .cat{display:flex;gap:12px;align-items:center;background:var(--card);border:1.5px solid var(--line);border-radius:var(--r);padding:10px 12px;text-align:start;width:100%;box-shadow:var(--shadow-sm);transition:border-color .2s,transform .2s}
-.cat:active{transform:scale(.99)}.cat:hover{border-color:#a99bff}
+.cat:active{transform:scale(.99)}.cat:hover{border-color:#8fb0ec}
 .cat div{flex:1;min-width:0}
 .cat h3{font-size:1.02rem;display:flex;justify-content:space-between;gap:8px}
 .cat h3 span{font-family:var(--font);font-size:.85rem;color:var(--muted);font-weight:700}
 .cat.done h3 span{color:var(--green)}
 .progress{height:7px;background:var(--card-2);border-radius:99px;overflow:hidden;margin-top:6px}
-.progress i{display:block;height:100%;background:linear-gradient(90deg,#4a33f2,#00a492);border-radius:99px;transition:width .6s ease}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,#2350d0,#00a492);border-radius:99px;transition:width .6s ease}
 .cat > svg{width:18px;height:18px;color:var(--muted);flex:none}
 .allDone{background:var(--green-50);color:#076b44;border-radius:var(--r);padding:10px 12px;font-weight:700;text-align:center}
 
@@ -150,7 +150,7 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top));left:0;right
 .actions{display:grid;grid-template-columns:1fr 2fr;gap:8px}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .opt{border:2px solid var(--line);background:var(--card);border-radius:14px;padding:10px 12px;font-weight:700;min-height:52px}
-.opt:hover{border-color:#a99bff}
+.opt:hover{border-color:#8fb0ec}
 .opt.right{border-color:var(--green);background:var(--green-50)}
 .opt.wrong{border-color:var(--rose);background:var(--rose-50)}
 .opt[disabled]{cursor:default}
@@ -172,7 +172,7 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top));left:0;right
 .after{display:grid;grid-template-columns:1fr 2fr;gap:8px}
 
 /* explanation sheet + glossary */
-.modal{position:fixed;inset:0;z-index:80;display:none;align-items:flex-end;justify-content:center;background:rgba(18,15,58,.5);backdrop-filter:blur(3px)}
+.modal{position:fixed;inset:0;z-index:80;display:none;align-items:flex-end;justify-content:center;background:rgba(14,26,58,.5);backdrop-filter:blur(3px)}
 .modal.on{display:flex;animation:fade .2s}
 .sheet{background:var(--card);width:100%;max-width:620px;max-height:86vh;border-radius:22px 22px 0 0;display:flex;flex-direction:column;box-shadow:var(--shadow)}
 @media (min-width:700px){.modal{align-items:center}.sheet{border-radius:22px}}
@@ -181,11 +181,11 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top));left:0;right
 .x{background:var(--card-2);border:0;border-radius:10px;width:38px;height:38px;display:grid;place-items:center}
 .x svg{width:18px;height:18px}
 .sheet-body{overflow:auto;padding:12px 16px 20px}
-.principle{display:flex;gap:8px;background:var(--brand-50);color:#2b18b0;border-radius:12px;padding:9px 11px;font-weight:700;font-size:.93rem;margin-bottom:10px}
+.principle{display:flex;gap:8px;background:var(--brand-50);color:#1c3fa8;border-radius:12px;padding:9px 11px;font-weight:700;font-size:.93rem;margin-bottom:10px}
 .principle svg{width:19px;height:19px;flex:none;margin-top:2px}
 .why{color:var(--ink-2);margin-bottom:10px}
 .alts{list-style:none;padding:0;margin:0;display:grid;gap:7px}
-.alts li{border:1.5px solid var(--line);border-radius:12px;padding:8px 10px;font-size:.9rem;background:#fbfaff}
+.alts li{border:1.5px solid var(--line);border-radius:12px;padding:8px 10px;font-size:.9rem;background:#f8fbff}
 .alts .row{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
 .alts p{margin-top:3px;color:var(--muted)}
 .tag{font-size:.72rem;font-weight:700;border-radius:99px;padding:.15em .6em}
@@ -193,8 +193,8 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top));left:0;right
 .metric{margin-inline-start:auto;font-size:.78rem;color:var(--muted)}
 .sheet-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .sheet-actions .btn{flex:1;min-width:120px}
-.term{background:none;border:0;padding:0;color:inherit;border-bottom:2px dotted #8f7dff;cursor:help;font:inherit}
-.gsearch{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:.65em 1em;font:inherit;margin-bottom:8px;background:#fbfaff}
+.term{background:none;border:0;padding:0;color:inherit;border-bottom:2px dotted #6f97e6;cursor:help;font:inherit}
+.gsearch{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:.65em 1em;font:inherit;margin-bottom:8px;background:#f8fbff}
 .gitem{padding:10px 0;border-bottom:1px solid var(--line)}
 .gitem:last-child{border:0}
 .gitem b{font-family:var(--font-h);color:var(--brand-600)}
@@ -2386,7 +2386,7 @@ function updateBadge() {
    Board renderer (SVG). Point numbers are always from white's side.
    =================================================================== */
 const G = { W: 814, H: 608, M: 14, PW: 56, BAR: 48, TRAY: 56, GAP: 10, NUM: 24, R: 25, PH: 236 };
-const COL = { frame: '#1d1757', field: '#efe5cf', triA: '#4a33f2', triB: '#a9b0ec', bar: '#2a2370', tray: '#16114a',
+const COL = { frame: '#12234f', field: '#efe5cf', triA: '#2350d0', triB: '#a9c3ec', bar: '#1b3166', tray: '#0d1a3d',
   num: '#aab1dd', numHome: '#ffffff', hl: '#12b8a6', sel: '#ffb020' };
 
 class Board {
@@ -2460,7 +2460,7 @@ class Board {
     const ax = this.homeRight ? fr - 14 : fl + 14, dir = this.homeRight ? 1 : -1;
     h += `<path d="M${ax} ${yB - 7} L${ax + 12 * dir} ${yB} L${ax} ${yB + 7}Z" fill="${COL.hl}" opacity=".8"/>`;
     h += `<text x="${homeHalfX}" y="${H / 2 - 6}" text-anchor="middle" direction="rtl" font-family="Heebo,Arial" font-size="14" font-weight="600" fill="#8a7f68">הבית של היריב</text>`;
-    h += `<text x="${homeHalfX}" y="${H / 2 + 18}" text-anchor="middle" direction="rtl" font-family="Heebo,Arial" font-size="14" font-weight="800" fill="#4a3bdc">הבית שלכם</text>`;
+    h += `<text x="${homeHalfX}" y="${H / 2 + 18}" text-anchor="middle" direction="rtl" font-family="Heebo,Arial" font-size="14" font-weight="800" fill="#2350d0">הבית שלכם</text>`;
     // checkers on points
     for (let p = 1; p <= 24; p++) {
       const v = s.pts[p]; if (!v) continue;
@@ -2783,9 +2783,17 @@ function openExplain() {
 function closeModal(id) { $('#' + id).classList.remove('on'); }
 
 /* ---------- Sessions ---------- */
-function startSession(cat, lvl) {
+function startSession(cat, lvl, fromStart) {
   const ids = EXERCISES.filter(e => e.c === cat && e.l === lvl).map(e => e.id);
-  SES = { mode: 'cat', cat, lvl, ids, i: 0, res: [] }; X = null;
+  // resume: first exercise not tried yet, else first not solved yet, else from the start
+  let i = 0;
+  if (!fromStart) {
+    const R = id => Store.d.res[id];
+    i = ids.findIndex(id => !R(id));
+    if (i < 0) i = ids.findIndex(id => !R(id).solved);
+    if (i < 0) i = 0;
+  }
+  SES = { mode: 'cat', cat, lvl, ids, i, start: i, res: [] }; X = null;
   go('#/play');
 }
 function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
@@ -2796,9 +2804,9 @@ function startReview() {
   return true;
 }
 function showSummary() {
-  const n = SES.ids.length, c = SES.res.filter(r => r === 'correct').length, nr = SES.res.filter(r => r === 'near').length, w = n - c - nr;
-  const pct = Math.round(c / n * 100), C = 2 * Math.PI * 60;
-  let h = `<div class="score-ring"><svg viewBox="0 0 140 140"><circle cx="70" cy="70" r="60" fill="none" stroke="#e2dcff" stroke-width="14"/><circle cx="70" cy="70" r="60" fill="none" stroke="url(#sg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - c / n)}"/><defs><linearGradient id="sg"><stop offset="0" stop-color="#4a33f2"/><stop offset="1" stop-color="#00a492"/></linearGradient></defs></svg><b>${pct}%</b></div>`;
+  const n = SES.ids.length - (SES.start || 0), c = SES.res.filter(r => r === 'correct').length, nr = SES.res.filter(r => r === 'near').length, w = n - c - nr;
+  const pct = n ? Math.round(c / n * 100) : 0, C = 2 * Math.PI * 60;
+  let h = `<div class="score-ring"><svg viewBox="0 0 140 140"><circle cx="70" cy="70" r="60" fill="none" stroke="#dbe6fb" stroke-width="14"/><circle cx="70" cy="70" r="60" fill="none" stroke="url(#sg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - c / n)}"/><defs><linearGradient id="sg"><stop offset="0" stop-color="#2350d0"/><stop offset="1" stop-color="#00a492"/></linearGradient></defs></svg><b>${pct}%</b></div>`;
   h += `<h2>${pct >= 85 ? 'מצוין!' : pct >= 50 ? 'עבודה טובה' : 'ממשיכים ללמוד'}</h2><p style="color:var(--muted);font-weight:600">${SES.mode === 'review' ? 'סבב חזרה' : catName(SES.cat) + ' · ' + LV[SES.lvl].name}</p>`;
   h += `<div class="sum-split"><span style="background:var(--green-50);color:#076b44">${c} נכון</span><span style="background:var(--amber-50);color:#7a4a00">${nr} כמעט</span><span style="background:var(--rose-50);color:#9a1530">${w} לא</span></div><div class="sum-actions">`;
   if (SES.mode === 'cat' && SES.lvl < 3) h += `<button class="btn btn-primary" data-sum="next">לרמה הבאה: ${LV[SES.lvl + 1].name}</button>`;
@@ -2910,7 +2918,7 @@ function init() {
     if (t.dataset.lvl) { Store.d.lvl = +t.dataset.lvl; Store.save(); return renderPractice(); }
     if (t.dataset.opt) return chooseOpt(+t.dataset.opt);
     if (t.dataset.sum === 'next') return startSession(SES.cat, SES.lvl + 1);
-    if (t.dataset.sum === 'again') return startSession(SES.cat, SES.lvl);
+    if (t.dataset.sum === 'again') return startSession(SES.cat, SES.lvl, true);
     const a = t.dataset.act;
     if (['replay', 'mine', 'retry'].includes(a)) closeModal('expl');
     if (a === 'undo') undo(); else if (a === 'reset') resetEx(); else if (a === 'check') check(); else if (a === 'explain') openExplain();
