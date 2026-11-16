@@ -3,21 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>מהלך – אימון החלטות בשש בש</title>
+<title>Backgammon Solver – אימון שש בש</title>
 <meta name="description" content="120 תרגילי שש בש על לוח אמיתי, עם הסבר לכל מהלך.">
 <meta name="theme-color" content="#3a22dc">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Backgammon">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://nimrodyaroker.github.io/Backgammon-Solver/">
-<meta property="og:title" content="מהלך – אימון שש בש">
+<meta property="og:title" content="Backgammon Solver – אימון שש בש">
 <meta property="og:description" content="120 תרגילי שש בש על לוח אמיתי, עם הסבר לכל מהלך.">
-<meta property="og:image" content="https://nimrodyaroker.github.io/Backgammon-Solver/og-image.jpg">
+<meta property="og:image" content="https://nimrodyaroker.github.io/Backgammon-Solver/og-image-v2.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="he_IL">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="מהלך – אימון שש בש">
+<meta name="twitter:title" content="Backgammon Solver – אימון שש בש">
 <meta name="twitter:description" content="120 תרגילי שש בש על לוח אמיתי, עם הסבר לכל מהלך.">
-<meta name="twitter:image" content="https://nimrodyaroker.github.io/Backgammon-Solver/og-image.jpg">
+<meta name="twitter:image" content="https://nimrodyaroker.github.io/Backgammon-Solver/og-image-v2.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Rubik:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -60,11 +67,11 @@ button{font:inherit;cursor:pointer;color:inherit}
 .ico.v{background:var(--brand-50);color:var(--brand-600)}.ico.t{background:var(--teal-50);color:var(--teal)}.ico.a{background:var(--amber-50);color:var(--amber)}.ico.r{background:var(--rose-50);color:var(--rose)}
 
 /* ===== Header ===== */
-.top{position:fixed;top:0;left:0;right:0;z-index:40;height:var(--hdr);background:linear-gradient(90deg,#3a22dc,#5a43ff 60%,#2a9d93);color:#fff;box-shadow:0 4px 14px -8px rgba(30,15,120,.7)}
+.top{position:fixed;top:0;left:0;right:0;z-index:40;height:calc(var(--hdr) + env(safe-area-inset-top));padding-top:env(safe-area-inset-top);background:linear-gradient(90deg,#3a22dc,#5a43ff 60%,#2a9d93);color:#fff;box-shadow:0 4px 14px -8px rgba(30,15,120,.7)}
 .top .wrap{display:flex;align-items:center;gap:8px;height:100%}
 .wrap{width:100%;max-width:1100px;margin:0 auto;padding:0 14px}
-.logo{display:flex;align-items:center;gap:9px;font-family:var(--font-h);font-weight:800;font-size:1.25rem;color:#fff;background:none;border:0;padding:0}
-.logo-mark{width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,.18);display:grid;place-items:center}
+.logo{display:flex;align-items:center;gap:9px;font-family:var(--font-h);font-weight:800;font-size:1.12rem;color:#fff;white-space:nowrap;background:none;border:0;padding:0}
+.logo-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#3a22dc,#00a492);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35);display:grid;place-items:center}
 .nav{margin-inline-start:auto;display:flex;gap:2px;align-items:center}
 .nav button{background:none;border:0;padding:.45em .6em;border-radius:10px;font-weight:600;color:#fff;display:flex;align-items:center;gap:.4em;font-size:.95rem;min-height:40px;position:relative}
 .nav button.on{background:rgba(255,255,255,.2)}
@@ -74,7 +81,7 @@ button{font:inherit;cursor:pointer;color:inherit}
 @media (min-width:720px){.nav .lbl{display:inline}.badge{position:static}}
 
 /* ===== App shell: every view fits the screen ===== */
-main{position:fixed;top:var(--hdr);left:0;right:0;bottom:0}
+main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top));left:0;right:0;bottom:0}
 .view{display:none;height:100%;animation:fade .3s ease}
 .view.on{display:block}
 .screen{height:100%;display:flex;flex-direction:column;gap:10px;padding:12px 14px calc(12px + env(safe-area-inset-bottom));max-width:1100px;margin:0 auto;overflow-y:auto}
@@ -210,8 +217,8 @@ main{position:fixed;top:var(--hdr);left:0;right:0;bottom:0}
 <header class="top">
   <div class="wrap">
     <button class="logo" data-go="#/" aria-label="דף הבית">
-      <span class="logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="11" height="11" rx="3" fill="#fff"/><circle cx="6.5" cy="6.5" r="1.3" fill="#3a22dc"/><circle cx="10.5" cy="10.5" r="1.3" fill="#3a22dc"/><rect x="11" y="11" width="10" height="10" rx="3" fill="#fff" opacity=".85"/><circle cx="16" cy="16" r="1.3" fill="#00a492"/></svg></span>
-      מהלך
+<span class="logo-mark"><svg width="32" height="32" viewBox="0 0 64 64"><path d="M14 13h16l-8 27z" fill="#fff"/><path d="M34 51h16l-8-27z" fill="#fff"/><circle cx="22" cy="48" r="5" fill="#fff" fill-opacity=".6"/><circle cx="42" cy="16" r="5" fill="#fff" fill-opacity=".6"/></svg></span>
+      <span dir="ltr">Backgammon Solver</span>
     </button>
     <nav class="nav" aria-label="ניווט ראשי">
       <button data-go="#/practice" data-nav="practice" aria-label="תרגול"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span class="lbl">תרגול</span></button>
