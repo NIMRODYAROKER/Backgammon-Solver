@@ -4,430 +4,279 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>מהלך – אימון החלטות בשש בש</title>
-<meta name="description" content="מאמן שש בש אינטראקטיבי בעברית: 72 תרגילים על לוח אמיתי, ארבעה שלבי משחק ושלוש רמות קושי, עם משוב מיידי והסבר מלא לכל מהלך.">
-<meta name="theme-color" content="#5b4cf0">
+<meta name="description" content="120 תרגילי שש בש על לוח אמיתי, עם הסבר לכל מהלך.">
+<meta name="theme-color" content="#3a22dc">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nimrodyaroker.github.io/Backgammon-Solver/">
+<meta property="og:title" content="מהלך – אימון שש בש">
+<meta property="og:description" content="120 תרגילי שש בש על לוח אמיתי, עם הסבר לכל מהלך.">
+<meta property="og:image" content="https://nimrodyaroker.github.io/Backgammon-Solver/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="he_IL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="מהלך – אימון שש בש">
+<meta name="twitter:description" content="120 תרגילי שש בש על לוח אמיתי, עם הסבר לכל מהלך.">
+<meta name="twitter:image" content="https://nimrodyaroker.github.io/Backgammon-Solver/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Rubik:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ===== Design tokens ===== */
 :root{
-  --bg:#f6f7fc; --card:#ffffff; --ink:#131833; --ink-2:#2b3150; --muted:#5d6580; --line:#e5e8f3;
-  --brand:#5b4cf0; --brand-600:#4a3bdc; --brand-50:#efedff; --brand-100:#e1ddff;
-  --teal:#0ea89a; --teal-50:#e3f7f4; --amber:#d98a06; --amber-50:#fff4dc; --rose:#e0445c; --rose-50:#ffe8ec; --green:#13a26b; --green-50:#e2f7ee;
-  --shadow-sm:0 1px 2px rgba(19,24,51,.06),0 1px 3px rgba(19,24,51,.05);
-  --shadow:0 10px 30px -12px rgba(40,35,120,.25),0 4px 10px -6px rgba(19,24,51,.08);
-  --r:16px; --r-lg:24px;
+  --bg:#ddd7ff; --bg2:#c9efe8; --card:#f3f1ff; --card-2:#e9e5ff; --ink:#120f3a; --ink-2:#2a2660; --muted:#5a5687; --line:#c9c1fb;
+  --brand:#4a33f2; --brand-600:#3a22dc; --brand-50:#e2dcff; --brand-100:#d2caff;
+  --teal:#00a492; --teal-50:#c9f0ea; --amber:#d27a00; --amber-50:#ffe7bd; --rose:#e12c50; --rose-50:#ffd6de; --green:#0b9b62; --green-50:#c8f1df;
+  --shadow-sm:0 1px 2px rgba(18,15,58,.08),0 2px 6px rgba(18,15,58,.06);
+  --shadow:0 12px 30px -14px rgba(48,30,170,.45),0 4px 10px -6px rgba(18,15,58,.12);
+  --r:14px; --r-lg:20px; --hdr:54px;
   --font:'Heebo',system-ui,-apple-system,'Segoe UI',Arial,sans-serif; --font-h:'Rubik','Heebo',system-ui,sans-serif;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;overflow-x:hidden;font-family:var(--font);color:var(--ink);background:var(--bg);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4{font-family:var(--font-h);line-height:1.2;margin:0 0 .5em;letter-spacing:-.01em}
-p{margin:0 0 1em}
-a{color:var(--brand);text-decoration:none}
+html,body{height:100%}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;overflow:hidden;font-family:var(--font);color:var(--ink);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;
+  background:radial-gradient(70% 50% at 100% 0%,#cfc6ff 0%,transparent 70%),radial-gradient(60% 50% at 0% 100%,var(--bg2) 0%,transparent 70%),var(--bg)}
+h1,h2,h3{font-family:var(--font-h);line-height:1.2;margin:0;letter-spacing:-.01em}
+p{margin:0}
 button{font:inherit;cursor:pointer;color:inherit}
-:focus-visible{outline:3px solid #8f84ff;outline-offset:2px;border-radius:8px}
-.wrap{width:100%;max-width:1160px;margin:0 auto;padding:0 18px}
+:focus-visible{outline:3px solid #7a68ff;outline-offset:2px;border-radius:8px}
 .ltr{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+[hidden]{display:none!important}
 
 /* ===== Buttons ===== */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;border:0;border-radius:12px;padding:.8em 1.3em;font-weight:600;font-size:1rem;transition:transform .15s ease,box-shadow .2s ease,background .2s ease;white-space:nowrap;min-height:46px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.45em;border:0;border-radius:12px;padding:.7em 1.1em;font-weight:700;font-size:1rem;transition:transform .15s ease,box-shadow .2s ease,background .2s ease;white-space:nowrap;min-height:46px}
 .btn:active{transform:translateY(1px) scale(.99)}
-.btn-primary{background:linear-gradient(135deg,#6a5cff,#4f3fe6);color:#fff;box-shadow:0 8px 20px -8px rgba(79,63,230,.7)}
-.btn-primary:hover{box-shadow:0 12px 26px -8px rgba(79,63,230,.8);transform:translateY(-1px)}
-.btn-lg{padding:1em 1.7em;font-size:1.08rem;border-radius:14px;min-height:54px}
-.btn-ghost{background:#fff;color:var(--ink-2);border:1px solid var(--line);box-shadow:var(--shadow-sm)}
-.btn-ghost:hover{border-color:#cfd3ea;background:#fbfbff}
+.btn-primary{background:linear-gradient(135deg,#5a43ff,#3a22dc);color:#fff;box-shadow:0 8px 18px -8px rgba(58,34,220,.8)}
+.btn-lg{padding:.9em 1.6em;font-size:1.08rem;border-radius:14px;min-height:54px}
+.btn-ghost{background:var(--card);color:var(--ink-2);border:1.5px solid var(--line)}
 .btn-soft{background:var(--brand-50);color:var(--brand-600)}
-.btn-soft:hover{background:var(--brand-100)}
-.btn-teal{background:var(--teal);color:#fff}
-.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.btn[disabled]{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
 .btn svg{width:1.15em;height:1.15em;flex:none}
-.chip{display:inline-flex;align-items:center;gap:.4em;padding:.3em .75em;border-radius:99px;background:var(--brand-50);color:var(--brand-600);font-weight:600;font-size:.82rem}
+.chip{display:inline-flex;align-items:center;gap:.4em;padding:.28em .7em;border-radius:99px;background:var(--brand-600);color:#fff;font-weight:700;font-size:.8rem;white-space:nowrap}
+.ico{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:none}
+.ico svg{width:22px;height:22px}
+.ico.v{background:var(--brand-50);color:var(--brand-600)}.ico.t{background:var(--teal-50);color:var(--teal)}.ico.a{background:var(--amber-50);color:var(--amber)}.ico.r{background:var(--rose-50);color:var(--rose)}
 
 /* ===== Header ===== */
-.top{position:sticky;top:0;z-index:40;background:rgba(246,247,252,.82);backdrop-filter:saturate(1.6) blur(12px);-webkit-backdrop-filter:saturate(1.6) blur(12px);border-bottom:1px solid rgba(229,232,243,.8)}
-.top .wrap{display:flex;align-items:center;gap:10px;height:62px}
-.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-h);font-weight:800;font-size:1.3rem;color:var(--ink);background:none;border:0;padding:0}
-.logo small{display:none;font-family:var(--font);font-weight:500;font-size:.8rem;color:var(--muted)}
-.logo-mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#6a5cff,#12b8a6);display:grid;place-items:center;box-shadow:0 6px 14px -6px rgba(91,76,240,.8)}
-.nav{margin-inline-start:auto;display:flex;gap:4px;align-items:center}
-.nav button{background:none;border:0;padding:.5em .7em;border-radius:10px;font-weight:600;color:var(--ink-2);display:flex;align-items:center;gap:.4em;font-size:.95rem;min-height:40px}
-.nav button:hover{background:#fff}
-.nav button.on{background:#fff;color:var(--brand-600);box-shadow:var(--shadow-sm)}
-.nav svg{width:18px;height:18px}
+.top{position:fixed;top:0;left:0;right:0;z-index:40;height:var(--hdr);background:linear-gradient(90deg,#3a22dc,#5a43ff 60%,#2a9d93);color:#fff;box-shadow:0 4px 14px -8px rgba(30,15,120,.7)}
+.top .wrap{display:flex;align-items:center;gap:8px;height:100%}
+.wrap{width:100%;max-width:1100px;margin:0 auto;padding:0 14px}
+.logo{display:flex;align-items:center;gap:9px;font-family:var(--font-h);font-weight:800;font-size:1.25rem;color:#fff;background:none;border:0;padding:0}
+.logo-mark{width:32px;height:32px;border-radius:10px;background:rgba(255,255,255,.18);display:grid;place-items:center}
+.nav{margin-inline-start:auto;display:flex;gap:2px;align-items:center}
+.nav button{background:none;border:0;padding:.45em .6em;border-radius:10px;font-weight:600;color:#fff;display:flex;align-items:center;gap:.4em;font-size:.95rem;min-height:40px;position:relative}
+.nav button.on{background:rgba(255,255,255,.2)}
+.nav svg{width:20px;height:20px}
 .nav .lbl{display:none}
-[hidden]{display:none!important}
-.badge{min-width:20px;height:20px;padding:0 6px;border-radius:99px;background:var(--rose);color:#fff;font-size:.72rem;display:inline-grid;place-items:center;font-weight:700}
-@media (min-width:720px){.nav .lbl{display:inline}.logo small{display:inline}}
+.badge{min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:#ff3d63;color:#fff;font-size:.7rem;display:inline-grid;place-items:center;font-weight:700;position:absolute;top:2px;inset-inline-end:0}
+@media (min-width:720px){.nav .lbl{display:inline}.badge{position:static}}
 
-/* ===== Views ===== */
-.view{display:none;animation:fade .35s ease}
+/* ===== App shell: every view fits the screen ===== */
+main{position:fixed;top:var(--hdr);left:0;right:0;bottom:0}
+.view{display:none;height:100%;animation:fade .3s ease}
 .view.on{display:block}
-@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
-.reveal.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+.screen{height:100%;display:flex;flex-direction:column;gap:10px;padding:12px 14px calc(12px + env(safe-area-inset-bottom));max-width:1100px;margin:0 auto;overflow-y:auto}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 /* ===== Landing ===== */
-.hero{position:relative;overflow:hidden;padding:42px 0 56px}
-.hero::before{content:"";position:absolute;inset:-20% -10% auto -10%;height:900px;z-index:-1;
-  background:radial-gradient(40% 45% at 85% 20%,rgba(123,108,255,.28),transparent 70%),radial-gradient(35% 40% at 10% 30%,rgba(18,184,166,.22),transparent 70%),radial-gradient(45% 40% at 50% 85%,rgba(255,170,200,.22),transparent 70%),linear-gradient(180deg,#f3f1ff 0%,#f6f7fc 100%)}
-.hero-grid{display:grid;gap:36px;align-items:center}
-.hero h1{font-size:clamp(2rem,6.5vw,3.4rem);font-weight:800;margin:.35em 0 .4em}
-.grad{background:linear-gradient(90deg,#5b4cf0,#0ea89a);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero .lead{font-size:clamp(1.02rem,2.6vw,1.2rem);color:var(--ink-2);max-width:36em}
-.hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 14px}
-.trust{display:flex;flex-wrap:wrap;gap:6px 16px;color:var(--muted);font-size:.9rem}
-.trust span{display:inline-flex;align-items:center;gap:6px}
-.trust svg{width:16px;height:16px;color:var(--teal)}
-.stats-row{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
-.stat-pill{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 14px;box-shadow:var(--shadow-sm)}
-.stat-pill b{display:block;font-family:var(--font-h);font-size:1.35rem;color:var(--brand-600);line-height:1.1}
-.stat-pill span{font-size:.82rem;color:var(--muted)}
-.preview{background:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.9);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:14px;backdrop-filter:blur(8px)}
-.preview-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;font-size:.88rem;color:var(--muted)}
-.dots{display:flex;gap:6px}.dots i{width:10px;height:10px;border-radius:50%;background:#e2e4f0;display:block}
-.preview-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;flex-wrap:wrap}
-.toast-ok{display:inline-flex;align-items:center;gap:8px;background:var(--green-50);color:#0b7a50;padding:.45em .8em;border-radius:10px;font-weight:600;font-size:.9rem;opacity:0;transform:translateY(4px);transition:.35s}
-.toast-ok.show{opacity:1;transform:none}
-@media (min-width:960px){.hero{padding:70px 0 80px}.hero-grid{grid-template-columns:1fr 1.05fr}}
-
-.section{padding:56px 0}
-.section-head{text-align:center;max-width:680px;margin:0 auto 34px}
-.section-head h2{font-size:clamp(1.6rem,4.4vw,2.3rem);font-weight:800}
-.section-head p{color:var(--muted);font-size:1.05rem}
-.eyebrow{display:inline-block;font-weight:700;color:var(--brand-600);font-size:.85rem;letter-spacing:.02em;margin-bottom:8px}
-.grid{display:grid;gap:16px}
-@media (min-width:640px){.g2{grid-template-columns:repeat(2,1fr)}}
-@media (min-width:960px){.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}}
-@media (min-width:640px) and (max-width:959px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(2,1fr)}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:var(--shadow-sm);transition:transform .25s ease,box-shadow .25s ease,border-color .25s}
-.card.hov:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:#d9dcf0}
-.card h3{font-size:1.15rem;margin-bottom:.35em}
-.card p{color:var(--muted);margin:0;font-size:.97rem}
-.ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;margin-bottom:14px}
-.ico svg{width:24px;height:24px}
-.ico.v{background:var(--brand-50);color:var(--brand-600)}.ico.t{background:var(--teal-50);color:var(--teal)}.ico.a{background:var(--amber-50);color:var(--amber)}.ico.r{background:var(--rose-50);color:var(--rose)}
-.lvl-card .lvl-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.bars{display:flex;gap:3px;align-items:flex-end;height:22px}
-.bars i{width:6px;border-radius:2px;background:#dfe2f1;display:block}
-.bars i:nth-child(1){height:8px}.bars i:nth-child(2){height:14px}.bars i:nth-child(3){height:20px}
-.bars.l1 i:nth-child(-n+1),.bars.l2 i:nth-child(-n+2),.bars.l3 i:nth-child(-n+3){background:var(--brand)}
-.explain-demo{display:grid;gap:20px;align-items:center}
-@media (min-width:900px){.explain-demo{grid-template-columns:1fr 1fr}}
-.check-list{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:12px}
-.check-list li{display:flex;gap:10px;align-items:flex-start}
-.check-list svg{flex:none;width:22px;height:22px;color:var(--teal);margin-top:2px}
-.mock-exp{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:20px;box-shadow:var(--shadow)}
-.steps{counter-reset:s}
-.step-card{position:relative;padding-top:26px}
-.step-num{position:absolute;top:-16px;inset-inline-start:22px;width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#6a5cff,#12b8a6);color:#fff;font-weight:800;display:grid;place-items:center;font-family:var(--font-h);box-shadow:0 8px 16px -8px rgba(91,76,240,.8)}
-.cta-band{margin:20px 0 60px;border-radius:28px;padding:42px 24px;text-align:center;color:#fff;background:radial-gradient(60% 120% at 90% 0%,rgba(18,184,166,.55),transparent 60%),linear-gradient(135deg,#4c3de0,#6d5cff 55%,#7d6bff);box-shadow:var(--shadow)}
-.cta-band h2{font-size:clamp(1.5rem,4vw,2.2rem)}
-.cta-band p{opacity:.9}
-.cta-band .btn{background:#fff;color:var(--brand-600)}
-footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--muted);font-size:.9rem;text-align:center}
+.hero{justify-content:center;align-items:center;text-align:center;gap:14px}
+.hero h1{font-size:clamp(1.9rem,8vw,3.2rem);font-weight:800}
+.grad{background:linear-gradient(90deg,#3a22dc,#00a492);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lead{font-size:1.05rem;color:var(--ink-2);font-weight:500}
+.preview{width:100%;max-width:560px;flex:0 1 auto;min-height:0;background:var(--card);border:1.5px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:8px;position:relative}
+.preview svg{display:block;width:100%;height:auto;max-height:42vh}
+.toast-ok{position:absolute;bottom:14px;left:50%;transform:translate(-50%,6px);display:inline-flex;align-items:center;gap:6px;background:var(--green);color:#fff;padding:.35em .8em;border-radius:10px;font-weight:700;font-size:.88rem;opacity:0;transition:.35s;white-space:nowrap}
+.toast-ok.show{opacity:1;transform:translate(-50%,0)}
 
 /* ===== Practice selection ===== */
-.page{padding:26px 0 60px}
-.page-title{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
-.page-title h1{font-size:clamp(1.6rem,4.5vw,2.1rem);margin:0}
-.page-title p{margin:4px 0 0;color:var(--muted)}
-.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
-@media (min-width:800px){.kpis{grid-template-columns:repeat(4,1fr)}}
-.kpi{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;gap:12px;align-items:center;box-shadow:var(--shadow-sm)}
-.kpi .ico{margin:0;width:42px;height:42px;flex:none}
-.kpi b{font-family:var(--font-h);font-size:1.4rem;display:block;line-height:1.1}
-.kpi span{color:var(--muted);font-size:.85rem}
-.kpi.clickable{cursor:pointer;text-align:start;font:inherit;color:inherit}
-.kpi.clickable:hover{border-color:#d4d0ff}
-.reco{display:flex;gap:14px;align-items:center;flex-wrap:wrap;background:linear-gradient(135deg,#f1efff,#e8f8f5);border:1px solid #dcd8ff;border-radius:var(--r);padding:16px 18px;margin-bottom:22px}
-.reco .ico{margin:0;background:#fff}
-.reco div{flex:1;min-width:200px}
-.reco b{display:block;font-family:var(--font-h)}
-.reco span{color:var(--ink-2);font-size:.95rem}
-.seg{display:inline-flex;background:#eceefa;border-radius:14px;padding:4px;gap:4px}
-.seg button{border:0;background:none;padding:.55em 1em;border-radius:10px;font-weight:600;color:var(--ink-2);display:flex;gap:8px;align-items:center;min-height:42px}
-.seg button.on{background:#fff;color:var(--brand-600);box-shadow:var(--shadow-sm)}
-.cat-card{display:flex;flex-direction:column;gap:12px}
-.cat-card .ico{margin:0}
-.cat-head{display:flex;gap:12px;align-items:center}
-.cat-head h3{margin:0}
-.progress{height:8px;background:#eceefa;border-radius:99px;overflow:hidden}
-.progress i{display:block;height:100%;background:linear-gradient(90deg,#6a5cff,#12b8a6);border-radius:99px;transition:width .6s ease}
-.cat-meta{display:flex;justify-content:space-between;font-size:.88rem;color:var(--muted);gap:8px}
-.cat-meta b{color:var(--ink)}
-.lvl-dots{display:flex;gap:6px}
-.lvl-dots span{flex:1;font-size:.75rem;text-align:center;color:var(--muted);background:#f3f4fb;border-radius:8px;padding:4px 0}
-.lvl-dots span.done{background:var(--green-50);color:#0b7a50;font-weight:600}
-.cat-card .btn{margin-top:auto}
+.seg{display:flex;background:var(--card-2);border-radius:14px;padding:4px;gap:4px;border:1.5px solid var(--line)}
+.seg button{flex:1;border:0;background:none;padding:.5em .4em;border-radius:10px;font-weight:700;color:var(--ink-2);display:flex;gap:7px;align-items:center;justify-content:center;min-height:42px}
+.seg button.on{background:var(--brand-600);color:#fff;box-shadow:var(--shadow-sm)}
+.bars{display:flex;gap:2px;align-items:flex-end;height:16px}
+.bars i{width:4px;border-radius:2px;background:currentColor;opacity:.3;display:block}
+.bars i:nth-child(1){height:6px}.bars i:nth-child(2){height:11px}.bars i:nth-child(3){height:16px}
+.bars.l1 i:nth-child(-n+1),.bars.l2 i:nth-child(-n+2),.bars.l3 i:nth-child(-n+3){opacity:1}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kpi{background:var(--card);border:1.5px solid var(--line);border-radius:var(--r);padding:8px 6px;text-align:center}
+.kpi b{font-family:var(--font-h);font-size:1.3rem;display:block;line-height:1.1;color:var(--brand-600)}
+.kpi span{color:var(--muted);font-size:.78rem;font-weight:600}
+.reco{display:flex;gap:10px;align-items:center;background:linear-gradient(135deg,#3a22dc,#2a9d93);color:#fff;border:0;border-radius:var(--r);padding:10px 12px;text-align:start;box-shadow:var(--shadow);width:100%}
+.reco .ico{background:rgba(255,255,255,.2);color:#fff}
+.reco div{flex:1;min-width:0}
+.reco small{display:block;opacity:.85;font-size:.78rem;font-weight:600}
+.reco b{font-family:var(--font-h);font-size:1rem}
+.reco > svg{width:20px;height:20px;flex:none}
+.cats{display:grid;gap:8px}
+@media (min-width:800px){.cats{grid-template-columns:1fr 1fr}}
+.cat{display:flex;gap:12px;align-items:center;background:var(--card);border:1.5px solid var(--line);border-radius:var(--r);padding:10px 12px;text-align:start;width:100%;box-shadow:var(--shadow-sm);transition:border-color .2s,transform .2s}
+.cat:active{transform:scale(.99)}.cat:hover{border-color:#a99bff}
+.cat div{flex:1;min-width:0}
+.cat h3{font-size:1.02rem;display:flex;justify-content:space-between;gap:8px}
+.cat h3 span{font-family:var(--font);font-size:.85rem;color:var(--muted);font-weight:700}
+.cat.done h3 span{color:var(--green)}
+.progress{height:7px;background:var(--card-2);border-radius:99px;overflow:hidden;margin-top:6px}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,#4a33f2,#00a492);border-radius:99px;transition:width .6s ease}
+.cat > svg{width:18px;height:18px;color:var(--muted);flex:none}
+.allDone{background:var(--green-50);color:#076b44;border-radius:var(--r);padding:10px 12px;font-weight:700;text-align:center}
 
 /* ===== Exercise screen ===== */
-.ex-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
-.ex-top .back{background:#fff;border:1px solid var(--line);border-radius:10px;width:40px;height:40px;display:grid;place-items:center}
-.ex-top .back svg{width:20px;height:20px}
-.ex-progress{flex:1;min-width:120px}
-.ex-progress small{color:var(--muted);font-weight:600;display:block;margin-bottom:4px}
-.ex-layout{display:grid;gap:16px;grid-template-areas:"task" "board" "panel"}
-.ex-task{grid-area:task}.ex-board{grid-area:board}.ex-panel{grid-area:panel}
-@media (min-width:980px){.ex-layout{grid-template-columns:minmax(330px,390px) 1fr;grid-template-areas:"task board" "panel board";align-items:start}.ex-board{position:sticky;top:78px}}
-.task-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow-sm)}
-.task-card h2{font-size:1.15rem;margin-bottom:6px}
-.task-card p{margin:0;color:var(--ink-2)}
-.task-ctx{margin-top:8px!important;font-size:.93rem;color:var(--muted)!important}
-.legend{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-.leg{display:flex;gap:8px;align-items:center;background:#f6f7fc;border-radius:12px;padding:8px 10px;font-size:.86rem}
-.leg i{width:22px;height:22px;border-radius:50%;flex:none;display:block}
-.leg i.w{background:radial-gradient(circle at 35% 30%,#fff,#e9e6dc);border:2px solid #8b8fa3}
-.leg i.b{background:radial-gradient(circle at 35% 30%,#4b5175,#171b31);border:2px solid #6b7196}
-.leg b{display:block;font-size:.88rem}
-.leg span{color:var(--muted);font-size:.78rem;line-height:1.3;display:block}
-.board-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:10px;box-shadow:var(--shadow)}
-.board-card svg{display:block;width:100%;height:auto;touch-action:none;user-select:none;-webkit-user-select:none}
-.board-tools{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 4px 2px;flex-wrap:wrap;font-size:.86rem;color:var(--muted)}
-.pip{display:flex;gap:12px}
+.play{gap:8px}
+.ex-top{display:flex;align-items:center;gap:8px}
+.iconbtn{background:var(--card);border:1.5px solid var(--line);border-radius:10px;width:40px;height:40px;display:grid;place-items:center;flex:none;padding:0}
+.iconbtn svg{width:20px;height:20px}
+.ex-progress{flex:1;min-width:60px}
+.ex-progress .progress{margin:0}
+.ex-count{font-weight:700;font-size:.85rem;color:var(--muted);white-space:nowrap}
+.task{font-family:var(--font-h);font-size:1.08rem;font-weight:700}
+.task small{display:block;font-family:var(--font);font-weight:500;font-size:.88rem;color:var(--muted);margin-top:2px}
+.ex-main{flex:1;min-height:0;display:flex;flex-direction:column;gap:8px}
+.board-card{flex:0 1 auto;min-height:0;display:flex;flex-direction:column;align-items:center;background:var(--card);border:1.5px solid var(--line);border-radius:var(--r-lg);padding:6px;box-shadow:var(--shadow)}
+.board-card svg{display:block;width:100%;height:auto;aspect-ratio:814/608;max-height:calc(100dvh - var(--hdr) - 250px);min-height:0;touch-action:none;user-select:none;-webkit-user-select:none}
+.pip{display:flex;justify-content:center;gap:12px;font-size:.8rem;color:var(--muted);font-weight:600;padding-top:4px}
 .pip b{color:var(--ink);font-variant-numeric:tabular-nums}
-.linkbtn{background:none;border:0;color:var(--brand-600);font-weight:600;padding:6px 4px;display:inline-flex;align-items:center;gap:6px;min-height:36px}
-.linkbtn svg{width:16px;height:16px}
-.panel-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow-sm)}
-.hint{display:flex;gap:8px;align-items:flex-start;color:var(--muted);font-size:.9rem;margin-bottom:12px}
-.hint svg{width:18px;height:18px;flex:none;margin-top:3px;color:var(--brand)}
-.moves-line{min-height:28px;margin-bottom:12px;font-size:.95rem}
-.moves-line .ltr{background:#f3f4fb;border-radius:8px;padding:2px 8px;font-weight:600}
-.actions{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:8px}
-.actions .btn{padding:.7em .6em}
-.opts{display:grid;gap:10px}
-.opt{border:2px solid var(--line);background:#fff;border-radius:14px;padding:14px 16px;text-align:start;font-weight:600;transition:.2s;min-height:52px}
-.opt:hover{border-color:#bfb7ff;background:#faf9ff}
+.panel{flex:none;margin-top:auto}
+.moves-line{min-height:24px;margin-bottom:8px;font-size:.92rem;text-align:center;color:var(--muted)}
+.moves-line .ltr{background:var(--card-2);color:var(--ink);border-radius:8px;padding:1px 8px;font-weight:700}
+.actions{display:grid;grid-template-columns:1fr 2fr;gap:8px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opt{border:2px solid var(--line);background:var(--card);border-radius:14px;padding:10px 12px;font-weight:700;min-height:52px}
+.opt:hover{border-color:#a99bff}
 .opt.right{border-color:var(--green);background:var(--green-50)}
 .opt.wrong{border-color:var(--rose);background:var(--rose-50)}
 .opt[disabled]{cursor:default}
-
-/* feedback + explanation */
-.fb{margin-top:14px;border-radius:14px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;animation:pop .35s ease}
+@media (min-width:900px){
+  .ex-main{flex-direction:row;align-items:flex-start}
+  .board-card{flex:1}
+  .board-card svg{max-height:calc(100dvh - var(--hdr) - 150px)}
+  .panel{width:340px;display:flex;flex-direction:column;justify-content:flex-end;margin-top:0}
+}
+/* feedback */
+.fb{border-radius:14px;padding:10px 12px;display:flex;gap:10px;align-items:center;margin-bottom:8px;animation:pop .3s ease}
 @keyframes pop{from{transform:scale(.97);opacity:0}to{transform:none;opacity:1}}
-.fb .ico{margin:0;width:40px;height:40px;flex:none;background:#fff}
-.fb b{font-family:var(--font-h);font-size:1.12rem;display:block}
-.fb p{margin:2px 0 0;font-size:.95rem}
-.fb.correct{background:var(--green-50);color:#0b6a46}.fb.correct .ico{color:var(--green)}
-.fb.near{background:var(--amber-50);color:#8a5600}.fb.near .ico{color:var(--amber)}
-.fb.wrong{background:var(--rose-50);color:#a3243a}.fb.wrong .ico{color:var(--rose)}
-.exp{margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
-.exp h3{font-size:1.12rem;margin-bottom:4px}
-.principle{display:flex;gap:10px;background:var(--brand-50);color:#3b2fb8;border-radius:12px;padding:10px 12px;font-weight:600;font-size:.95rem;margin:10px 0}
-.principle svg{width:20px;height:20px;flex:none;margin-top:2px}
-.exp p{color:var(--ink-2)}
-.alts{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:8px}
-.alts li{border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:.93rem}
-.alts .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:3px}
-.tag{font-size:.74rem;font-weight:700;border-radius:99px;padding:.15em .6em}
-.tag.best{background:var(--green-50);color:#0b7a50}.tag.near{background:var(--amber-50);color:#8a5600}.tag.bad{background:var(--rose-50);color:#a3243a}.tag.you{background:#eef0fb;color:var(--ink-2)}
-.metric{margin-inline-start:auto;font-size:.8rem;color:var(--muted)}
-.alts p{margin:0;color:var(--muted)}
-.exp-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.exp-actions .btn{flex:1;min-width:140px}
-.term{background:none;border:0;padding:0;color:inherit;border-bottom:2px dotted #a79dff;cursor:help;font:inherit}
+.fb .ico{width:36px;height:36px;background:rgba(255,255,255,.6)}
+.fb b{font-family:var(--font-h);font-size:1.05rem;display:block}
+.fb p{font-size:.9rem;font-weight:600}
+.fb.correct{background:var(--green-50);color:#065c3a}.fb.correct .ico{color:var(--green)}
+.fb.near{background:var(--amber-50);color:#7a4a00}.fb.near .ico{color:var(--amber)}
+.fb.wrong{background:var(--rose-50);color:#9a1530}.fb.wrong .ico{color:var(--rose)}
+.after{display:grid;grid-template-columns:1fr 2fr;gap:8px}
+
+/* explanation sheet + glossary */
+.modal{position:fixed;inset:0;z-index:80;display:none;align-items:flex-end;justify-content:center;background:rgba(18,15,58,.5);backdrop-filter:blur(3px)}
+.modal.on{display:flex;animation:fade .2s}
+.sheet{background:var(--card);width:100%;max-width:620px;max-height:86vh;border-radius:22px 22px 0 0;display:flex;flex-direction:column;box-shadow:var(--shadow)}
+@media (min-width:700px){.modal{align-items:center}.sheet{border-radius:22px}}
+.sheet-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1.5px solid var(--line)}
+.sheet-head h2{font-size:1.15rem;flex:1}
+.x{background:var(--card-2);border:0;border-radius:10px;width:38px;height:38px;display:grid;place-items:center}
+.x svg{width:18px;height:18px}
+.sheet-body{overflow:auto;padding:12px 16px 20px}
+.principle{display:flex;gap:8px;background:var(--brand-50);color:#2b18b0;border-radius:12px;padding:9px 11px;font-weight:700;font-size:.93rem;margin-bottom:10px}
+.principle svg{width:19px;height:19px;flex:none;margin-top:2px}
+.why{color:var(--ink-2);margin-bottom:10px}
+.alts{list-style:none;padding:0;margin:0;display:grid;gap:7px}
+.alts li{border:1.5px solid var(--line);border-radius:12px;padding:8px 10px;font-size:.9rem;background:#fbfaff}
+.alts .row{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.alts p{margin-top:3px;color:var(--muted)}
+.tag{font-size:.72rem;font-weight:700;border-radius:99px;padding:.15em .6em}
+.tag.best{background:var(--green-50);color:#076b44}.tag.near{background:var(--amber-50);color:#7a4a00}.tag.bad{background:var(--rose-50);color:#9a1530}.tag.you{background:var(--card-2);color:var(--ink-2)}
+.metric{margin-inline-start:auto;font-size:.78rem;color:var(--muted)}
+.sheet-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.sheet-actions .btn{flex:1;min-width:120px}
+.term{background:none;border:0;padding:0;color:inherit;border-bottom:2px dotted #8f7dff;cursor:help;font:inherit}
+.gsearch{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:.65em 1em;font:inherit;margin-bottom:8px;background:#fbfaff}
+.gitem{padding:10px 0;border-bottom:1px solid var(--line)}
+.gitem:last-child{border:0}
+.gitem b{font-family:var(--font-h);color:var(--brand-600)}
+.gitem small{color:var(--muted);margin-right:8px}
+.gitem p{color:var(--ink-2)}
+.gitem.flash{background:var(--brand-50);border-radius:10px;padding-inline:10px}
 
 /* summary */
-.sum-card{max-width:620px;margin:20px auto;text-align:center;padding:30px 22px}
-.score-ring{width:140px;height:140px;margin:0 auto 14px;position:relative}
+.sum{justify-content:center;align-items:center;text-align:center}
+.sum-card{width:100%;max-width:440px;background:var(--card);border:1.5px solid var(--line);border-radius:var(--r-lg);padding:22px 18px;box-shadow:var(--shadow)}
+.score-ring{width:120px;height:120px;margin:0 auto 12px;position:relative}
 .score-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
-.score-ring b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--font-h);font-size:2rem}
-.sum-split{display:flex;justify-content:center;gap:10px;margin:14px 0 20px;flex-wrap:wrap}
-.sum-split span{padding:.4em .8em;border-radius:10px;font-weight:600;font-size:.9rem}
-.sum-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.empty{text-align:center;padding:40px 20px}
-
-/* glossary modal */
-.modal{position:fixed;inset:0;z-index:80;display:none;align-items:flex-end;justify-content:center;background:rgba(19,24,51,.45);backdrop-filter:blur(3px)}
-.modal.on{display:flex;animation:fade .2s}
-.sheet{background:#fff;width:100%;max-width:640px;max-height:86vh;border-radius:22px 22px 0 0;display:flex;flex-direction:column;box-shadow:var(--shadow)}
-@media (min-width:700px){.modal{align-items:center}.sheet{border-radius:22px}}
-.sheet-head{display:flex;align-items:center;gap:10px;padding:16px 18px;border-bottom:1px solid var(--line)}
-.sheet-head h2{margin:0;font-size:1.25rem;flex:1}
-.x{background:#f3f4fb;border:0;border-radius:10px;width:38px;height:38px;display:grid;place-items:center}
-.x svg{width:18px;height:18px}
-.sheet-body{overflow:auto;padding:12px 18px 22px}
-.gsearch{width:100%;border:1px solid var(--line);border-radius:12px;padding:.7em 1em;font:inherit;margin-bottom:10px;background:#f8f9fd}
-.gitem{padding:12px 0;border-bottom:1px solid var(--line)}
-.gitem:last-child{border:0}
-.gitem b{font-family:var(--font-h);color:var(--brand-600);font-size:1.05rem}
-.gitem small{color:var(--muted);margin-right:8px}
-.gitem p{margin:2px 0 0;color:var(--ink-2)}
-.gitem.flash{background:var(--brand-50);border-radius:10px;padding-inline:10px}
+.score-ring b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--font-h);font-size:1.8rem}
+.sum-split{display:flex;justify-content:center;gap:8px;margin:12px 0 16px;flex-wrap:wrap}
+.sum-split span{padding:.35em .7em;border-radius:10px;font-weight:700;font-size:.88rem}
+.sum-actions{display:grid;gap:8px}
 </style>
 </head>
 <body>
-<!-- ===== Header ===== -->
 <header class="top">
   <div class="wrap">
     <button class="logo" data-go="#/" aria-label="דף הבית">
-      <span class="logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="11" height="11" rx="3" fill="#fff"/><circle cx="6.5" cy="6.5" r="1.3" fill="#5b4cf0"/><circle cx="10.5" cy="10.5" r="1.3" fill="#5b4cf0"/><rect x="11" y="11" width="10" height="10" rx="3" fill="#fff" opacity=".85"/><circle cx="16" cy="16" r="1.3" fill="#0ea89a"/></svg></span>
-      מהלך <small>אימון החלטות בשש בש</small>
+      <span class="logo-mark"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="11" height="11" rx="3" fill="#fff"/><circle cx="6.5" cy="6.5" r="1.3" fill="#3a22dc"/><circle cx="10.5" cy="10.5" r="1.3" fill="#3a22dc"/><rect x="11" y="11" width="10" height="10" rx="3" fill="#fff" opacity=".85"/><circle cx="16" cy="16" r="1.3" fill="#00a492"/></svg></span>
+      מהלך
     </button>
     <nav class="nav" aria-label="ניווט ראשי">
-      <button data-go="#/practice" data-nav="practice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span class="lbl">תרגול</span><span class="sr">תרגול</span></button>
-      <button data-go="#/review" data-nav="review"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg><span class="lbl">טעויות</span><span class="sr">חזרה על טעויות</span><span class="badge" id="missBadge" hidden>0</span></button>
-      <button data-glossary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg><span class="lbl">מילון</span><span class="sr">מילון מושגים</span></button>
+      <button data-go="#/practice" data-nav="practice" aria-label="תרגול"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span class="lbl">תרגול</span></button>
+      <button data-go="#/review" data-nav="review" aria-label="חזרה על טעויות"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg><span class="lbl">טעויות</span><span class="badge" id="missBadge" hidden>0</span></button>
+      <button data-glossary aria-label="מילון מושגים"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg><span class="lbl">מילון</span></button>
     </nav>
   </div>
 </header>
 
 <main>
-<!-- ===== Landing ===== -->
 <section class="view" id="v-home">
-  <div class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <span class="chip"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg> 72 תרגילים עם הסבר מלא</span>
-        <h1>תפסיקו לנחש.<br><span class="grad">תתחילו להבין את המהלך.</span></h1>
-        <p class="lead">מאמן שש בש אינטראקטיבי למתחילים ולשחקנים בינוניים. מזיזים חיילים על לוח אמיתי, מקבלים משוב מיידי, ומבינים בדיוק למה המהלך הנכון הוא הנכון.</p>
-        <div class="hero-cta">
-          <button class="btn btn-primary btn-lg" data-go="#/practice">התחילו לתרגל בחינם
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-          <button class="btn btn-ghost btn-lg" data-scroll="#how">איך זה עובד?</button>
-        </div>
-        <div class="trust">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>בלי הרשמה</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>ההתקדמות נשמרת בדפדפן</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg>מותאם לטלפון</span>
-        </div>
-        <div class="stats-row">
-          <div class="stat-pill"><b>72</b><span>תרגילים</span></div>
-          <div class="stat-pill"><b>4</b><span>שלבי משחק</span></div>
-          <div class="stat-pill"><b>3</b><span>רמות קושי</span></div>
-        </div>
-      </div>
-      <div class="preview" aria-label="תצוגה מקדימה של לוח תרגול">
-        <div class="preview-bar"><div class="dots"><i></i><i></i><i></i></div><span>הטלה ראשונה · מתחיל</span></div>
-        <svg id="heroBoard" viewBox="0 0 814 608" role="img" aria-label="לוח שש בש: הפתיחה 3-1"></svg>
-        <div class="preview-foot">
-          <span style="color:var(--muted);font-size:.92rem">הטלתם <b class="ltr">3-1</b> – מה המהלך הנכון?</span>
-          <span class="toast-ok" id="heroToast"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg>נכון! נבנתה נקודת החמש</span>
-        </div>
-      </div>
+  <div class="screen hero">
+    <h1>תפסיקו לנחש.<br><span class="grad">תתחילו להבין.</span></h1>
+    <p class="lead">120 תרגילי שש בש על לוח אמיתי, עם הסבר לכל מהלך.</p>
+    <button class="btn btn-primary btn-lg" data-go="#/practice">התחילו לתרגל
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <div class="preview">
+      <svg id="heroBoard" viewBox="0 0 814 608" role="img" aria-label="לוח שש בש: הפתיחה 3-1"></svg>
+      <span class="toast-ok" id="heroToast"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M20 6 9 17l-5-5"/></svg>נכון! נקודת החמש</span>
     </div>
   </div>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head reveal"><span class="eyebrow">ארבעה שלבי משחק</span><h2>כל מה שצריך כדי להשתפר במשחק אמיתי</h2><p>התרגילים מחולקים לפי השלבים של כל משחק, כך שתדעו בדיוק מה לעשות בכל רגע.</p></div>
-      <div class="grid g4" id="stageCards"></div>
-    </div>
-  </section>
-
-  <section class="section" style="padding-top:10px">
-    <div class="wrap">
-      <div class="section-head reveal"><span class="eyebrow">שלוש רמות קושי</span><h2>מתקדמים בקצב שלכם</h2><p>הקושי עולה בצורה מדודה – מתחילים מהחלטות ברורות ומגיעים למצבים עדינים שדורשים חשיבה אמיתית.</p></div>
-      <div class="grid g3" id="levelCards"></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap explain-demo">
-      <div class="reveal">
-        <span class="eyebrow">הסבר מנומק לכל תרגיל</span>
-        <h2 style="font-size:clamp(1.6rem,4.4vw,2.2rem)">לא רק "נכון" או "לא נכון"</h2>
-        <p style="color:var(--muted);font-size:1.05rem">אחרי כל תרגיל המהלך הנכון מוצג בהנפשה על הלוח, יחד עם הסבר בשפה פשוטה: איזה עיקרון עומד מאחוריו, ולמה החלופות חלשות יותר.</p>
-        <ul class="check-list">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="10" stroke-width="2"/><path d="m8 12 3 3 5-6"/></svg><span><b>משוב מיידי</b> – נכון, כמעט נכון או לא מדויק, עם אפשרות לנסות שוב.</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="10" stroke-width="2"/><path d="m8 12 3 3 5-6"/></svg><span><b>עיקרון אחד ברור</b> בכל תרגיל, במונחים עקביים לאורך כל האתר.</span></li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="10" stroke-width="2"/><path d="m8 12 3 3 5-6"/></svg><span><b>מספרים אמיתיים</b> – כמה הטלות פוגעות בכל בליטה, וכמה הטלות נשארו לסיום ההוצאה.</span></li>
-        </ul>
-      </div>
-      <div class="mock-exp reveal">
-        <div class="fb correct" style="margin:0 0 12px"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>נכון!</b><p>זה בדיוק המהלך הטוב ביותר.</p></div></div>
-        <h3 style="font-size:1.1rem">חשיפה עקיפה עדיפה על ישירה</h3>
-        <div class="principle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>בליטה במרחק 7 ומעלה קשה הרבה יותר לפגיעה.</div>
-        <ul class="alts">
-          <li><div class="row"><span class="tag best">הטוב ביותר</span><span class="ltr">12/6 10/5</span><span class="metric">חשיפה: 2 מתוך 36</span></div></li>
-          <li><div class="row"><span class="tag near">כמעט</span><span class="ltr">8/2 12/7</span><span class="metric">חשיפה: 11 מתוך 36</span></div><p>משאיר בליטה על 2 – כל 1 של היריב פוגע בה.</p></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" style="padding-top:10px">
-    <div class="wrap">
-      <div class="section-head reveal"><span class="eyebrow">כלים שעוזרים להשתפר</span><h2>תרגול חכם, לא רק עוד תרגיל</h2></div>
-      <div class="grid g4" id="toolCards"></div>
-    </div>
-  </section>
-
-  <section class="section" id="how">
-    <div class="wrap">
-      <div class="section-head reveal"><span class="eyebrow">איך זה עובד</span><h2>שלושה צעדים לשיפור אמיתי</h2></div>
-      <div class="grid g3">
-        <div class="card step-card reveal"><span class="step-num">1</span><h3>בוחרים שלב ורמה</h3><p>הטלה ראשונה, תחילת משחק, אמצע משחק או סוף משחק – ברמה שמתאימה לכם.</p></div>
-        <div class="card step-card reveal"><span class="step-num">2</span><h3>משחקים את המהלך</h3><p>גוררים או לוחצים על חיילים לפי הקוביות. המערכת מאפשרת רק מהלכים חוקיים ומדגישה את האפשרויות.</p></div>
-        <div class="card step-card reveal"><span class="step-num">3</span><h3>מבינים ומשתפרים</h3><p>רואים את המהלך הנכון בהנפשה, קוראים למה הוא עדיף, וחוזרים על הטעויות עד שהן נעלמות.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="wrap">
-    <div class="cta-band reveal">
-      <h2>המהלך הבא שלכם מתחיל כאן</h2>
-      <p>חמש דקות ביום מספיקות כדי לראות את ההבדל ליד הלוח.</p>
-      <button class="btn btn-lg" data-go="#/practice">התחילו לתרגל בחינם</button>
-    </div>
-  </div>
-  <footer><div class="wrap">מהלך · אימון החלטות בשש בש · כל ההתקדמות נשמרת רק בדפדפן שלכם</div></footer>
 </section>
 
-<!-- ===== Practice selection ===== -->
 <section class="view" id="v-practice">
-  <div class="wrap page">
-    <div class="page-title"><div><h1>בחרו מה לתרגל</h1><p>כל קטגוריה כוללת 6 תרגילים בכל רמה.</p></div>
-      <div class="seg" role="tablist" aria-label="רמת קושי" id="lvlSeg"></div></div>
+  <div class="screen">
+    <div class="seg" role="tablist" aria-label="רמת קושי" id="lvlSeg"></div>
     <div class="kpis" id="kpis"></div>
     <div id="reco"></div>
-    <div class="grid g4" id="catCards"></div>
+    <div class="cats" id="catCards"></div>
   </div>
 </section>
 
-<!-- ===== Exercise ===== -->
 <section class="view" id="v-play">
-  <div class="wrap page" style="padding-top:16px">
+  <div class="screen play">
     <div class="ex-top">
-      <button class="back" id="exBack" aria-label="חזרה לבחירת תרגול"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+      <button class="iconbtn" id="exBack" aria-label="חזרה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
       <span class="chip" id="exChip"></span>
-      <div class="ex-progress"><small id="exCount"></small><div class="progress"><i id="exBar" style="width:0"></i></div></div>
-      <button class="linkbtn" data-glossary><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/></svg>מילון</button>
+      <div class="ex-progress"><div class="progress"><i id="exBar" style="width:0"></i></div></div>
+      <span class="ex-count" id="exCount"></span>
+      <button class="iconbtn" id="flipBtn" aria-label="היפוך צד הבית"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 7h13l-3-3M17 17H4l3 3"/></svg></button>
     </div>
-    <div class="ex-layout">
-      <div class="ex-task task-card">
-        <h2 id="exQ"></h2>
-        <p id="exSub"></p>
-        <p class="task-ctx" id="exCtx" hidden></p>
-        <div class="legend">
-          <div class="leg"><i class="w"></i><div><b>אתם – לבן</b><span>נעים מ-24 עד 1, הבית: 1–6 למטה</span></div></div>
-          <div class="leg"><i class="b"></i><div><b>היריב – שחור</b><span>נע בכיוון ההפוך, הבית שלו: 19–24</span></div></div>
-        </div>
-      </div>
-      <div class="ex-board board-card">
+    <div class="task"><span id="exQ"></span><small id="exCtx" hidden></small></div>
+    <div class="ex-main">
+      <div class="board-card">
         <svg id="board" viewBox="0 0 814 608" role="img" aria-label="לוח שש בש"></svg>
-        <div class="board-tools">
-          <div class="pip">פיפ קאונט: <span>אתם <b id="pipW"></b></span><span>היריב <b id="pipB"></b></span></div>
-          <button class="linkbtn" id="flipBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 7h13l-3-3M17 17H4l3 3"/></svg>היפוך צד הבית</button>
-        </div>
+        <div class="pip">פיפ: <span>אתם <b id="pipW"></b></span><span>היריב <b id="pipB"></b></span></div>
       </div>
-      <div class="ex-panel panel-card" id="panel"></div>
+      <div class="panel" id="panel"></div>
     </div>
   </div>
 </section>
 
-<!-- ===== Session summary ===== -->
-<section class="view" id="v-summary"><div class="wrap page"><div class="card sum-card" id="sumCard"></div></div></section>
+<section class="view" id="v-summary"><div class="screen sum"><div class="sum-card" id="sumCard"></div></div></section>
 </main>
 
-<!-- ===== Glossary modal ===== -->
+<div class="modal" id="expl" role="dialog" aria-modal="true" aria-labelledby="explTitle">
+  <div class="sheet">
+    <div class="sheet-head"><h2 id="explTitle"></h2><button class="x" data-close="expl" aria-label="סגירה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <div class="sheet-body" id="explBody"></div>
+  </div>
+</div>
+
 <div class="modal" id="gloss" role="dialog" aria-modal="true" aria-labelledby="glossTitle">
   <div class="sheet">
-    <div class="sheet-head"><h2 id="glossTitle">מילון מושגים</h2><button class="x" id="glossClose" aria-label="סגירה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <div class="sheet-head"><h2 id="glossTitle">מילון מושגים</h2><button class="x" data-close="gloss" aria-label="סגירה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
     <div class="sheet-body"><input class="gsearch" id="gsearch" type="search" placeholder="חיפוש מושג..." aria-label="חיפוש מושג"><div id="glist"></div></div>
   </div>
 </div>
@@ -1051,9 +900,324 @@ const EXERCISES = [
   bad:[['8/2 6/2','משאיר שלוש בליטות: 8, 7 ו-4.']],
   t:'מפנים את הנקודה האחורית', p:'מפנים קודם את הנקודה הרחוקה ביותר.',
   why:'8/2 8/4 מפנה את נקודה 8 לגמרי. נשארת בליטה על 7, אבל במרחק 6 בלבד – פחות הטלות פוגעות בה מאשר בכל חלופה אחרת.' },
+/* ---------------- OPENING: beginner (set 2) ---------------- */
+{ id:'opening-1-7', c:'opening', l:1, w:SW, b:{1:1,12:6,17:3,19:5}, d:[3,3],
+  ctx:'היריב פתח ב-6-5 והריץ חייל ל-12.',
+  best:['8/5(2) 6/3(2)'],
+  bad:[['24/18 13/7','ארבע בליטות ואף נקודה חדשה.']],
+  t:'3-3: שתי נקודות בבית', p:'עם כפול – בונים שתי נקודות בבת אחת.',
+  why:'8/5(2) בונה את נקודת החמש ו-6/3(2) את נקודה 3. שתי נקודות חדשות, בלי בליטות.' },
+{ id:'opening-1-8', c:'opening', l:1, w:SW, b:{1:2,12:5,17:2,19:4,20:2}, d:[5,5],
+  ctx:'היריב פתח ב-3-1 ובנה את נקודת החמש שלו.',
+  best:['13/3(2)'],
+  bad:[['13/8(3) 8/3','בליטה על 3 ועומס על נקודה 8.']],
+  t:'5-5: נקודה 3', p:'ב-5-5 מביאים שני חיילים מ-13 ל-3.',
+  why:'שני חיילים מנקודת האמצע בונים את נקודה 3. נקודה חדשה בבית, ושום נקודה לא נשברת.' },
+{ id:'opening-1-9', c:'opening', l:1, w:SW, b:{1:1,2:1,12:4,16:1,17:3,19:5}, d:[6,5],
+  ctx:'היריב פתח ב-4-1 ופיצל חייל לנקודה 2 שלכם.',
+  best:['24/13'],
+  bad:[['13/7 13/8','בליטה על 7 – בדיוק בטווח של החיילים האחוריים של היריב.']],
+  t:'ריצת הנוסע גם בתשובה', p:'6-5 עם חייל על 24 – רצים ל-13.',
+  why:'24/13 מוציא חייל אחורי למקום בטוח, בלי בליטה חדשה.' },
+{ id:'opening-1-10', c:'opening', l:1, w:SW, b:{1:2,12:5,17:2,19:4,20:2}, d:[2,2],
+  ctx:'היריב פתח ב-3-1 ובנה את נקודת החמש שלו.',
+  best:['13/11(2) 6/4(2)'],
+  bad:[['6/2(2)','נקודה עמוקה מדי, שכמעט לא חוסמת.']],
+  t:'2-2: נקודה 4 ונקודה 11', p:'נקודות קדמיות שוות יותר מנקודות עמוקות.',
+  why:'6/4(2) בונה את נקודה 4, ו-13/11(2) בונה נקודה בחוץ שעוזרת להביא חיילים הביתה.' },
+
+/* ---------------- OPENING: intermediate (set 2) ---------------- */
+{ id:'opening-2-7', c:'opening', l:2, w:SW, b:{1:2,12:5,17:2,19:4,21:2}, d:[4,4],
+  ctx:'היריב פתח ב-4-2 ובנה את נקודת הארבע שלו.',
+  best:['24/20(2) 13/9(2)'],
+  near:[['13/5(2)','נקודת החמש מצוינת, אבל החיילים האחוריים נשארים מול בית שמתחזק.']],
+  bad:[['13/9(2) 6/2(2)','נקודה עמוקה, והחיילים האחוריים תקועים.']],
+  t:'4-4: עוגן מול בית מתחזק', p:'כשהיריב בונה בבית – קודם עוגן.',
+  why:'24/20(2) בונה עוגן על נקודת החמש של היריב, ו-13/9(2) מוסיף נקודה בחוץ.' },
+{ id:'opening-2-8', c:'opening', l:2, w:SW, b:{1:1,2:1,12:4,16:1,17:3,19:5}, d:[6,4],
+  ctx:'היריב פתח ב-4-1 ופיצל חייל לנקודה 2 שלכם.',
+  best:['8/2* 6/2'],
+  near:[['24/14','ריצה סבירה, אבל מוותרת על התקפה.']],
+  bad:[['13/3','בליטה עמוקה ובלי פגיעה.']],
+  t:'פוגעים על הראש בנקודה 2', p:'היריב התפצל עמוק? פוגעים ובונים עליו נקודה.',
+  why:'8/2* פוגע ו-6/2 מכסה. היריב בבר ואתם בלי בליטה בבית.' },
+{ id:'opening-2-9', c:'opening', l:2, w:SW, b:{1:2,12:4,17:2,18:2,19:5}, d:[6,6],
+  ctx:'היריב פתח ב-6-1 ובנה את נקודת הבר שלו (18).',
+  best:['13/7(2) 8/2(2)'],
+  bad:[['13/7(4)','ארבעה חיילים על נקודה אחת, ובליטה על 13.']],
+  t:'6-6 כשהדרך חסומה', p:'אי אפשר לברוח? בונים נקודות.',
+  why:'24/18 חסום, אז כל ה-6 משוחקים מקדימה: 13/7(2) בונה את נקודת הבר ו-8/2(2) עוד נקודה בבית.' },
+{ id:'opening-2-10', c:'opening', l:2, w:SW, b:{1:2,12:5,17:2,19:4,20:2}, d:[4,3],
+  ctx:'היריב פתח ב-3-1 ובנה את נקודת החמש שלו (20).',
+  best:['13/9 13/10'],
+  near:[['24/21 13/9','פיצול מול בית שמתחזק – פחות שימושי.']],
+  bad:[['13/6','עומס על נקודה 6.']],
+  t:'4-3 כשנקודה 20 תפוסה', p:'אין על מה להיאבק מאחור? בונים מקדימה.',
+  why:'נקודה 20 כבר של היריב. שני בונים מנקודת האמצע מכינים את נקודות 5, 4 ו-7.' },
+
+/* ---------------- OPENING: advanced (set 2) ---------------- */
+{ id:'opening-3-7', c:'opening', l:3, w:SW, b:{1:2,12:5,17:2,19:4,20:2}, d:[1,1],
+  ctx:'היריב פתח ב-3-1 ובנה את נקודת החמש שלו.',
+  best:['8/7(2) 6/5(2)'],
+  bad:[['24/22(2)','מזיז את החיילים האחוריים במקום לבנות.']],
+  t:'1-1: בלוק של ארבע', p:'נקודות 8, 7, 6, 5 יחד הן בלוק חזק.',
+  why:'8/7(2) בונה את נקודת הבר ו-6/5(2) את נקודת החמש. ארבע נקודות רצופות.' },
+{ id:'opening-3-8', c:'opening', l:3, w:SW, b:{1:2,12:5,17:2,19:4,21:2}, d:[3,3],
+  ctx:'היריב פתח ב-4-2. נקודה 21 חסומה לחיילים האחוריים שלכם.',
+  best:['8/5(2) 6/3(2)'],
+  near:[['13/7(2)','נקודת הבר טובה, אבל נקודות 5 ו-3 שוות יותר.']],
+  bad:[['13/4 6/3','שתי בליטות בבית.']],
+  t:'3-3 כשהאחוריים חסומים', p:'החיילים האחוריים לא זזים? משקיעים בבית.',
+  why:'8/5(2) ו-6/3(2) בונים שתי נקודות בבית, בלי בליטות.' },
+{ id:'opening-3-9', c:'opening', l:3, w:SW, b:{1:2,12:4,14:1,17:3,19:4,20:1}, d:[4,4],
+  ctx:'היריב פתח ב-2-1 והניח חייל בודד על נקודה 20 (נקודת החמש שלו).',
+  best:['24/20*(2) 13/9(2)'],
+  near:[['13/5(2)','נקודת החמש שלכם, אבל מפספס פגיעה ועוגן בבת אחת.']],
+  bad:[['13/9(2) 6/2(2)','לא פוגע ובונה נקודה עמוקה.']],
+  t:'פוגעים ובונים עוגן', p:'בליטה על נקודת החמש של היריב – פוגעים ותופסים אותה.',
+  why:'24/20*(2) פוגע ובונה עוגן על הנקודה הכי טובה של היריב. 13/9(2) מוסיף נקודה בחוץ.' },
+{ id:'opening-3-10', c:'opening', l:3, w:SW, b:{1:2,12:4,17:2,18:2,19:5}, d:[2,2],
+  ctx:'היריב פתח ב-6-1 ובנה את נקודת הבר שלו (18).',
+  best:['13/11(2) 6/4(2)'],
+  near:[['24/22(2) 6/4(2)','עוגן על 22 עמוק מדי, ומקדימה אין בונים.']],
+  bad:[['6/2(2)','נקודה עמוקה מדי.']],
+  t:'2-2 מול נקודת בר', p:'נקודה 4 בבית ונקודה 11 בחוץ.',
+  why:'6/4(2) בונה נקודה טובה בבית, ו-13/11(2) נקודה בחוץ שעוזרת להביא חיילים הביתה.' },
+
+/* ---------------- EARLY GAME: beginner (set 2) ---------------- */
+{ id:'early-1-7', c:'early', l:1, w:{24:2,13:4,10:1,8:3,6:4,4:1}, b:SB, d:[6,4],
+  best:['10/4 8/4'],
+  bad:[['13/7 13/9','לא בונה נקודה, והבליטה על 4 נשארת.']],
+  t:'מכסים את 4', p:'בליטה בבית? סוגרים אותה.',
+  why:'10/4 ו-8/4 בונים את נקודה 4 ומעלימים שתי בליטות.' },
+{ id:'early-1-8', c:'early', l:1, w:{24:2,13:3,11:1,8:3,7:1,6:5}, b:SB, d:[5,4],
+  best:['11/7 13/8'],
+  bad:[['24/15','חייל בודד באמצע, ושתי הבליטות נשארות.']],
+  t:'סוגרים את נקודת הבר', p:'קודם מכסים, אחר כך מתקדמים.',
+  why:'11/7 סוגר את נקודת הבר ו-13/8 בטוח. אין אף בליטה.' },
+{ id:'early-1-9', c:'early', l:1, w:{24:1,23:1,13:5,8:3,6:5}, b:{1:2,12:4,17:3,18:2,19:4}, d:[4,3],
+  ctx:'היריב בנה את נקודות 17, 18 ו-19 מול החיילים האחוריים שלכם.',
+  best:['24/20 23/20'],
+  bad:[['13/9 13/10','שני החיילים האחוריים נשארים בליטות מול התקפה.']],
+  t:'עוגן על 20', p:'חיילים אחוריים בסכנה? מחברים אותם לעוגן.',
+  why:'24/20 ו-23/20 בונים עוגן על נקודת החמש של היריב. שתי הבליטות נעלמות.' },
+{ id:'early-1-10', c:'early', l:1, w:{24:2,13:4,8:4,6:4,3:1}, b:SB, d:[5,3],
+  best:['8/3 6/3'],
+  bad:[['13/8 13/10','הבליטה על 3 נשארת.']],
+  t:'סוגרים את 3', p:'בליטה בבית שלכם היא מטרה קלה.',
+  why:'8/3 ו-6/3 בונים את נקודה 3. אין בליטות.' },
+
+/* ---------------- EARLY GAME: intermediate (set 2) ---------------- */
+{ id:'early-2-7', c:'early', l:2, w:{24:2,13:4,11:1,9:1,8:2,6:5}, b:SB, d:[6,4],
+  best:['11/5 9/5'],
+  near:[['13/7 11/7','בונה את נקודת הבר, אבל נקודת החמש חשובה יותר.']],
+  bad:[['24/14','בליטה נוספת באמצע הלוח.']],
+  t:'5 לפני 7', p:'שתי נקודות אפשריות? בוחרים את 5.',
+  why:'שני המהלכים בונים נקודה, אבל נקודת החמש בבית וחוסמת יותר.' },
+{ id:'early-2-8', c:'early', l:2, w:{24:2,13:3,9:1,8:3,6:4,5:1,4:1}, b:SB, d:[4,1],
+  best:['8/4 6/5'],
+  near:[['9/8 8/4','סוגר את 4 ומנקה את 9, אבל 5 נשארת פתוחה.']],
+  bad:[['9/5 24/23','סוגר את 5, אבל 4 נשארת ונוספת בליטה מאחור.']],
+  t:'שתי בליטות בבית', p:'חפשו מהלך שסוגר את שתיהן.',
+  why:'8/4 סוגר את 4 ו-6/5 סוגר את 5. שתי נקודות בבית בתור אחד.' },
+{ id:'early-2-9', c:'early', l:2, w:{24:2,13:3,11:1,10:1,8:3,6:5}, b:SB, d:[6,5],
+  best:['11/5 10/5'],
+  near:[['24/13','ריצה טובה, אבל נקודת החמש בלי בליטות שווה יותר.']],
+  bad:[['13/2','בליטה עמוקה, ושתי הבליטות נשארות.']],
+  t:'נקודת החמש לפני ריצה', p:'נקודה חשובה בלי בליטות – לוקחים.',
+  why:'11/5 ו-10/5 בונים את נקודת החמש ומעלימים שתי בליטות בתור אחד.' },
+{ id:'early-2-10', c:'early', l:2, w:{24:2,13:2,11:1,10:1,9:1,8:2,6:4,4:2}, b:SB, d:[2,1],
+  best:['11/9 10/9'],
+  near:[['10/8 9/8','מנקה שתי בליטות, אבל 11 נשארת.']],
+  bad:[['6/4 6/5','מוסיף בליטה ומשאיר את כל השאר.']],
+  t:'מנקים שלוש בליטות', p:'קוביות קטנות? משתמשים בהן לסידור.',
+  why:'11/9 ו-10/9 מחברים את שלוש הבליטות לנקודה אחת. אין בליטות בכלל.' },
+
+/* ---------------- EARLY GAME: advanced (set 2) ---------------- */
+{ id:'early-3-7', c:'early', l:3, w:{24:2,13:3,9:1,8:3,7:2,6:3,5:1}, b:SB, d:[4,1],
+  best:['9/5 6/5','9/5 24/23'],
+  near:[['8/4 5/4','בונה את 4, אבל מוותר על נקודת החמש.']],
+  bad:[['13/9 24/23','משאיר את 5 פתוחה.']],
+  t:'בלוק של ארבע', p:'5 משלים בלוק – 4 לא.',
+  why:'9/5 סוגר את נקודת החמש ויוצר בלוק 8-7-6-5. את ה-1 משחקים בבטחה.' },
+{ id:'early-3-8', c:'early', l:3, w:{24:2,13:3,10:1,8:3,6:4,5:1,3:1}, b:SB, d:[5,3],
+  best:['10/5 6/3'],
+  near:[['8/3 8/5','סוגר את שתיהן, אבל משאיר בליטות על 10 ועל 8.']],
+  bad:[['13/8 13/10','שתי הבליטות בבית נשארות.']],
+  t:'הצירוף הנסתר', p:'בדקו את כל הדרכים לכסות.',
+  why:'10/5 סוגר את 5 ו-6/3 סוגר את 3. אף בליטה לא נשארת.' },
+{ id:'early-3-9', c:'early', l:3, w:{24:2,13:2,10:1,9:2,8:2,7:2,6:3,5:1}, b:SB, d:[5,1],
+  best:['10/5 24/23','10/5 6/5'],
+  near:[['13/8 6/5','סוגר את 5, אבל משאיר בליטות על 13 ועל 10.']],
+  bad:[['13/7','שובר את נקודת האמצע ומשאיר את 5 פתוחה.']],
+  t:'בלוק של חמש', p:'חמש נקודות רצופות כמעט כולאות את היריב.',
+  why:'10/5 סוגר את 5 ויוצר בלוק 9 עד 5. את ה-1 משחקים בבטחה.' },
+{ id:'early-3-10', c:'early', l:3, w:{24:2,13:3,11:1,10:1,8:3,6:5}, b:SB, d:[4,3],
+  best:['11/7 10/7'],
+  near:[['13/10 11/7','מביא בונה, אבל משאיר בליטה על 7.']],
+  bad:[['13/9 13/10','שלוש בליטות.']],
+  t:'נקודת הבר הנקייה', p:'נקודה בלי בליטות עדיפה על בונה עם סיכון.',
+  why:'11/7 ו-10/7 בונים את נקודת הבר ומעלימים שתי בליטות. בלוק 8-7-6.' },
+
+/* ---------------- MIDDLE GAME: beginner (set 2) ---------------- */
+{ id:'middle-1-7', c:'middle', l:1, w:SW, b:{1:1,9:1,12:5,17:3,19:5}, d:[4,1],
+  ctx:'חייל של היריב בורח ונמצא על נקודה 9.',
+  best:['13/9*/8'],
+  bad:[['24/20 24/23','לא פוגע – החייל של היריב ממשיך לברוח.']],
+  t:'פוגעים וחוזרים לבטחון', p:'פגיעה שנגמרת על נקודה בטוחה – כמעט תמיד נכונה.',
+  why:'13/9* שולח את החייל לבר, ו-9/8 מחזיר את החייל שלכם לנקודה 8.' },
+{ id:'middle-1-8', c:'middle', l:1, w:{24:1,13:5,8:3,6:5}, wb:1, b:{1:2,12:4,17:3,19:5,22:1}, d:[3,2],
+  ctx:'חייל שלכם על הבר. ליריב בליטה על נקודה 22.',
+  best:['bar/22* 24/22'],
+  bad:[['bar/23 13/10','נכנס בלי לפגוע, ומשאיר שתי בליטות מאחור.']],
+  t:'נכנסים, פוגעים ומתחברים', p:'כניסה מהבר יכולה גם לפגוע וגם לבנות עוגן.',
+  why:'ה-3 נכנס ל-22 עם פגיעה, וה-2 מביא את החייל מ-24 לאותה נקודה.' },
+{ id:'middle-1-9', c:'middle', l:1, w:{24:2,13:4,9:1,8:3,6:4,4:1}, b:SB, d:[5,4], flag:'shots',
+  best:['9/4 8/4'],
+  bad:[['13/8 13/9','הבליטה על 4 נשארת חשופה.']],
+  t:'ספרו את החשיפות', p:'פחות בליטות = פחות הטלות פוגעות.',
+  why:'9/4 ו-8/4 סוגרים את 4 ומעלימים את 9.' },
+{ id:'middle-1-10', c:'middle', l:1, type:'cube', w:{10:2,9:2,8:2,7:1,6:3,5:2,4:2,3:1}, b:{13:1,14:2,15:2,16:2,18:2,19:2,20:2,21:2},
+  q:'מרוץ נקי. תורכם להטיל. להכפיל?',
+  opts:[['להכפיל',true,'הובלה של 16% – הרבה מעבר ל-8%.'],
+        ['לא להכפיל',false,'מחכים מדי – היריב פשוט יוותר בתור הבא, או שהמזל יתהפך.']],
+  t:'הובלה גדולה במרוץ', p:'במרוץ: מכפילים מהובלה של 8%.',
+  why:'הפיפ קאונט שלכם 100 ושל היריב 116. הובלה של 16 – 16%. הכפלה ברורה, והיריב צריך לוותר.' },
+
+/* ---------------- MIDDLE GAME: intermediate (set 2) ---------------- */
+{ id:'middle-2-7', c:'middle', l:2, w:{13:3,10:1,9:1,8:2,6:4,5:2,4:2}, b:ACE_B, d:[6,3], flag:'shots',
+  ctx:'היריב מחזיק עוגן על נקודה 1 שלכם.',
+  best:['10/4 9/6'],
+  near:[['9/3 6/3','בונה נקודה, אבל משאיר בליטה על 10.']],
+  bad:[['10/4 6/3','בליטה על 3 – בטווח ישיר.']],
+  t:'מכניסים את שתי הבליטות', p:'מול עוגן – מחפשים מהלך בלי חשיפה.',
+  why:'10/4 ו-9/6 מכניסים את שני החיילים הבודדים לנקודות קיימות. אף הטלה לא פוגעת.' },
+{ id:'middle-2-8', c:'middle', l:2, w:{12:2,9:1,8:3,7:1,6:4,5:2,4:2}, b:ACE_B, d:[6,2], flag:'shots',
+  ctx:'היריב מחזיק עוגן על נקודה 1 שלכם.',
+  best:['12/6 9/7'],
+  near:[['12/6 7/5','בטוח כמעט, אבל משאיר בליטות על 12 ועל 9.']],
+  bad:[['8/2 9/7','בליטה על 2 – כל 1 פוגע.']],
+  t:'סוגרים את 7', p:'מכסים בליטה קרובה לפני שמתקדמים.',
+  why:'9/7 סוגר את נקודת הבר, ו-12/6 מוריד חייל מ-12 בלי להשאיר בליטה שם.' },
+{ id:'middle-2-9', c:'middle', l:2, w:SW, b:{1:1,4:1,7:1,12:5,17:2,19:5}, d:[4,1],
+  ctx:'ליריב שלוש בליטות בצד שלכם.',
+  best:['8/4* 8/7*'],
+  near:[['8/4* 6/5','פוגע פעם אחת בלבד.']],
+  bad:[['13/9 6/5','לא פוגע באף חייל.']],
+  t:'פגיעה כפולה', p:'שני חיילים בבר = היריב מאבד הרבה זמן.',
+  why:'8/4* ו-8/7* שולחים שני חיילים לבר. היריב יבזבז את התורות הבאים על כניסה.' },
+{ id:'middle-2-10', c:'middle', l:2, type:'cube', w:{12:1,11:2,10:1,9:1,8:1,7:1,6:3,5:2,4:2,3:1}, b:{15:2,16:2,17:2,19:3,20:2,21:2,22:2},
+  q:'היריב הכפיל אתכם במרוץ נקי. לקבל או לוותר?',
+  opts:[['לקבל',true,'פיגור של כ-11% – מתחת ל-12%.'],
+        ['לוותר',false,'ויתור מוקדם מדי. עדיין יש לכם מספיק סיכוי.']],
+  t:'קבלה על הגבול', p:'במרוץ: מקבלים עד פיגור של 12%.',
+  why:'הפיפ קאונט שלכם 107 ושל היריב 96. פיגור של 11 – כ-11.5%. עדיין קבלה.' },
+
+/* ---------------- MIDDLE GAME: advanced (set 2) ---------------- */
+{ id:'middle-3-7', c:'middle', l:3, w:{13:2,11:1,9:2,8:2,6:4,5:2,4:2}, b:ACE_B, d:[6,4], flag:'shots',
+  ctx:'היריב מחזיק עוגן על נקודה 1 שלכם.',
+  best:['13/7 11/7'],
+  near:[['11/5 13/9','כמעט בטוח, אבל בליטה על 13.']],
+  bad:[['8/2 6/2','שובר שתי נקודות ומשאיר בליטות.']],
+  t:'נקודה חדשה בלי סיכון', p:'הכי טוב: לבנות נקודה ולא להשאיר כלום.',
+  why:'13/7 ו-11/7 בונים את נקודת הבר. אף בליטה לא נשארת.' },
+{ id:'middle-3-8', c:'middle', l:3, w:{13:2,12:1,9:1,8:2,7:2,6:3,5:2,4:2}, b:ACE_B, d:[6,5], flag:'shots',
+  ctx:'היריב מחזיק עוגן על נקודה 1 שלכם.',
+  best:['13/7 9/4','12/6 9/4'],
+  near:[['13/7 13/8','כמעט בטוח, אבל בליטות על 12 ועל 9.']],
+  bad:[['9/3 7/2','שתי בליטות בטווח ישיר.']],
+  t:'שני מהלכים בטוחים', p:'כשיש כמה מהלכים בלי חשיפה – כולם טובים.',
+  why:'9/4 מעלים את הבליטה על 9. ה-6 משוחק 13/7 או 12/6 – בשניהם אף הטלה לא פוגעת.' },
+{ id:'middle-3-9', c:'middle', l:3, type:'cube', w:{12:1,11:2,10:1,9:2,8:1,6:3,5:2,4:2,3:1}, b:{15:2,16:2,17:2,19:3,20:2,21:2,22:2},
+  q:'היריב הכפיל אתכם במרוץ נקי. לקבל או לוותר?',
+  opts:[['לוותר',true,'פיגור של יותר מ-12%.'],
+        ['לקבל',false,'הסיכוי שלכם נמוך מדי, והפסד יעלה שתי נקודות.']],
+  t:'ויתור על הגבול', p:'במרוץ: מעל 12% פיגור – מוותרים.',
+  why:'הפיפ קאונט שלכם 109 ושל היריב 96. פיגור של 13 – כ-13.5%. ויתור.' },
+{ id:'middle-3-10', c:'middle', l:3, type:'cube', w:{11:1,10:1,9:2,8:2,6:3,5:2,4:2,3:1,2:1}, b:{13:2,14:2,16:2,19:2,20:2,21:3,22:2},
+  q:'מרוץ נקי. הקובייה כבר אצלכם (על 2). להכפיל שוב?',
+  opts:[['לא להכפיל',true,'הובלה של כ-8% – מספיקה להכפלה ראשונה, לא להכפלה חוזרת.'],
+        ['להכפיל',false,'הכפלה חוזרת צריכה הובלה של 9% לפחות.']],
+  t:'הכפלה חוזרת', p:'הכפלה חוזרת צריכה 9%, לא 8%.',
+  why:'הפיפ קאונט שלכם 96 ושל היריב 104 – הובלה של כ-8%. כשהקובייה אצלכם, היא שווה הרבה. מחכים.' },
+
+/* ---------------- ENDGAME: beginner (set 2) ---------------- */
+{ id:'end-1-7', c:'end', l:1, w:{6:2,5:2,4:2,3:1,2:1,1:2}, b:RACE_B, d:[6,4], flag:'bear',
+  best:['6/off 4/off'],
+  bad:[['6/off 6/2','מזיז במקום להוציא.']],
+  t:'שניים החוצה', p:'אפשר להוציא שניים? מוציאים.',
+  why:'ה-6 מוציא מ-6 וה-4 מוציא מ-4.' },
+{ id:'end-1-8', c:'end', l:1, w:{5:3,4:2,2:2,1:1}, b:RACE_B, d:[5,2], flag:'bear',
+  best:['5/off 2/off'],
+  bad:[['5/off 5/3','מוציא רק אחד.']],
+  t:'כל קובייה – חייל', p:'אם יש חייל על המספר – מוציאים אותו.',
+  why:'יש חיילים על 5 ועל 2, בדיוק לפי הקוביות.' },
+{ id:'end-1-9', c:'end', l:1, w:{6:1,5:1,3:2,2:3,1:2}, b:RACE_B, d:[3,3], flag:'bear',
+  best:['6/3 3/off(3)'],
+  bad:[['6/3 5/2 3/off(2)','מוציא רק שניים.']],
+  t:'3-3: שלושה החוצה', p:'עם כפול – סופרים כמה אפשר להוציא.',
+  why:'6/3 מוריד את החייל הגבוה, ואז שלוש פעמים 3/off. שלושה חיילים יוצאים.' },
+{ id:'end-1-10', c:'end', l:1, w:{6:3,4:3,3:1,1:1}, b:RACE_B, d:[5,4], flag:'bear',
+  best:['6/1 4/off'],
+  bad:[['6/1 6/2','לא מוציא אף חייל.']],
+  t:'ה-4 מוציא', p:'גם אם קובייה אחת לא מוציאה – השנייה אולי כן.',
+  why:'ה-5 לא מוציא (יש חיילים על 6), אז 6/1. ה-4 מוציא חייל מ-4.' },
+
+/* ---------------- ENDGAME: intermediate (set 2) ---------------- */
+{ id:'end-2-7', c:'end', l:2, w:{6:2,5:2,4:1,3:1}, b:RACE_B, d:[6,1], flag:'bear',
+  best:['6/off 5/4'],
+  near:[['6/off 3/2','ממלא חור, אבל פחות טוב.']],
+  bad:[['6/off 6/5','עומס על 5, ונשאר חייל על 6.']],
+  t:'מאזנים את הנקודות', p:'פיזור שווה = יותר הטלות מוציאות.',
+  why:'אחרי 6/off, ה-1 מעביר חייל מ-5 ל-4. כך יש חייל על 6, 5, 4 ו-3 – כל מספר גבוה יוציא.' },
+{ id:'end-2-8', c:'end', l:2, w:{6:4,5:1,2:1}, b:RACE_B, d:[4,3], flag:'bear',
+  best:['6/2 6/3'],
+  near:[['5/1 6/3','משאיר שלושה על 6.']],
+  bad:[['6/2 5/2','עומס על 2 ושלושה על 6.']],
+  t:'מורידים מ-6', p:'כשאי אפשר להוציא – מורידים מהנקודה הגבוהה.',
+  why:'אף קובייה לא מוציאה. 6/2 6/3 מוריד שני חיילים מנקודה 6 ומפזר אותם.' },
+{ id:'end-2-9', c:'end', l:2, w:{6:2,5:2,4:4,3:2,2:2}, b:ACE_B, d:[4,4], flag:'shots',
+  ctx:'היריב מחזיק עוגן על נקודה 1.',
+  best:['4/off(4)'],
+  near:[['6/2(2) 4/off(2)','בטוח, אבל מוציא רק שניים.']],
+  bad:[['6/2 4/off(3)','בליטה על 6.']],
+  t:'ארבעה בבטחה', p:'בטוח וגם מהיר – הכי טוב.',
+  why:'4/off(4) מוציא ארבעה חיילים ולא משאיר אף בליטה.' },
+{ id:'end-2-10', c:'end', l:2, w:{6:3,5:2,4:2,3:2,2:2}, b:ACE_B, d:[5,3], flag:'shots',
+  ctx:'היריב מחזיק עוגן על נקודה 1.',
+  best:['5/off 5/2'],
+  near:[['5/off 6/3','בליטה על 6.']],
+  bad:[['5/off 3/off','שתי בליטות.']],
+  t:'זוגי בכל נקודה', p:'שניים בכל נקודה = אין מה לפגוע.',
+  why:'5/off ו-5/2 מפנים את 5 לגמרי. בכל נקודה נשאר מספר שאין בו בליטה.' },
+
+/* ---------------- ENDGAME: advanced (set 2) ---------------- */
+{ id:'end-3-7', c:'end', l:3, w:{6:3,5:2,3:1}, b:RACE_B, d:[5,1], flag:'bear',
+  best:['6/1/off'],
+  near:[['5/off 5/4','גם מוציא, אבל משאיר שלושה על 6.']],
+  bad:[['6/1 6/5','לא מוציא.']],
+  t:'מוציאים מ-6', p:'בשתי דרכים להוציא – בוחרים זו שמורידה מהגבוהה.',
+  why:'6/1/off מוציא חייל ומוריד את נקודה 6 לשניים. כך הבא יוציא יותר.' },
+{ id:'end-3-8', c:'end', l:3, w:{6:2,4:2,3:1}, b:RACE_B, d:[2,2], flag:'bear',
+  best:['4/2(2) 2/off(2)'],
+  near:[['6/4 4/2(2) 2/off','מוציא רק אחד.']],
+  bad:[['6/4 4/2(3)','לא מוציא אף חייל.']],
+  t:'2-2: שניים החוצה', p:'סופרים כמה חיילים יוצאים, לא כמה צעדים.',
+  why:'4/2(2) ואז 2/off(2): שני חיילים יוצאים. כל חלופה מוציאה פחות.' },
+{ id:'end-3-9', c:'end', l:3, w:{4:2,3:2,1:2}, b:RACE_B, d:[6,2], flag:'bear',
+  best:['4/off 3/1'],
+  near:[['4/off 4/2','כמעט שקול.']],
+  t:'ההבדל הקטן', p:'גם 1 שווה חייל – ממלאים אותו.',
+  why:'שני המהלכים מוציאים אחד. 4/off 3/1 משאיר פיזור קצת טוב יותר.' },
+{ id:'end-3-10', c:'end', l:3, w:{6:2,5:3,4:3,3:1,2:2}, b:ACE_B, d:[6,4], flag:'shots',
+  ctx:'היריב מחזיק עוגן על נקודה 1. אין מהלך בטוח.',
+  best:['6/off 6/2'],
+  bad:[['6/off 4/off','שתי בליטות.']],
+  t:'בליטה אחת עדיפה', p:'אין מהלך בטוח? משאירים כמה שפחות.',
+  why:'6/off 6/2 מפנה את 6 ומשאיר רק בליטה על 3.' },
 ];
 
-const STATS = {"middle-2-3":{"10/4 8/4":0,"8/2 6/2":0,"10/4 10/6":14},"middle-2-4":{"11/5 13/8":2,"9/3 8/3":6,"13/7 13/8":16},"middle-3-3":{"12/6 10/5":2,"8/2 12/7":11,"8/2 10/5":13},"middle-3-4":{"11/5 13/10":3,"11/5 9/6":6,"9/3 6/3":8},"end-1-1":{"6/off 5/off":4.85,"6/1 5/off":5.42},"end-1-2":{"4/off 3/off":3.45,"5/1 5/2":3.83,"4/off 5/2":3.7},"end-1-3":{"5/off 1/off":4.38,"5/off 4/3":4.68,"6/1 1/off":4.72},"end-1-4":{"8/2/off":7.4,"8/2 6/4":7.55,"8/2 5/3":7.62},"end-1-5":{"5/off 3/off":3.27,"6/1 6/3":3.65},"end-1-6":{"6/1/off":3.62,"6/1 6/5":3.84},"end-2-1":{"5/1/off":3.97,"6/2 5/4":4.07,"5/1 2/1":4.24},"end-2-2":{"4/off 2/1":5.56,"5/1/off":5.62,"6/2 4/3":5.79},"end-2-3":{"4/1/off":2.16,"6/3 2/1":2.35,"4/1 2/1":2.58},"end-2-4":{"6/off 6/3":0,"6/off 3/off":12,"6/off 5/2":20},"end-2-5":{"5/off 6/4":0,"5/off 4/2":11,"5/off 5/3":13},"end-2-6":{"9/4 6/4":0,"9/4 4/2":11,"7/2 6/4":20},"end-3-1":{"6/off 3/2":6.28,"6/off 5/4":6.33,"6/off 6/5":6.35},"end-3-2":{"4/off 2/1":3.38,"4/off 6/5":3.41,"5/1/off":3.42,"6/2 6/5":3.63},"end-3-3":{"6/4 5/4":3.04,"5/3 5/4":3.05,"6/4/3":3.05,"6/4 6/5":3.09},"end-3-4":{"6/2 6/3":11,"6/2 5/2":13,"4/off 5/2":13,"4/off 6/3":27},"end-3-5":{"6/off 6/4":11,"6/off 2/off":13,"6/off 5/3":20},"end-3-6":{"8/2 8/4":11,"8/2 7/3":13,"8/2 6/2":20}};
+const STATS = {"middle-2-3":{"10/4 8/4":0,"8/2 6/2":0,"10/4 10/6":14},"middle-2-4":{"11/5 13/8":2,"9/3 8/3":6,"13/7 13/8":16},"middle-3-3":{"12/6 10/5":2,"8/2 12/7":11,"8/2 10/5":13},"middle-3-4":{"11/5 13/10":3,"11/5 9/6":6,"9/3 6/3":8},"end-1-1":{"6/off 5/off":4.85,"6/1 5/off":5.42},"end-1-2":{"4/off 3/off":3.45,"5/1 5/2":3.83,"4/off 5/2":3.7},"end-1-3":{"5/off 1/off":4.38,"5/off 4/3":4.68,"6/1 1/off":4.72},"end-1-4":{"8/2/off":7.4,"8/2 6/4":7.55,"8/2 5/3":7.62},"end-1-5":{"5/off 3/off":3.27,"6/1 6/3":3.65},"end-1-6":{"6/1/off":3.62,"6/1 6/5":3.84},"end-2-1":{"5/1/off":3.97,"6/2 5/4":4.07,"5/1 2/1":4.24},"end-2-2":{"4/off 2/1":5.56,"5/1/off":5.62,"6/2 4/3":5.79},"end-2-3":{"4/1/off":2.16,"6/3 2/1":2.35,"4/1 2/1":2.58},"end-2-4":{"6/off 6/3":0,"6/off 3/off":12,"6/off 5/2":20},"end-2-5":{"5/off 6/4":0,"5/off 4/2":11,"5/off 5/3":13},"end-2-6":{"9/4 6/4":0,"9/4 4/2":11,"7/2 6/4":20},"end-3-1":{"6/off 3/2":6.28,"6/off 5/4":6.33,"6/off 6/5":6.35},"end-3-2":{"4/off 2/1":3.38,"4/off 6/5":3.41,"5/1/off":3.42,"6/2 6/5":3.63},"end-3-3":{"6/4 5/4":3.04,"5/3 5/4":3.05,"6/4/3":3.05,"6/4 6/5":3.09},"end-3-4":{"6/2 6/3":11,"6/2 5/2":13,"4/off 5/2":13,"4/off 6/3":27},"end-3-5":{"6/off 6/4":11,"6/off 2/off":13,"6/off 5/3":20},"end-3-6":{"8/2 8/4":11,"8/2 7/3":13,"8/2 6/2":20},"middle-1-9":{"9/4 8/4":0,"13/8 13/9":14},"middle-2-7":{"10/4 9/6":0,"9/3 6/3":2,"10/4 6/3":12},"middle-2-8":{"12/6 9/7":0,"12/6 7/5":4,"8/2 9/7":11},"middle-3-7":{"13/7 11/7":0,"11/5 13/9":1,"8/2 6/2":6},"middle-3-8":{"13/7 9/4":0,"12/6 9/4":0,"13/7 13/8":2,"9/3 7/2":27},"end-1-7":{"6/off 4/off":4.46,"6/off 6/2":4.72},"end-1-8":{"5/off 2/off":3.58,"5/off 5/3":3.78},"end-1-9":{"6/3 3/off(3)":3.08,"6/3 5/2 3/off(2)":3.59},"end-1-10":{"6/1 4/off":4.29,"6/1 6/2":4.38},"end-2-7":{"6/off 5/4":3.46,"6/off 3/2":3.48,"6/off 6/5":3.53},"end-2-8":{"6/2 6/3":3.93,"5/1 6/3":4.02,"6/2 5/2":4.17},"end-2-9":{"4/off(4)":0,"6/2(2) 4/off(2)":0,"6/2 4/off(3)":20},"end-2-10":{"5/off 5/2":0,"5/off 6/3":11,"5/off 3/off":20},"end-3-7":{"6/1/off":3.82,"5/off 5/4":3.85,"6/1 6/5":4.01},"end-3-8":{"4/2(2) 2/off(2)":2.58,"6/4 4/2(2) 2/off":2.65,"6/4 4/2(3)":2.99},"end-3-9":{"4/off 3/1":2.74,"4/off 4/2":2.75},"end-3-10":{"6/off 6/2":11,"6/off 4/off":20}};
 </script>
 <script>
 /* ===== Mahalach – app ===== */
@@ -1102,12 +1266,6 @@ const LV = {
   2: { name: 'בינוני', desc: 'שתי אפשרויות סבירות ושיקולי סיכון. לומדים לשקול סיכון מול תועלת.' },
   3: { name: 'מתקדם', desc: 'מצבים עדינים עם הבדלים קטנים בין מהלכים. כאן נדרשת חשיבה אמיתית.' }
 };
-const TOOLS = [
-  { icon: 'trend', cls: 'v', t: 'מעקב התקדמות', d: 'רצף ימים, דיוק לפי קטגוריה והמלצה אוטומטית על הנושא החלש ביותר – בלי הרשמה.' },
-  { icon: 'redo', cls: 't', t: 'חזרה על טעויות', d: 'כל תרגיל שפספסתם נאסף למצב חזרה, ומוצג שוב בסדר אקראי עד שתצליחו.' },
-  { icon: 'book', cls: 'a', t: 'מילון מושגים', d: 'בלוק, פריים, בליטה, חשיפה, מרוץ, פיפ קאונט – הסבר קצר זמין מכל מסך.' },
-  { icon: 'eye', cls: 'r', t: 'לוח שקל לקרוא', d: 'צבע ברור לכל צד, כיוון תנועה מסומן, מספור נקודות מהצד שלכם והדגשת מהלכים אפשריים.' }
-];
 const GLOSS = [
   ['נקודה', 'Point', 'אחד מ-24 המשולשים בלוח. "לבנות נקודה" פירושו להציב עליה שני חיילים או יותר – היריב לא יכול לנחות עליה.'],
   ['בליטה', 'Blot', 'חייל בודד על נקודה. אם היריב נוחת עליו, החייל נפגע ועובר לבר.'],
@@ -1186,7 +1344,7 @@ function updateBadge() {
    Board renderer (SVG). Point numbers are always from white's side.
    =================================================================== */
 const G = { W: 814, H: 608, M: 14, PW: 56, BAR: 48, TRAY: 56, GAP: 10, NUM: 24, R: 25, PH: 236 };
-const COL = { frame: '#252b52', field: '#f6f1e7', triA: '#6a5df2', triB: '#c3c8ea', bar: '#2f3663', tray: '#1d2246',
+const COL = { frame: '#1d1757', field: '#efe5cf', triA: '#4a33f2', triB: '#a9b0ec', bar: '#2a2370', tray: '#16114a',
   num: '#aab1dd', numHome: '#ffffff', hl: '#12b8a6', sel: '#ffb020' };
 
 class Board {
@@ -1303,8 +1461,8 @@ class Board {
     const P = { 1: [[.5, .5]], 2: [[.27, .27], [.73, .73]], 3: [[.27, .27], [.5, .5], [.73, .73]], 4: [[.27, .27], [.73, .27], [.27, .73], [.73, .73]],
       5: [[.27, .27], [.73, .27], [.5, .5], [.27, .73], [.73, .73]], 6: [[.27, .25], [.73, .25], [.27, .5], [.73, .5], [.27, .75], [.73, .75]] }[v];
     let h = `<g opacity="${used ? .35 : 1}"><rect x="${x}" y="${y + 2}" width="${s}" height="${s}" rx="9" fill="rgba(0,0,0,.18)"/>` +
-      `<rect x="${x}" y="${y}" width="${s}" height="${s}" rx="9" fill="#fff" stroke="#d6d8e8" stroke-width="1.5"/>`;
-    for (const [a, b] of P) h += `<circle cx="${x + a * s}" cy="${y + b * s}" r="${s * .085}" fill="#4a3bdc"/>`;
+      `<rect x="${x}" y="${y}" width="${s}" height="${s}" rx="9" fill="#3a22dc"/>`;
+    for (const [a, b] of P) h += `<circle cx="${x + a * s}" cy="${y + b * s}" r="${s * .085}" fill="#fff"/>`;
     return h + '</g>';
   }
   // animate white step (and a possible hit) from state a to state b
@@ -1344,6 +1502,7 @@ class Board {
    Exercise runtime
    =================================================================== */
 const byId = Object.fromEntries(EXERCISES.map(e => [e.id, e]));
+const TOT = (c, l) => EXERCISES.filter(e => e.c === c && (!l || e.l === l)).length;
 const catName = c => CATS.find(x => x.id === c).name;
 let board, SES = null, X = null, drag = null, pendingTarget = null, animTimer = 0;
 
@@ -1403,14 +1562,14 @@ function loadExercise() {
   }
   // header
   const total = SES.ids.length;
-  $('#exChip').textContent = SES.mode === 'review' ? 'חזרה על טעויות' : catName(ex.c) + ' · ' + LV[ex.l].name;
-  $('#exCount').textContent = `תרגיל ${SES.i + 1} מתוך ${total}` + (SES.mode === 'review' ? ` · ${catName(ex.c)} · ${LV[ex.l].name}` : '');
+  $('#exChip').textContent = SES.mode === 'review' ? 'טעויות' : catName(ex.c) + ' · ' + LV[ex.l].name;
+  $('#exCount').textContent = `${SES.i + 1}/${total}`;
   $('#exBar').style.width = (SES.i / total * 100) + '%';
-  if (ex.type === 'cube') { $('#exQ').textContent = 'החלטת קובייה'; $('#exSub').textContent = ex.q; }
-  else { $('#exQ').innerHTML = `הטלתם <span class="ltr">${ex.d[0]}-${ex.d[1]}</span>. מה המהלך הטוב ביותר?`; $('#exSub').textContent = 'אתם משחקים בלבן. הזיזו את החיילים לפי הקוביות ולחצו "בדיקה".'; }
+  if (ex.type === 'cube') $('#exQ').textContent = ex.q;
+  else $('#exQ').innerHTML = `הטלתם <span class="ltr">${ex.d[0]}-${ex.d[1]}</span>. מה הכי טוב? <small style="display:inline;font-weight:500;color:var(--muted)">(אתם בלבן)</small>`;
   const ctx = $('#exCtx'); ctx.hidden = !ex.ctx; ctx.textContent = ex.ctx || '';
+  closeModal('expl');
   draw(); renderPanel();
-  window.scrollTo(0, 0);
 }
 
 /* ---------- Pointer interaction (tap-tap or drag) ---------- */
@@ -1487,7 +1646,6 @@ function finishCheck() {
   Store.record(X.ex.id, X.result);
   if (SES.res[SES.i] === undefined) SES.res[SES.i] = X.result; // first attempt counts in the summary
   draw(); renderPanel();
-  const fb = $('#panel .fb'); if (fb && window.innerWidth < 980) fb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 function showCorrect() {
   if (!X || !X.checked || X.ex.type === 'cube' || X.busy) return;
@@ -1529,57 +1687,58 @@ function metric(m, live) {
   let v = STATS[ex.id] && STATS[ex.id][m];
   if (v === undefined && live && ex.flag === 'shots') v = Engine.shots(live);
   if (v === undefined) return '';
-  return ex.flag === 'shots' ? `<span class="metric">חשיפה: ${v} מתוך 36</span>` : `<span class="metric">ממוצע: <span class="ltr">${Number(v).toFixed(2)}</span> הטלות לסיום</span>`;
+  return ex.flag === 'shots' ? `<span class="metric">פוגעות: ${v}/36</span>` : `<span class="metric"><span class="ltr">${Number(v).toFixed(2)}</span> הטלות לסיום</span>`;
 }
 const RES = {
-  correct: { cls: 'correct', icon: 'check', t: 'נכון!', d: 'זה בדיוק המהלך הטוב ביותר.' },
-  near: { cls: 'near', icon: 'half', t: 'כמעט נכון', d: 'מהלך סביר, אבל יש מהלך טוב יותר. ראו את ההסבר.' },
-  wrong: { cls: 'wrong', icon: 'xx', t: 'לא מדויק', d: 'יש מהלך טוב יותר. צפו בו על הלוח וקראו למה.' }
+  correct: { cls: 'correct', icon: 'check', t: 'נכון!' },
+  near: { cls: 'near', icon: 'half', t: 'כמעט' },
+  wrong: { cls: 'wrong', icon: 'xx', t: 'לא מדויק' }
 };
 const nota = m => `<span class="ltr">${esc(m)}</span>`;
 function renderPanel() {
   const ex = X.ex, P = $('#panel'); let h = '';
   if (!X.checked) {
     if (ex.type === 'cube') {
-      h += `<div class="hint">${I.bulb}<span>בדקו את הפיפ קאונט מתחת ללוח והחליטו.</span></div><div class="opts">` +
-        ex.opts.map((o, i) => `<button class="opt" data-opt="${i}">${esc(o[0])}</button>`).join('') + '</div>';
+      h += '<div class="opts">' + ex.opts.map((o, i) => `<button class="opt" data-opt="${i}">${esc(o[0])}</button>`).join('') + '</div>';
     } else {
       const left = X.maxLen - X.hist.length;
-      h += `<div class="hint">${I.hand}<span>לחצו על חייל מסומן ואז על נקודת היעד – או גררו אותו. אפשר להזיז חייל אחד בשתי הקוביות יחד.</span></div>`;
-      h += `<div class="moves-line">${X.hist.length ? 'המהלך שלכם: ' + nota(Engine.notate(X.hist)) : '<span style="color:var(--muted)">עוד לא הזזתם חיילים.</span>'}` +
-        (left > 0 && X.hist.length ? ` <span style="color:var(--muted);font-size:.88rem">· נשארו ${left === 1 ? 'קובייה אחת' : left + ' קוביות'}</span>` : '') + '</div>';
-      h += `<div class="actions"><button class="btn btn-ghost" data-act="undo" ${X.hist.length ? '' : 'disabled'}>${I.undo}בטל צעד</button>` +
-        `<button class="btn btn-ghost" data-act="reset" ${X.hist.length ? '' : 'disabled'}>${I.reset}איפוס</button>` +
+      h += `<div class="moves-line">${X.hist.length ? nota(Engine.notate(X.hist)) + (left > 0 ? ` · עוד ${left === 1 ? 'קובייה' : left + ' קוביות'}` : '') : 'לחצו על חייל מסומן, או גררו אותו'}</div>`;
+      h += `<div class="actions"><button class="btn btn-ghost" data-act="undo" ${X.hist.length ? '' : 'disabled'}>${I.undo}ביטול</button>` +
         `<button class="btn btn-primary" data-act="check" ${X.hist.length >= X.maxLen && !X.busy ? '' : 'disabled'}>${I.check}בדיקה</button></div>`;
     }
   } else {
     const r = RES[X.result];
-    if (ex.type === 'cube') {
-      h += '<div class="opts">' + ex.opts.map((o, i) => `<button class="opt ${o[1] ? 'right' : (i === X.choice ? 'wrong' : '')}" disabled>${esc(o[0])}</button>`).join('') + '</div>';
-    }
-    h += `<div class="fb ${r.cls}" role="status"><span class="ico">${I[r.icon]}</span><div><b>${r.t}</b><p>${r.d}</p></div></div>`;
-    h += `<div class="exp"><h3>${esc(ex.t)}</h3><div class="principle">${I.bulb}<span>${esc(ex.p)}</span></div><p>${glossify(ex.why)}</p>`;
-    if (ex.type === 'cube') {
-      h += '<ul class="alts">' + ex.opts.map(o => `<li><div class="row"><span class="tag ${o[1] ? 'best' : 'bad'}">${o[1] ? 'נכון' : 'שגוי'}</span><b>${esc(o[0])}</b></div><p>${esc(o[2])}</p></li>`).join('') + '</ul>';
-    } else {
-      const userKey = Engine.key(X.userState); const listed = [...X.best, ...X.near, ...X.bad].includes(userKey);
-      const you = k => k === userKey ? '<span class="tag you">המהלך שלכם</span>' : '';
-      let li = ex.best.map((m, i) => `<li><div class="row"><span class="tag best">הטוב ביותר</span>${nota(m)}${you(X.best[i])}${metric(m)}</div></li>`).join('');
-      li += (ex.near || []).map((x, i) => `<li><div class="row"><span class="tag near">כמעט</span>${nota(x[0])}${you(X.near[i])}${metric(x[0])}</div><p>${esc(x[1])}</p></li>`).join('');
-      li += (ex.bad || []).map((x, i) => `<li><div class="row"><span class="tag bad">חלש</span>${nota(x[0])}${you(X.bad[i])}${metric(x[0])}</div><p>${esc(x[1])}</p></li>`).join('');
-      if (!listed) li += `<li><div class="row"><span class="tag you">המהלך שלכם</span>${nota(Engine.notate(X.hist))}${metric('__', X.userState)}</div><p>המהלך חוקי, אבל לא עומד בעיקרון של התרגיל. השוו אותו למהלך הטוב ביותר.</p></li>`;
-      h += `<ul class="alts">${li}</ul>`;
-    }
-    h += '</div><div class="exp-actions">';
-    if (ex.type !== 'cube') {
-      h += `<button class="btn btn-soft" data-act="replay" ${X.busy ? 'disabled' : ''}>${I.play}הצגת המהלך הנכון</button>`;
-      if (X.result !== 'correct') h += `<button class="btn btn-ghost" data-act="mine" ${X.busy ? 'disabled' : ''}>${I.eye}המהלך שלי</button>`;
-    }
-    if (X.result !== 'correct') h += `<button class="btn btn-ghost" data-act="retry">${I.reset}נסו שוב</button>`;
-    h += `<button class="btn btn-primary" data-act="next">${SES.i + 1 >= SES.ids.length ? 'לסיכום' : 'התרגיל הבא'}${I.next}</button></div>`;
+    if (ex.type === 'cube') h += '<div class="opts" style="margin-bottom:8px">' + ex.opts.map((o, i) => `<button class="opt ${o[1] ? 'right' : (i === X.choice ? 'wrong' : '')}" disabled>${esc(o[0])}</button>`).join('') + '</div>';
+    h += `<div class="fb ${r.cls}" role="status"><span class="ico">${I[r.icon]}</span><div><b>${r.t}</b><p>${esc(ex.p)}</p></div></div>`;
+    h += `<div class="after"><button class="btn btn-ghost" data-act="explain">${I.bulb}הסבר</button>` +
+      `<button class="btn btn-primary" data-act="next">${SES.i + 1 >= SES.ids.length ? 'סיום' : 'הבא'}${I.next}</button></div>`;
   }
   P.innerHTML = h;
 }
+function openExplain() {
+  const ex = X.ex; let h = `<div class="principle">${I.bulb}<span>${esc(ex.p)}</span></div><p class="why">${glossify(ex.why)}</p>`;
+  if (ex.type === 'cube') {
+    h += '<ul class="alts">' + ex.opts.map(o => `<li><div class="row"><span class="tag ${o[1] ? 'best' : 'bad'}">${o[1] ? 'נכון' : 'שגוי'}</span><b>${esc(o[0])}</b></div><p>${esc(o[2])}</p></li>`).join('') + '</ul>';
+  } else {
+    const userKey = Engine.key(X.userState); const listed = [...X.best, ...X.near, ...X.bad].includes(userKey);
+    const you = k => k === userKey ? '<span class="tag you">שלכם</span>' : '';
+    let li = ex.best.map((m, i) => `<li><div class="row"><span class="tag best">הכי טוב</span>${nota(m)}${you(X.best[i])}${metric(m)}</div></li>`).join('');
+    li += (ex.near || []).map((x, i) => `<li><div class="row"><span class="tag near">כמעט</span>${nota(x[0])}${you(X.near[i])}${metric(x[0])}</div><p>${esc(x[1])}</p></li>`).join('');
+    li += (ex.bad || []).map((x, i) => `<li><div class="row"><span class="tag bad">חלש</span>${nota(x[0])}${you(X.bad[i])}${metric(x[0])}</div><p>${esc(x[1])}</p></li>`).join('');
+    if (!listed) li += `<li><div class="row"><span class="tag you">שלכם</span>${nota(Engine.notate(X.hist))}${metric('__', X.userState)}</div></li>`;
+    h += `<ul class="alts">${li}</ul>`;
+  }
+  h += '<div class="sheet-actions">';
+  if (ex.type !== 'cube') {
+    h += `<button class="btn btn-soft" data-act="replay">${I.play}הצגה על הלוח</button>`;
+    if (X.result !== 'correct') h += `<button class="btn btn-ghost" data-act="mine">${I.eye}המהלך שלי</button>`;
+  }
+  if (X.result !== 'correct') h += `<button class="btn btn-ghost" data-act="retry">${I.reset}שוב</button>`;
+  h += '</div>';
+  $('#explTitle').textContent = ex.t; $('#explBody').innerHTML = h; $('#explBody').scrollTop = 0;
+  $('#expl').classList.add('on');
+}
+function closeModal(id) { $('#' + id).classList.remove('on'); }
 
 /* ---------- Sessions ---------- */
 function startSession(cat, lvl) {
@@ -1597,14 +1756,12 @@ function startReview() {
 function showSummary() {
   const n = SES.ids.length, c = SES.res.filter(r => r === 'correct').length, nr = SES.res.filter(r => r === 'near').length, w = n - c - nr;
   const pct = Math.round(c / n * 100), C = 2 * Math.PI * 60;
-  let h = `<div class="score-ring"><svg viewBox="0 0 140 140"><circle cx="70" cy="70" r="60" fill="none" stroke="#eceefa" stroke-width="14"/><circle cx="70" cy="70" r="60" fill="none" stroke="url(#sg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - c / n)}"/><defs><linearGradient id="sg"><stop offset="0" stop-color="#6a5cff"/><stop offset="1" stop-color="#12b8a6"/></linearGradient></defs></svg><b>${pct}%</b></div>`;
-  const msg = pct >= 85 ? 'מצוין! אתם שולטים בעקרונות האלה.' : pct >= 50 ? 'עבודה טובה. עוד קצת תרגול ותשלטו בזה לגמרי.' : 'זו בדיוק המטרה של תרגול – כל טעות היא הזדמנות ללמוד.';
-  h += `<h2>${SES.mode === 'review' ? 'סיימתם סבב חזרה' : 'סיימתם: ' + catName(SES.cat) + ' · ' + LV[SES.lvl].name}</h2><p style="color:var(--muted)">${msg}</p>`;
-  h += `<div class="sum-split"><span style="background:var(--green-50);color:#0b7a50">${c} נכונים</span><span style="background:var(--amber-50);color:#8a5600">${nr} כמעט</span><span style="background:var(--rose-50);color:#a3243a">${w} לא מדויקים</span></div><div class="sum-actions">`;
+  let h = `<div class="score-ring"><svg viewBox="0 0 140 140"><circle cx="70" cy="70" r="60" fill="none" stroke="#e2dcff" stroke-width="14"/><circle cx="70" cy="70" r="60" fill="none" stroke="url(#sg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - c / n)}"/><defs><linearGradient id="sg"><stop offset="0" stop-color="#4a33f2"/><stop offset="1" stop-color="#00a492"/></linearGradient></defs></svg><b>${pct}%</b></div>`;
+  h += `<h2>${pct >= 85 ? 'מצוין!' : pct >= 50 ? 'עבודה טובה' : 'ממשיכים ללמוד'}</h2><p style="color:var(--muted);font-weight:600">${SES.mode === 'review' ? 'סבב חזרה' : catName(SES.cat) + ' · ' + LV[SES.lvl].name}</p>`;
+  h += `<div class="sum-split"><span style="background:var(--green-50);color:#076b44">${c} נכון</span><span style="background:var(--amber-50);color:#7a4a00">${nr} כמעט</span><span style="background:var(--rose-50);color:#9a1530">${w} לא</span></div><div class="sum-actions">`;
   if (SES.mode === 'cat' && SES.lvl < 3) h += `<button class="btn btn-primary" data-sum="next">לרמה הבאה: ${LV[SES.lvl + 1].name}</button>`;
-  if (Store.d.missed.length) h += `<button class="btn btn-soft" data-go="#/review">חזרה על טעויות (${Store.d.missed.length})</button>`;
-  if (SES.mode === 'cat') h += `<button class="btn btn-ghost" data-sum="again">תרגול חוזר</button>`;
-  h += `<button class="btn btn-ghost" data-go="#/practice">לבחירת תרגול</button></div>`;
+  else if (SES.mode === 'cat') h += `<button class="btn btn-primary" data-sum="again">שוב</button>`;
+  h += `<button class="btn btn-ghost" data-go="#/practice">לתפריט</button></div>`;
   $('#sumCard').innerHTML = h;
   go('#/summary');
 }
@@ -1616,38 +1773,30 @@ function recommendation() {
   let pick, why;
   if (tried.length) { tried.sort((a, b) => a.s.c / a.s.a - b.s.c / b.s.a || a.s.solved - b.s.solved); pick = tried[0]; why = pick.s.acc >= 90 ? 'הדיוק שלכם גבוה בכל השלבים – שווה לחזור על הרמה המתקדמת כדי לשמור על כושר.' : `הדיוק שלכם כאן ${pick.s.acc}% – הנמוך ביותר מבין הקטגוריות.`; }
   else { st.sort((a, b) => a.s.a - b.s.a); pick = st[0]; why = pick.s.a ? 'עוד לא צברתם מספיק תרגילים כאן כדי למדוד דיוק.' : 'עוד לא התחלתם את השלב הזה – מקום מצוין להתחיל.'; }
-  let lvl = 3; for (const l of [1, 2, 3]) { if (Store.catStats(pick.cat.id, l).solved < 6) { lvl = l; break; } }
+  let lvl = 3; for (const l of [1, 2, 3]) { if (Store.catStats(pick.cat.id, l).solved < TOT(pick.cat.id, l)) { lvl = l; break; } }
   return { cat: pick.cat, lvl, why };
 }
 function renderPractice() {
   const all = EXERCISES.length; let a = 0, c = 0, solved = 0;
   for (const id in Store.d.res) { const r = Store.d.res[id]; if (!byId[id]) continue; a += r.a; c += r.c; if (r.solved) solved++; }
-  const streak = Store.streak(), miss = Store.d.missed.length;
+  const streak = Store.streak();
   $('#kpis').innerHTML =
-    `<div class="kpi"><span class="ico a">${I.fire}</span><div><b>${streak}</b><span>${streak === 1 ? 'יום רצף' : 'ימי רצף'}</span></div></div>` +
-    `<div class="kpi"><span class="ico v">${I.check}</span><div><b>${solved}/${all}</b><span>תרגילים שהושלמו</span></div></div>` +
-    `<div class="kpi"><span class="ico t">${I.trend}</span><div><b>${a ? Math.round(c / a * 100) + '%' : '–'}</b><span>דיוק כללי</span></div></div>` +
-    `<button class="kpi clickable" data-go="#/review"><span class="ico r">${I.redo}</span><div><b>${miss}</b><span>טעויות לחזרה</span></div></button>`;
+    `<div class="kpi"><b>${streak}</b><span>ימי רצף</span></div>` +
+    `<div class="kpi"><b>${solved}/${all}</b><span>הושלמו</span></div>` +
+    `<div class="kpi"><b>${a ? Math.round(c / a * 100) + '%' : '–'}</b><span>דיוק</span></div>`;
   const rc = recommendation();
-  $('#reco').innerHTML = `<div class="reco"><span class="ico ${rc.cat.cls}">${I[rc.cat.icon]}</span><div><b>מומלץ לכם עכשיו: ${rc.cat.name} · ${LV[rc.lvl].name}</b><span>${rc.why}</span></div><button class="btn btn-primary" data-start="${rc.cat.id}:${rc.lvl}">לתרגל עכשיו</button></div>`;
+  $('#reco').innerHTML = solved >= all
+    ? `<div class="allDone">סיימתם את כל ${all} התרגילים. סט חדש בדרך.</div>`
+    : `<button class="reco" data-start="${rc.cat.id}:${rc.lvl}"><span class="ico">${I[rc.cat.icon]}</span><div><small>מומלץ עכשיו</small><b>${rc.cat.name} · ${LV[rc.lvl].name}</b></div>${I.next}</button>`;
   const L = Store.d.lvl;
   $('#lvlSeg').innerHTML = [1, 2, 3].map(l => `<button role="tab" aria-selected="${l === L}" class="${l === L ? 'on' : ''}" data-lvl="${l}"><span class="bars l${l}"><i></i><i></i><i></i></span>${LV[l].name}</button>`).join('');
   $('#catCards').innerHTML = CATS.map(cat => {
-    const s = Store.catStats(cat.id, L), all3 = Store.catStats(cat.id);
-    const dots = [1, 2, 3].map(l => { const x = Store.catStats(cat.id, l); return `<span class="${x.solved === 6 ? 'done' : ''}">${LV[l].name} ${x.solved}/6</span>`; }).join('');
-    const label = s.solved === 6 ? 'תרגול חוזר' : s.solved ? 'המשיכו לתרגל' : 'התחילו';
-    return `<div class="card hov cat-card"><div class="cat-head"><span class="ico ${cat.cls}">${I[cat.icon]}</span><div><h3>${cat.name}</h3><p>${cat.short}</p></div></div>` +
-      `<div><div class="cat-meta"><span><b>${s.solved}/6</b> הושלמו ברמה ${LV[L].name}</span><span>אחוז הצלחה: <b>${all3.acc === null ? '–' : all3.acc + '%'}</b></span></div><div class="progress" style="margin-top:6px"><i style="width:${s.solved / 6 * 100}%"></i></div></div>` +
-      `<div class="lvl-dots">${dots}</div><button class="btn ${s.solved === 6 ? 'btn-soft' : 'btn-primary'}" data-start="${cat.id}:${L}">${label}</button></div>`;
+    const s = Store.catStats(cat.id, L), t = TOT(cat.id, L), done = s.solved >= t;
+    return `<button class="cat ${done ? 'done' : ''}" data-start="${cat.id}:${L}"><span class="ico ${cat.cls}">${I[cat.icon]}</span><div><h3>${cat.name}<span>${s.solved}/${t}</span></h3><div class="progress"><i style="width:${s.solved / t * 100}%"></i></div></div>${I.next}</button>`;
   }).join('');
 }
 
 /* ---------- Landing ---------- */
-function renderLanding() {
-  $('#stageCards').innerHTML = CATS.map(c => `<div class="card hov reveal"><span class="ico ${c.cls}">${I[c.icon]}</span><h3>${c.name}</h3><p>${c.desc}</p></div>`).join('');
-  $('#levelCards').innerHTML = [1, 2, 3].map(l => `<div class="card hov lvl-card reveal"><div class="lvl-top"><span class="bars l${l}"><i></i><i></i><i></i></span><h3 style="margin:0">${LV[l].name}</h3></div><p>${LV[l].desc}</p></div>`).join('');
-  $('#toolCards').innerHTML = TOOLS.map(t => `<div class="card hov reveal"><span class="ico ${t.cls}">${I[t.icon]}</span><h3>${t.t}</h3><p>${t.d}</p></div>`).join('');
-}
 let heroTimer = 0, heroBoard;
 function heroLoop() {
   clearTimeout(heroTimer);
@@ -1665,13 +1814,6 @@ function heroLoop() {
     });
   }, 1300);
 }
-function observeReveal() {
-  const els = $$('.reveal:not(.in)');
-  if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('in')); return; }
-  const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), { threshold: .12 });
-  els.forEach(e => io.observe(e));
-}
-
 /* ---------- Glossary ---------- */
 function renderGloss(filter = '', flash = '') {
   const f = filter.trim();
@@ -1683,7 +1825,7 @@ function openGloss(term) {
   if (term) { const el = $(`.gitem[data-g="${CSS.escape(term)}"]`); if (el) el.scrollIntoView({ block: 'center' }); }
   else $('#gsearch').focus({ preventScroll: true });
 }
-function closeGloss() { $('#gloss').classList.remove('on'); }
+
 
 /* ---------- Router ---------- */
 function go(h) { if (location.hash === h) route(); else location.hash = h; }
@@ -1693,16 +1835,16 @@ function show(v) {
 }
 function route() {
   const h = location.hash || '#/';
+  closeModal('expl'); closeModal('gloss');
   clearTimeout(animTimer);
   if (h === '#/practice') { renderPractice(); show('practice'); }
   else if (h === '#/review') {
     if (startReview()) { history.replaceState(null, '', '#/play'); show('play'); loadExercise(); }
-    else { $('#sumCard').innerHTML = `<div class="empty"><span class="ico t" style="margin:0 auto 12px">${I.check}</span><h2>אין טעויות לחזרה</h2><p style="color:var(--muted)">כל תרגיל שתפספסו יופיע כאן, ותוכלו לחזור עליו עד שתצליחו.</p><button class="btn btn-primary" data-go="#/practice">לבחירת תרגול</button></div>`; show('summary'); }
+    else { $('#sumCard').innerHTML = `<span class="ico t" style="margin:0 auto 12px">${I.check}</span><h2 style="margin-bottom:14px">אין טעויות לחזרה</h2><button class="btn btn-primary" data-go="#/practice" style="width:100%">לתרגול</button>`; show('summary'); }
   }
   else if (h === '#/play') { if (!SES) return go('#/practice'); show('play'); if (!X || X.ex.id !== SES.ids[SES.i]) loadExercise(); }
   else if (h === '#/summary') { if (!SES) return go('#/practice'); show('summary'); }
-  else { show('home'); heroLoop(); observeReveal(); }
-  window.scrollTo(0, 0);
+  else { show('home'); heroLoop(); }
 }
 
 /* ---------- Wiring ---------- */
@@ -1710,7 +1852,6 @@ function init() {
   Store.load(); updateBadge();
   board = new Board($('#board'), { homeRight: Store.d.homeRight });
   heroBoard = new Board($('#heroBoard'));
-  renderLanding();
   const svg = $('#board');
   svg.addEventListener('pointerdown', onDown);
   svg.addEventListener('pointermove', onMove);
@@ -1729,15 +1870,16 @@ function init() {
     if (t.dataset.sum === 'next') return startSession(SES.cat, SES.lvl + 1);
     if (t.dataset.sum === 'again') return startSession(SES.cat, SES.lvl);
     const a = t.dataset.act;
-    if (a === 'undo') undo(); else if (a === 'reset') resetEx(); else if (a === 'check') check();
+    if (['replay', 'mine', 'retry'].includes(a)) closeModal('expl');
+    if (a === 'undo') undo(); else if (a === 'reset') resetEx(); else if (a === 'check') check(); else if (a === 'explain') openExplain();
     else if (a === 'replay') showCorrect(); else if (a === 'mine') showMine(); else if (a === 'retry') retry(); else if (a === 'next') nextEx();
   });
   $('#exBack').addEventListener('click', () => go('#/practice'));
   $('#flipBtn').addEventListener('click', () => { Store.d.homeRight = !Store.d.homeRight; Store.save(); board.homeRight = Store.d.homeRight; if (X && !X.busy) draw(); });
-  $('#glossClose').addEventListener('click', closeGloss);
-  $('#gloss').addEventListener('click', e => { if (e.target.id === 'gloss') closeGloss(); });
+  $$('[data-close]').forEach(b => b.addEventListener('click', () => closeModal(b.dataset.close)));
+  $$('.modal').forEach(m => m.addEventListener('click', e => { if (e.target === m) m.classList.remove('on'); }));
   $('#gsearch').addEventListener('input', e => renderGloss(e.target.value));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeGloss(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal('gloss'); closeModal('expl'); } });
   window.addEventListener('hashchange', route);
   route();
 }
