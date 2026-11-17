@@ -137,7 +137,9 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top) + var(--top-x
 .ex-top{display:flex;align-items:center;gap:8px}
 .iconbtn{background:var(--card);border:1.5px solid var(--line);border-radius:10px;width:40px;height:40px;display:grid;place-items:center;flex:none;padding:0}
 .iconbtn svg{width:20px;height:20px}
-.ex-progress{flex:1;min-width:60px}
+.iconbtn[disabled]{opacity:.35;cursor:default}
+.ex-progress{flex:1;min-width:24px}
+.ex-top .chip{min-width:0;overflow:hidden;text-overflow:ellipsis;flex:0 1 auto}
 .ex-progress .progress{margin:0}
 .ex-count{font-weight:700;font-size:.85rem;color:var(--muted);white-space:nowrap}
 .task{font-family:var(--font-h);font-size:1.08rem;font-weight:700}
@@ -229,6 +231,12 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top) + var(--top-x
 .skipbtn{width:100%;margin-top:8px;min-height:40px;font-size:.92rem}
 .actions.three{grid-template-columns:1fr 1fr 2fr}
 .pip #shownMv{color:var(--brand-600);font-weight:700}
+@media (max-width:370px){
+  .logo{font-size:.9rem;gap:6px}.logo-mark{width:30px;height:30px}.nav button{padding:.4em .3em}
+  .ex-top{gap:6px}.ex-progress{min-width:20px}.iconbtn{width:36px;height:36px}
+  .actions.three .btn{padding:.7em .4em;font-size:.92rem;gap:.3em}
+  .actions.three .btn svg{display:none}
+}
 .term{background:none;border:0;padding:0;color:inherit;border-bottom:2px dotted #6f97e6;cursor:help;font:inherit}
 .gsearch{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:.65em 1em;font:inherit;margin-bottom:8px;background:#f8fbff}
 .gitem{padding:10px 0;border-bottom:1px solid var(--line)}
@@ -257,7 +265,6 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top) + var(--top-x
       <span dir="ltr">Backgammon Solver</span>
     </button>
     <nav class="nav" aria-label="ניווט ראשי">
-      <button data-go="#/practice" data-nav="practice" aria-label="תרגול"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span class="lbl">תרגול</span></button>
       <button data-go="#/review" data-nav="review" aria-label="חזרה על טעויות"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg><span class="lbl">טעויות</span><span class="badge" id="missBadge" hidden>0</span></button>
       <button data-keys aria-label="נקודות מפתח"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg><span class="lbl">נקודות מפתח</span></button>
       <button data-glossary aria-label="מילון מושגים"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg><span class="lbl">מילון</span></button>
@@ -294,6 +301,7 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top) + var(--top-x
       <button class="iconbtn" id="exBack" aria-label="חזרה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
       <span class="chip" id="exChip"></span>
       <div class="ex-progress"><div class="progress"><i id="exBar" style="width:0"></i></div></div>
+      <button class="iconbtn" id="prevBtn" aria-label="לתרגיל הקודם"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17l5-5-5-5M12 17l5-5-5-5"/></svg></button>
       <span class="ex-count" id="exCount"></span>
       <button class="iconbtn" id="flipBtn" aria-label="היפוך צד הבית"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 7h13l-3-3M17 17H4l3 3"/></svg></button>
     </div>
@@ -2706,6 +2714,7 @@ function loadExercise() {
   const total = SES.ids.length;
   $('#exChip').textContent = SES.mode === 'review' ? 'טעויות' : catName(ex.c) + ' · ' + LV[ex.l].name;
   $('#exCount').textContent = `${SES.i + 1}/${total}`;
+  $('#prevBtn').disabled = SES.i <= 0;
   $('#exBar').style.width = (SES.i / total * 100) + '%';
   if (ex.type === 'cube') $('#exQ').textContent = ex.q;
   else $('#exQ').innerHTML = `הטלתם <span class="ltr">${ex.d[0]}-${ex.d[1]}</span>. מה הכי טוב? <small style="display:inline;font-weight:500;color:var(--muted)">(אתם בלבן)</small>`;
@@ -2815,6 +2824,11 @@ function skipEx() {
   Store.skipEx(X.ex.id);
   if (SES.res[SES.i] === undefined) SES.res[SES.i] = 'skip';
   nextEx();
+}
+// back to the previous exercise in this round
+function prevEx() {
+  if (!SES || SES.i <= 0) return;
+  clearTimeout(animTimer); SES.i--; loadExercise();
 }
 function nextEx() {
   clearTimeout(animTimer);
@@ -3158,6 +3172,7 @@ function init() {
     else if (a === 'replay') showCorrect(); else if (a === 'retry') retry(); else if (a === 'next') nextEx(); else if (a === 'skip') skipEx();
   });
   $('#exBack').addEventListener('click', () => go('#/practice'));
+  $('#prevBtn').addEventListener('click', prevEx);
   $('#flipBtn').addEventListener('click', () => { Store.d.homeRight = !Store.d.homeRight; Store.save(); board.homeRight = Store.d.homeRight; if (X && !X.busy) draw(); });
   $$('[data-close]').forEach(b => b.addEventListener('click', () => closeModal(b.dataset.close)));
   $$('.modal').forEach(m => m.addEventListener('click', e => { if (e.target === m) m.classList.remove('on'); }));
