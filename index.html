@@ -100,6 +100,20 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top) + var(--top-x
 .preview svg{display:block;width:100%;height:auto;max-height:42vh}
 .toast-ok{position:absolute;bottom:14px;left:50%;transform:translate(-50%,6px);display:inline-flex;align-items:center;gap:6px;background:var(--green);color:#fff;padding:.35em .8em;border-radius:10px;font-weight:700;font-size:.88rem;opacity:0;transition:.35s;white-space:nowrap}
 .toast-ok.show{opacity:1;transform:translate(-50%,0)}
+/* Landing: dramatic match scene behind the content */
+#v-home{position:relative;overflow:hidden;background:#03040f}
+.hero-scene{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+#v-home .screen{position:relative;z-index:1}
+#v-home h1{color:#fff;text-shadow:0 6px 40px rgba(0,0,0,.75)}
+#v-home .grad{background:linear-gradient(90deg,#a492ff,#3ee6d0)}
+#v-home .grad{-webkit-background-clip:text;background-clip:text;color:transparent}
+#v-home .lead{color:#c3cdf0;text-shadow:0 2px 14px rgba(0,0,0,.8)}
+#v-home .btn-primary{box-shadow:0 10px 30px -8px rgba(62,230,208,.55)}
+#v-home .preview{background:rgba(8,10,34,.6);border-color:rgba(150,165,255,.28);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:0 34px 70px -24px #000,0 0 50px -14px rgba(62,230,208,.45)}
+.hs-cone{animation:hsFlick 7s ease-in-out infinite}
+.hs-dust circle{animation:hsDrift 14s linear infinite}
+@keyframes hsFlick{0%,100%{opacity:1}45%{opacity:.82}50%{opacity:.95}55%{opacity:.86}}
+@keyframes hsDrift{0%{transform:translateY(0);opacity:0}15%{opacity:1}85%{opacity:1}100%{transform:translateY(-90px);opacity:0}}
 
 /* ===== Practice selection ===== */
 .seg{display:flex;background:var(--card-2);border-radius:14px;padding:4px;gap:4px;border:1.5px solid var(--line)}
@@ -274,6 +288,40 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top) + var(--top-x
 
 <main>
 <section class="view" id="v-home">
+  <svg class="hero-scene" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <radialGradient id="hsBg" cx="50%" cy="38%" r="75%"><stop offset="0" stop-color="#1c1658"/><stop offset=".45" stop-color="#0a0b2c"/><stop offset="1" stop-color="#020309"/></radialGradient>
+      <linearGradient id="hsCone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8ecff" stop-opacity=".38"/><stop offset=".75" stop-color="#b9c4ff" stop-opacity=".08"/><stop offset="1" stop-color="#b9c4ff" stop-opacity="0"/></linearGradient>
+      <linearGradient id="hsTable" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#241d4a"/><stop offset="1" stop-color="#06050f"/></linearGradient>
+      <radialGradient id="hsPool" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#b6c2ff" stop-opacity=".45"/><stop offset="1" stop-color="#b6c2ff" stop-opacity="0"/></radialGradient>
+      <radialGradient id="hsVig" cx="50%" cy="45%" r="70%"><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".85"/></radialGradient>
+      <filter id="hsBlur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="16"/></filter>
+      <filter id="hsRim" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="2.2"/></filter>
+      <filter id="hsGlow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="6"/></filter>
+      <path id="hsFig" d="M190 400C210 375 265 372 290 400C305 418 306 440 300 452L318 474L302 482C304 500 298 520 280 528C276 530 272 531 268 532L268 562C310 577 345 612 368 660C388 702 400 740 415 768C423 783 433 790 452 793L455 813L400 817C380 817 364 802 354 783L332 742L338 1200L-80 1200L-80 700C-60 612 40 566 150 557L222 552L222 524C200 510 178 448 190 400Z"/>
+      <g id="hsDie"><rect x="-17" y="-17" width="34" height="34" rx="7" fill="#f4f1ff"/></g>
+    </defs>
+    <rect width="1000" height="1000" fill="url(#hsBg)"/>
+    <g opacity=".07"><path d="M-20 0h56l-28 300z" fill="#7b61ff"/><path d="M42 0h56l-28 300z" fill="#3ee6d0"/><path d="M104 0h56l-28 300z" fill="#7b61ff"/><path d="M166 0h56l-28 300z" fill="#3ee6d0"/><path d="M228 0h56l-28 300z" fill="#7b61ff"/><path d="M290 0h56l-28 300z" fill="#3ee6d0"/><path d="M352 0h56l-28 300z" fill="#7b61ff"/><path d="M414 0h56l-28 300z" fill="#3ee6d0"/><path d="M476 0h56l-28 300z" fill="#7b61ff"/><path d="M538 0h56l-28 300z" fill="#3ee6d0"/><path d="M600 0h56l-28 300z" fill="#7b61ff"/><path d="M662 0h56l-28 300z" fill="#3ee6d0"/><path d="M724 0h56l-28 300z" fill="#7b61ff"/><path d="M786 0h56l-28 300z" fill="#3ee6d0"/><path d="M848 0h56l-28 300z" fill="#7b61ff"/><path d="M910 0h56l-28 300z" fill="#3ee6d0"/><path d="M972 0h56l-28 300z" fill="#7b61ff"/></g>
+    <polygon class="hs-cone" points="420,-20 580,-20 930,1000 70,1000" fill="url(#hsCone)" filter="url(#hsBlur)"/>
+    <g class="hs-dust"><circle cx="495" cy="274" r="2.4" fill="#fff" opacity="0.7" style="animation-delay:-0s"/><circle cx="367" cy="668" r="1" fill="#fff" opacity="0.5" style="animation-delay:-9s"/><circle cx="359" cy="639" r="1.4" fill="#fff" opacity="0.35" style="animation-delay:-1s"/><circle cx="552" cy="548" r="1" fill="#fff" opacity="0.35" style="animation-delay:-1s"/><circle cx="612" cy="554" r="1" fill="#fff" opacity="0.7" style="animation-delay:-1s"/><circle cx="444" cy="716" r="1" fill="#fff" opacity="0.7" style="animation-delay:-9s"/><circle cx="533" cy="170" r="1.4" fill="#fff" opacity="0.35" style="animation-delay:-8s"/><circle cx="398" cy="416" r="2.4" fill="#fff" opacity="0.35" style="animation-delay:-8s"/><circle cx="390" cy="704" r="1.8" fill="#fff" opacity="0.7" style="animation-delay:-13s"/><circle cx="422" cy="225" r="1.4" fill="#fff" opacity="0.5" style="animation-delay:-1s"/><circle cx="610" cy="184" r="1" fill="#fff" opacity="0.7" style="animation-delay:-3s"/><circle cx="584" cy="664" r="2.4" fill="#fff" opacity="0.5" style="animation-delay:-7s"/><circle cx="629" cy="584" r="1.8" fill="#fff" opacity="0.5" style="animation-delay:-3s"/><circle cx="422" cy="369" r="1" fill="#fff" opacity="0.7" style="animation-delay:-4s"/><circle cx="598" cy="626" r="1.8" fill="#fff" opacity="0.7" style="animation-delay:-7s"/><circle cx="477" cy="743" r="1" fill="#fff" opacity="0.35" style="animation-delay:-8s"/><circle cx="544" cy="288" r="1.8" fill="#fff" opacity="0.35" style="animation-delay:-14s"/><circle cx="580" cy="551" r="1" fill="#fff" opacity="0.7" style="animation-delay:-1s"/><circle cx="615" cy="706" r="1.8" fill="#fff" opacity="0.5" style="animation-delay:-11s"/><circle cx="509" cy="728" r="2.4" fill="#fff" opacity="0.7" style="animation-delay:-12s"/><circle cx="563" cy="190" r="1" fill="#fff" opacity="0.5" style="animation-delay:-7s"/><circle cx="670" cy="186" r="1" fill="#fff" opacity="0.7" style="animation-delay:-11s"/><circle cx="488" cy="711" r="2.4" fill="#fff" opacity="0.5" style="animation-delay:-11s"/><circle cx="527" cy="475" r="1" fill="#fff" opacity="0.5" style="animation-delay:-5s"/><circle cx="416" cy="745" r="1" fill="#fff" opacity="0.5" style="animation-delay:-0s"/><circle cx="441" cy="414" r="1.4" fill="#fff" opacity="0.7" style="animation-delay:-3s"/><circle cx="533" cy="520" r="2.4" fill="#fff" opacity="0.35" style="animation-delay:-2s"/><circle cx="559" cy="531" r="1.8" fill="#fff" opacity="0.35" style="animation-delay:-13s"/></g>
+    <g transform="translate(0 -170)">
+    <polygon points="110,800 890,800 1180,1200 -180,1200" fill="url(#hsTable)"/>
+    <ellipse cx="500" cy="840" rx="400" ry="80" fill="url(#hsPool)"/>
+    <line x1="110" y1="800" x2="890" y2="800" stroke="#9fb0ff" stroke-opacity=".45" stroke-width="2"/>
+    <g>
+      <use href="#hsFig" fill="#3ee6d0" transform="translate(6 -6)" filter="url(#hsRim)"/>
+      <use href="#hsFig" fill="#03030b"/>
+    </g>
+    <g transform="translate(1000 0) scale(-1 1)">
+      <use href="#hsFig" fill="#8f75ff" transform="translate(6 -6)" filter="url(#hsRim)"/>
+      <use href="#hsFig" fill="#03030b"/>
+    </g>
+    <g transform="translate(478 872) rotate(-14)"><rect x="-22" y="-22" width="44" height="44" rx="9" fill="#3ee6d0" opacity=".5" filter="url(#hsGlow)"/><use href="#hsDie"/><circle r="4" cx="-8" cy="-8" fill="#0a0b2c"/><circle r="4" fill="#0a0b2c"/><circle r="4" cx="8" cy="8" fill="#0a0b2c"/></g>
+    <g transform="translate(530 890) rotate(19)"><rect x="-22" y="-22" width="44" height="44" rx="9" fill="#8f75ff" opacity=".5" filter="url(#hsGlow)"/><use href="#hsDie"/><circle r="4" cx="-8" cy="-8" fill="#0a0b2c"/><circle r="4" cx="8" cy="-8" fill="#0a0b2c"/><circle r="4" cx="-8" cy="8" fill="#0a0b2c"/><circle r="4" cx="8" cy="8" fill="#0a0b2c"/></g>
+    </g>
+    <rect width="1000" height="1000" fill="url(#hsVig)"/>
+  </svg>
   <div class="screen hero">
     <h1>תפסיקו לנחש.<br><span class="grad">תתחילו להבין.</span></h1>
     <p class="lead">120 תרגילי שש בש על לוח אמיתי, עם הסבר לכל מהלך.</p>
