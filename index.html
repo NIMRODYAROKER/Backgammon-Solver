@@ -36,7 +36,7 @@
   --teal:#00a492; --teal-50:#c9f0ea; --amber:#d27a00; --amber-50:#ffe7bd; --rose:#e12c50; --rose-50:#ffd6de; --green:#0b9b62; --green-50:#c8f1df;
   --shadow-sm:0 1px 2px rgba(14,26,58,.08),0 2px 6px rgba(14,26,58,.06);
   --shadow:0 12px 30px -14px rgba(25,60,160,.45),0 4px 10px -6px rgba(14,26,58,.12);
-  --r:14px; --r-lg:20px; --hdr:54px;
+  --r:14px; --r-lg:20px; --hdr:54px; --top-x:0px;
   --font:'Heebo',system-ui,-apple-system,'Segoe UI',Arial,sans-serif; --font-h:'Rubik','Heebo',system-ui,sans-serif;
 }
 *{box-sizing:border-box}
@@ -67,7 +67,9 @@ button{font:inherit;cursor:pointer;color:inherit}
 .ico.v{background:var(--brand-50);color:var(--brand-600)}.ico.t{background:var(--teal-50);color:var(--teal)}.ico.a{background:var(--amber-50);color:var(--amber)}.ico.r{background:var(--rose-50);color:var(--rose)}
 
 /* ===== Header ===== */
-.top{position:fixed;top:0;left:0;right:0;z-index:40;height:calc(var(--hdr) + env(safe-area-inset-top));padding-top:env(safe-area-inset-top);background:linear-gradient(90deg,#3a22dc,#1f5cc4 55%,#00a492);color:#fff;box-shadow:0 4px 14px -8px rgba(15,40,110,.7)}
+/* phones: extra room under the status bar so the browser's top blur doesn't cover the header row */
+@media (hover:none) and (pointer:coarse){:root{--top-x:14px}}
+.top{position:fixed;top:0;left:0;right:0;z-index:40;height:calc(var(--hdr) + env(safe-area-inset-top) + var(--top-x));padding-top:calc(env(safe-area-inset-top) + var(--top-x));background:linear-gradient(90deg,#3a22dc,#1f5cc4 55%,#00a492);color:#fff;box-shadow:0 4px 14px -8px rgba(15,40,110,.7)}
 .top .wrap{display:flex;align-items:center;gap:8px;height:100%}
 .wrap{width:100%;max-width:1100px;margin:0 auto;padding:0 14px}
 .logo{display:flex;align-items:center;gap:9px;font-family:var(--font-h);font-weight:800;font-size:1.12rem;color:#fff;white-space:nowrap;background:none;border:0;padding:0}
@@ -79,9 +81,10 @@ button{font:inherit;cursor:pointer;color:inherit}
 .nav .lbl{display:none}
 .badge{min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:#ff3d63;color:#fff;font-size:.7rem;display:inline-grid;place-items:center;font-weight:700;position:absolute;top:2px;inset-inline-end:0}
 @media (min-width:720px){.nav .lbl{display:inline}.badge{position:static}}
+@media (max-width:400px){.nav button{padding:.45em .4em}.logo{font-size:1rem;gap:7px}}
 
 /* ===== App shell: every view fits the screen ===== */
-main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top));left:0;right:0;bottom:0}
+main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top) + var(--top-x));left:0;right:0;bottom:0}
 .view{display:none;height:100%;animation:fade .3s ease}
 .view.on{display:block}
 .screen{height:100%;display:flex;flex-direction:column;gap:10px;padding:12px 14px calc(12px + env(safe-area-inset-bottom));max-width:1100px;margin:0 auto;overflow-y:auto}
@@ -141,12 +144,12 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top));left:0;right
 .task small{display:block;font-family:var(--font);font-weight:500;font-size:.88rem;color:var(--muted);margin-top:2px}
 .ex-main{flex:1;min-height:0;display:flex;flex-direction:column;gap:8px}
 .board-card{flex:0 1 auto;min-height:0;display:flex;flex-direction:column;align-items:center;background:var(--card);border:1.5px solid var(--line);border-radius:var(--r-lg);padding:6px;box-shadow:var(--shadow)}
-.board-card svg{display:block;width:100%;height:auto;aspect-ratio:814/608;max-height:calc(100dvh - var(--hdr) - 250px);min-height:0;touch-action:none;user-select:none;-webkit-user-select:none}
+.board-card svg{display:block;width:100%;height:auto;aspect-ratio:814/608;max-height:calc(100dvh - var(--hdr) - var(--top-x) - 250px);min-height:0;touch-action:none;user-select:none;-webkit-user-select:none}
 .pip{display:flex;justify-content:center;gap:12px;font-size:.8rem;color:var(--muted);font-weight:600;padding-top:4px}
 .pip b{color:var(--ink);font-variant-numeric:tabular-nums}
 .panel{flex:none;margin-top:auto}
 .moves-line{min-height:24px;margin-bottom:8px;font-size:.92rem;text-align:center;color:var(--muted)}
-.moves-line .ltr{background:var(--card-2);color:var(--ink);border-radius:8px;padding:1px 8px;font-weight:700}
+.moves-line .mv{background:var(--card-2);color:var(--ink);border-radius:8px;padding:1px 8px;font-weight:700}
 .actions{display:grid;grid-template-columns:1fr 2fr;gap:8px}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .opt{border:2px solid var(--line);background:var(--card);border-radius:14px;padding:10px 12px;font-weight:700;min-height:52px}
@@ -193,6 +196,39 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top));left:0;right
 .metric{margin-inline-start:auto;font-size:.78rem;color:var(--muted)}
 .sheet-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .sheet-actions .btn{flex:1;min-width:120px}
+.mv{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+.why .mv,.alts p .mv,.keyitem .mv,.gitem .mv{background:var(--card-2);border-radius:6px;padding:0 5px}
+.ex-hero{background:linear-gradient(135deg,#3a22dc,#1f5cc4 60%,#00a492);color:#fff;border-radius:16px;padding:12px 14px;margin-bottom:12px;box-shadow:var(--shadow)}
+.ex-hero small{display:block;opacity:.85;font-weight:600;font-size:.8rem}
+.mv-big{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.18);border:0;border-radius:12px;padding:5px 12px;color:#fff;font-family:var(--font-h);font-size:1.35rem;font-weight:800;margin:4px 0 8px}
+.mv-big svg{width:18px;height:18px}
+.facts{list-style:none;padding:0;margin:0;display:grid;gap:4px}
+.facts li{display:flex;gap:7px;align-items:flex-start;font-size:.92rem;font-weight:600;line-height:1.35}
+.facts li svg{width:16px;height:16px;flex:none;margin-top:2px}
+.facts li.minus svg{opacity:.75}
+.mine{border:1.5px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:12px;background:#f8fbff}
+.mine small{display:block;color:var(--muted);font-weight:700;font-size:.8rem;margin-bottom:4px}
+.mine .facts li{color:var(--ink-2)}
+.mine .facts li.plus svg{color:var(--green)}.mine .facts li.minus svg{color:var(--rose)}
+.sec{font-size:1rem;margin:16px 0 7px;display:flex;align-items:baseline;gap:8px}
+.sec small{font-family:var(--font);font-weight:500;color:var(--muted);font-size:.78rem}
+.sec:first-child{margin-top:0}
+.keys{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+.keyitem{width:100%;text-align:start;background:var(--brand-50);border:0;border-radius:12px;padding:9px 11px;display:block;color:var(--ink)}
+.keyitem b{color:var(--brand-600);font-family:var(--font-h);font-size:.95rem;display:flex;gap:7px;align-items:center}
+.keyitem b i{font-style:normal;background:var(--brand-600);color:#fff;border-radius:99px;min-width:20px;height:20px;display:inline-grid;place-items:center;font-size:.72rem}
+.keyitem span{display:block;font-size:.88rem;color:var(--ink-2);margin-top:2px}
+.keyitem.flash{outline:3px solid var(--teal)}
+.alts li[data-show]{cursor:pointer;transition:border-color .2s}
+.alts li[data-show]:hover{border-color:#8fb0ec}
+.alts li.isyou{border-color:var(--ink-2)}
+.alts .go{margin-inline-start:auto;color:var(--brand-600);display:grid;place-items:center}
+.alts .go svg{width:15px;height:15px}
+.alts .metric{margin-inline-start:0}
+.linkbtn{background:none;border:0;padding:6px 0 0;color:var(--brand-600);font-weight:700;font-size:.88rem}
+.skipbtn{width:100%;margin-top:8px;min-height:40px;font-size:.92rem}
+.actions.three{grid-template-columns:1fr 1fr 2fr}
+.pip #shownMv{color:var(--brand-600);font-weight:700}
 .term{background:none;border:0;padding:0;color:inherit;border-bottom:2px dotted #6f97e6;cursor:help;font:inherit}
 .gsearch{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:.65em 1em;font:inherit;margin-bottom:8px;background:#f8fbff}
 .gitem{padding:10px 0;border-bottom:1px solid var(--line)}
@@ -223,6 +259,7 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top));left:0;right
     <nav class="nav" aria-label="ניווט ראשי">
       <button data-go="#/practice" data-nav="practice" aria-label="תרגול"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span class="lbl">תרגול</span></button>
       <button data-go="#/review" data-nav="review" aria-label="חזרה על טעויות"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg><span class="lbl">טעויות</span><span class="badge" id="missBadge" hidden>0</span></button>
+      <button data-keys aria-label="נקודות מפתח"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg><span class="lbl">נקודות מפתח</span></button>
       <button data-glossary aria-label="מילון מושגים"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg><span class="lbl">מילון</span></button>
     </nav>
   </div>
@@ -264,7 +301,7 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top));left:0;right
     <div class="ex-main">
       <div class="board-card">
         <svg id="board" viewBox="0 0 814 608" role="img" aria-label="לוח שש בש"></svg>
-        <div class="pip">פיפ: <span>אתם <b id="pipW"></b></span><span>היריב <b id="pipB"></b></span></div>
+        <div class="pip">פיפ: <span>אתם <b id="pipW"></b></span><span>היריב <b id="pipB"></b></span><span id="shownMv" hidden></span></div>
       </div>
       <div class="panel" id="panel"></div>
     </div>
@@ -278,6 +315,13 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top));left:0;right
   <div class="sheet">
     <div class="sheet-head"><h2 id="explTitle"></h2><button class="x" data-close="expl" aria-label="סגירה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
     <div class="sheet-body" id="explBody"></div>
+  </div>
+</div>
+
+<div class="modal" id="keysM" role="dialog" aria-modal="true" aria-labelledby="keysTitle">
+  <div class="sheet">
+    <div class="sheet-head"><h2 id="keysTitle">נקודות מפתח</h2><button class="x" data-close="keysM" aria-label="סגירה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <div class="sheet-body"><p style="color:var(--muted);margin-bottom:10px">העקרונות שכדאי לשחק לפיהם. כל הסבר בתרגילים מציין אילו מהם רלוונטיים.</p><ul class="keys" id="keysList"></ul></div>
   </div>
 </div>
 
@@ -661,41 +705,41 @@ const EXERCISES = [
   why:'9/4 עם ה-5 ו-7/4 עם ה-3 בונים את נקודה 4 ומעלימים שתי בליטות בבת אחת. מהלך שקל לפספס – ולכן כדאי תמיד לבדוק את כל האפשרויות.' },
 
 /* ---------------- MIDDLE GAME: beginner ---------------- */
-{ id:'middle-1-1', c:'middle', l:1, w:SW, b:{1:1,5:1,12:5,17:3,19:5}, d:[3,1],
-  ctx:'היריב הניח חייל בודד על נקודה 5 שלכם.',
-  best:['8/5* 6/5'],
-  bad:[['6/5* 24/21','פוגע, אבל משאיר בליטה על 5 שהיריב יכול לפגוע בה כשייכנס מהבר.'],
-       ['24/21 24/23','לא פוגע ומאפשר ליריב לבנות עוגן על נקודה 5 שלכם.']],
-  t:'פוגעים ובונים בבת אחת', p:'הכי טוב לפגוע ולבנות נקודה באותו מהלך.',
-  why:'8/5* פוגע בחייל של היריב ושולח אותו לבר, ו-6/5 מצטרף ובונה את הנקודה. היריב מאבד זמן, ונקודת החמש שלכם כבר בידיים שלכם.' },
-{ id:'middle-1-2', c:'middle', l:1, w:SW, b:{1:1,7:1,12:5,17:3,19:5}, d:[6,1],
-  ctx:'היריב הניח חייל בודד על נקודת הבר שלכם (7).',
-  best:['13/7* 8/7'],
-  bad:[['13/7* 24/23','פוגע אבל משאיר בליטה על 7 – החייל שחוזר מהבר יכול לפגוע בה.'],
-       ['24/18 6/5','מתעלם מהחייל של היריב.']],
-  t:'פוגעים על נקודת הבר', p:'פגיעה + בניית נקודה = מהלך כמעט מושלם.',
-  why:'13/7* פוגע ו-8/7 מכסה. בניתם את נקודת הבר, החייל של היריב על הבר, ואין לכם בליטה.' },
-{ id:'middle-1-3', c:'middle', l:1, w:{ 5: 1, 6: 4, 8: 3, 10: 1, 13: 4, 24: 2 }, b:SB, d:[5,1],
-  best:['13/8 6/5','10/5 6/5'],
-  near:[['10/5 24/23','מכסה את 5, אבל הפיצול מאחור פחות נחוץ כאן.']],
-  bad:[['10/5 8/7','סוגר את 5 אבל פותח בליטה חדשה על 7.'],
-       ['24/18','מתעלם מהבליטה על 5 ופותח עוד בליטה מאחור.']],
-  t:'מכסים לפני שמסתכנים', p:'קודם סוגרים בליטות, אחר כך מתקדמים.',
-  why:'הבליטה על נקודה 5 חייבת כיסוי – 6/5 עושה זאת. את ה-5 אפשר לשחק 10/5 (שלושה חיילים על 5) או 13/8 (חייל נוסף על 8, והחייל על 10 נשאר בונה). לפי GNU BG שניהם כמעט שקולים.' },
-{ id:'middle-1-4', c:'middle', l:1, w:{24:1,13:5,8:3,6:5}, wb:1, b:{1:1,12:5,17:3,19:5,20:1}, d:[5,4],
-  ctx:'אחד החיילים שלכם על הבר. היריב השאיר בליטה על נקודה 20 (נקודת החמש שלו).',
-  best:['bar/20* 24/20'],
-  bad:[['bar/21 13/8','נכנס בלי לפגוע ומשאיר את שני החיילים מאחור כבליטות.'],
-       ['bar/20* 13/9','פוגע, אבל משאיר בליטה על 20 במקום לבנות עוגן.']],
-  t:'נכנסים, פוגעים ובונים עוגן', p:'כשנכנסים מהבר – חפשו פגיעה ועוגן.',
-  why:'עם ה-5 נכנסים ישר לנקודה 20 ופוגעים בבליטה. ה-4 מביא את החייל מ-24 לאותה נקודה, וכך נבנה עוגן על נקודת החמש של היריב.' },
-{ id:'middle-1-5', c:'middle', l:1, w:SW, b:{1:1,4:1,12:5,17:3,19:5}, d:[4,2],
-  ctx:'היריב הניח חייל בודד על נקודה 4 שלכם.',
-  best:['8/4* 6/4'],
-  bad:[['13/9 13/11','מוותר על פגיעה ונקודה בבת אחת.'],
-       ['6/4* 24/20','פוגע אבל משאיר בליטה על 4.']],
-  t:'פוגעים על הראש', p:'"פגיעה על הראש": פוגעים ובונים נקודה על החייל של היריב.',
-  why:'8/4* פוגע ו-6/4 מכסה. היריב מאבד תור, ואתם מקבלים נקודה נוספת בבית בלי שום סיכון.' },
+{ id:'middle-1-31', c:'middle', l:1, w:{ 24: 1, 13: 3, 8: 3, 7: 2, 6: 4, 5: 2 }, b:{ 1: 2, 12: 3, 16: 2, 17: 2, 19: 3, 20: 3 }, d:[6,5],
+  ctx:'נשאר לכם חייל אחד מאחור, על נקודה 24.',
+  best:['24/18/13'],
+  bad:[['24/18 13/8','יוצא רק חצי דרך – החייל על 18 נשאר בליטה מול הרבה חיילים של היריב.'],
+       ['13/7 13/8','לא מחלץ את החייל על 24, והיריב ימשיך לבנות מולו חומה.']],
+  t:'מחלצים את החייל האחרון', p:'חייל אחרון מאחור – מנצלים הטלה גדולה כדי לחלץ אותו.',
+  why:'6-5 לוקח את החייל מנקודה 24 עד נקודה 13, שם כבר יש לכם חיילים. החייל יוצא מהבית של היריב לפני שהיריב סוגר עליו עוד נקודות, ולא נשארת אף בליטה. לפי GNU BG זה הרבה יותר טוב מכל מהלך אחר.' },
+{ id:'middle-1-32', c:'middle', l:1, w:{ 21: 1, 20: 1, 13: 4, 8: 3, 6: 4, 5: 2 }, b:{ 1: 2, 12: 3, 17: 3, 19: 3, 22: 2, 23: 2 }, d:[5,1],
+  ctx:'שני חיילים שלכם בודדים בבית של היריב, על 20 ועל 21.',
+  best:['21/20 13/8'],
+  bad:[['21/20 8/3','בונה את העוגן, אבל משאיר בליטה על נקודה 3 בבית שלכם.'],
+       ['13/8 6/5','משאיר את שני החיילים מאחור בודדים – היריב יכול לתקוף ולפגוע בהם.']],
+  t:'בונים עוגן', p:'שני חיילים בודדים מאחור? מחברים אותם לעוגן.',
+  why:'ה-1 מעביר את החייל מ-21 ל-20 ובונה עוגן על נקודת החמש של היריב – נקודה שהיריב לא יכול לפגוע בה. את ה-5 משחקים בבטחה 13/8. עכשיו אין לכם אף בליטה.' },
+{ id:'middle-1-33', c:'middle', l:1, w:{ 24: 2, 13: 4, 10: 1, 8: 3, 6: 4, 4: 1 }, b:{ 1: 1, 9: 1, 12: 4, 17: 3, 19: 4, 20: 2 }, d:[4,1], flag:'shots',
+  ctx:'חייל של היריב בורח ונמצא על נקודה 9. יש לכם בליטה על נקודה 4.',
+  best:['10/9* 8/4'],
+  bad:[['13/9* 10/9','בונה נקודה על החייל של היריב, אבל משאיר את הבליטה על 4 – והיריב שנכנס מהבר יכול לפגוע בה.'],
+       ['8/4 6/5','מכסה את 4 אבל לא פוגע – החייל של היריב ממשיך לברוח.']],
+  t:'פוגעים ומכסים', p:'כשפוגעים – סוגרים קודם את הבליטות בבית.',
+  why:'ה-1 פוגע בחייל של היריב (10/9*) ושולח אותו לבר. ה-4 מכסה את הבליטה על נקודה 4 (8/4). היריב חייב להיכנס מהבר לבית שלכם, ולכן בליטה בבית היא הכי מסוכנת. הבליטה על 9 פחות מסוכנת: רק 4 הטלות פוגעות. בניית נקודה על 9 (13/9* 10/9) נראית יפה, אבל משאירה את 4 פתוחה ל-20 הטלות פוגעות.' },
+{ id:'middle-1-34', c:'middle', l:1, w:{ 13: 2, 9: 2, 8: 3, 6: 4, 5: 2, 4: 2 }, b:{ 1: 2, 17: 3, 19: 4, 20: 3, 21: 3 }, d:[6,4], flag:'shots',
+  ctx:'ליריב עוגן על נקודה 1 שלכם. אתם מכניסים חיילים הביתה.',
+  best:['8/2 6/2'],
+  bad:[['13/7 7/3','מביא חייל מ-13, אבל משאיר שתי בליטות – על 13 ועל 3.'],
+       ['9/3 9/5','משאיר בליטה על 3, שהחיילים של היריב על נקודה 1 יכולים לפגוע בה.']],
+  t:'נכנסים הביתה בלי בליטות', p:'מול עוגן של היריב – מכניסים חיילים הביתה בלי להשאיר בליטות.',
+  why:'8/2 6/2 בונה את נקודה 2 ולא משאיר אף בליטה, כך שלחיילים של היריב על נקודה 1 אין במה לפגוע. כל מהלך אחר משאיר בליטה ש-12 או 13 הטלות של היריב פוגעות בה. כשאין צורך להסתכן – לא מסתכנים.' },
+{ id:'middle-1-35', c:'middle', l:1, w:{ 13: 3, 8: 3, 7: 2, 6: 3, 5: 2, 3: 1, 2: 1 }, bb:1, b:{ 12: 2, 19: 4, 20: 3, 21: 3, 22: 2 }, d:[5,1],
+  ctx:'חייל של היריב על הבר. יש לכם בליטות על 3 ועל 2.',
+  best:['13/8 3/2'],
+  bad:[['8/3 6/5','מכסה את 3, אבל הבליטה על 2 נשארת – היריב שנכנס עם 2 פוגע בה.'],
+       ['8/3 2/1','מכסה את 3, אבל מעביר את הבליטה לנקודה 1 – שם היא עדיין חשופה.']],
+  t:'בונים נקודה מול חייל בבר', p:'כשהיריב על הבר – לא משאירים בליטות בבית.',
+  why:'ה-1 מחבר את שתי הבליטות לנקודה אחת: 3/2 בונה את נקודה 2. ה-5 מביא חייל בבטחה 13/8. עכשיו סגורות לכם 5 נקודות (8, 7, 6, 5, 2) ואין אף בליטה – גם כשהיריב נכנס, אין לו במה לפגוע.' },
 { id:'middle-1-6', c:'middle', l:1, w:{13:2,8:3,7:2,6:3,5:2,4:2,3:1}, b:{2:1,19:5,20:3,21:3,22:3}, d:[6,1],
   ctx:'לחייל האחרון של היריב נשאר לברוח מנקודה 2.',
   best:['8/2* 3/2'],
@@ -995,27 +1039,27 @@ const EXERCISES = [
   why:'11/7 ו-10/7 בונים את נקודת הבר ומעלימים שתי בליטות. בלוק 8-7-6.' },
 
 /* ---------------- MIDDLE GAME: beginner (set 2) ---------------- */
-{ id:'middle-1-7', c:'middle', l:1, w:SW, b:{ 1: 1, 9: 1, 12: 5, 17: 3, 19: 5 }, d:[4,1],
-  ctx:'חייל של היריב בורח ונמצא על נקודה 9.',
-  best:['13/9* 24/23'],
-  near:[['13/9*/8','פוגע וחוזר לבטחון – כמעט טוב, אבל מעט פסיבי.']],
-  bad:[['24/20 24/23','לא פוגע – החייל של היריב ממשיך לברוח.']],
-  t:'פוגעים ומפצלים', p:'כשהיריב על הבר – זה זמן טוב להסתכן קצת.',
-  why:'13/9* שולח את החייל לבר. את ה-1 עדיף לשחק 24/23: היריב צריך להשתמש בהטלה כדי להיכנס, אז זה זמן טוב לפצל מאחור. חזרה לבטחון עם 9/8 כמעט שקולה.' },
-{ id:'middle-1-8', c:'middle', l:1, w:{ 6: 5, 8: 3, 13: 5, 24: 1 }, wb:1, b:{ 1: 2, 12: 4, 17: 3, 19: 5, 22: 1 }, d:[3,2],
-  ctx:'חייל שלכם על הבר. ליריב בליטה על נקודה 22.',
-  best:['bar/22* 13/11'],
-  near:[['bar/22* 24/22','פוגע ובונה עוגן – כמעט שקול.'],
-        ['bar/22* 22/20','פוגע וממשיך קדימה – כמעט טוב.']],
-  bad:[['bar/23 13/10','נכנס בלי לפגוע, ומשאיר שתי בליטות מאחור.']],
-  t:'נכנסים, פוגעים ומביאים בונה', p:'כניסה מהבר יכולה גם לפגוע וגם לבנות עוגן.',
-  why:'ה-3 נכנס ל-22 עם פגיעה. את ה-2 עדיף לשחק 13/11 ולהביא בונה, כי היריב על הבר. לבנות עוגן עם 24/22 כמעט שקול לפי GNU BG.' },
-{ id:'middle-1-9', c:'middle', l:1, w:{ 4: 1, 6: 4, 8: 3, 9: 1, 13: 4, 24: 2 }, b:SB, d:[5,4], flag:'shots',
-  best:['9/4 24/20','13/8 8/4'],
-  bad:[['9/4 8/4','בטוח לגמרי, אבל לא עושה שום עבודה נוספת.'],
-       ['13/8 13/9','הבליטה על 4 נשארת חשופה.']],
-  t:'מכסים – ולא מתקפלים', p:'בתחילת המשחק, מעט סיכון עדיף על מהלך פסיבי.',
-  why:'צריך לכסות את 4. 9/4 24/20 מכסה ותופס עמדה על נקודת החמש של היריב; 13/8 8/4 מכסה ומשאיר את 9 כבונה. לפי GNU BG שניהם טובים יותר מניקוי כל הבליטות עם 9/4 8/4.' },
+{ id:'middle-1-36', c:'middle', l:1, w:{ 24: 2, 13: 3, 9: 1, 8: 3, 6: 4, 5: 1, 4: 1 }, bb:1, b:{ 1: 1, 12: 4, 17: 3, 19: 4, 20: 2 }, d:[4,1],
+  ctx:'חייל של היריב על הבר. יש לכם בליטות על 5 ועל 4.',
+  best:['8/4 6/5'],
+  bad:[['13/9 5/4','בונה את 4 ואת 9, אבל מוותר על נקודה 5 – הנקודה הכי חשובה בבית.'],
+       ['9/5 6/5','בונה את 5, אבל משאיר את הבליטה על 4 – היריב שנכנס עם 4 פוגע בה.']],
+  t:'מכסים את שתי הבליטות', p:'היריב על הבר? כל נקודה סגורה בבית מקשה עליו להיכנס.',
+  why:'8/4 מכסה את נקודה 4 ו-6/5 מכסה את נקודה 5. במהלך אחד בניתם שתי נקודות בבית, כולל נקודת החמש. עכשיו ליריב יש פחות מקומות להיכנס, ונשארה רק בליטה רחוקה על 9.' },
+{ id:'middle-1-37', c:'middle', l:1, w:{ 22: 2, 13: 3, 8: 3, 6: 4, 5: 2, 3: 1 }, b:{ 1: 2, 4: 1, 12: 2, 14: 1, 17: 3, 19: 3, 20: 3 }, d:[6,2],
+  ctx:'ליריב בליטה על נקודה 14. שני חיילים שלכם על 22.',
+  best:['22/16/14*'],
+  bad:[['13/7 7/5','לא פוגע ומשאיר את שני החיילים תקועים מאחור.'],
+       ['22/16 6/4*','פוגע בבית, אבל משאיר בליטות על 16 ועל 4.']],
+  t:'פוגעים ויוצאים', p:'פגיעה שגם מחלצת חייל אחורי – שווה סיכון קטן.',
+  why:'חייל מנקודה 22 יוצא עם ה-6 וממשיך עם ה-2 לנקודה 14, שם הוא פוגע בחייל של היריב. היריב מאבד זמן כי הוא צריך להיכנס מהבר, ואחד החיילים שלכם כבר יצא מהבית של היריב. החייל על 14 עלול להיפגע, אבל היריב עסוק קודם בכניסה מהבר.' },
+{ id:'middle-1-38', c:'middle', l:1, w:{ 18: 2, 13: 2, 11: 1, 8: 3, 6: 4, 5: 3 }, b:{ 1: 2, 7: 1, 12: 3, 17: 3, 19: 3, 20: 3 }, d:[6,1],
+  ctx:'ליריב בליטה על נקודת הבר שלכם (7).',
+  best:['13/7* 8/7'],
+  bad:[['13/7* 7/6','פוגע, אבל ממשיך הלאה ומוותר על בניית נקודת הבר.'],
+       ['11/5 8/7*','פוגע עם חייל בודד ומשאיר אותו בליטה על 7.']],
+  t:'פוגעים ובונים את נקודת הבר', p:'פגיעה + בניית נקודה = מהלך כמעט מושלם.',
+  why:'13/7* פוגע בחייל של היריב, ו-8/7 מצטרף ובונה את נקודת הבר. עכשיו יש לכם בלוק של 4 נקודות רצופות (8, 7, 6, 5) והיריב על הבר. החיילים הבודדים על 11 ו-13 רחוקים מהחיילים של היריב, ולכן קשה לפגוע בהם.' },
 { id:'middle-1-10', c:'middle', l:1, type:'cube', w:{10:2,9:2,8:2,7:1,6:3,5:2,4:2,3:1}, b:{13:1,14:2,15:2,16:2,18:2,19:2,20:2,21:2},
   q:'מרוץ נקי. תורכם להטיל. להכפיל?',
   opts:[['להכפיל',true,'הובלה של 16% – הרבה מעבר ל-8%.'],
@@ -2290,7 +2334,7 @@ const EXERCISES = [
   why:'6/off 4/2 משאיר בליטה על 6 (13 הטלות פוגעות), אבל מכסה את הבליטה על 2. לפי GNU BG זה הרבה יותר טוב מ-6/off 6/4: בליטה על 6 יוצאת מהר – כל 6 מוציא אותה – ואילו בליטה עמוקה על 2 נשארת חשופה תור אחרי תור.' },
 ];
 
-const STATS = {"middle-2-3":{"10/4 8/4":0,"8/2 6/2":0,"10/4 10/6":14},"middle-2-4":{"9/3 8/3":6,"11/5 13/8":2,"13/7 13/8":16},"middle-3-3":{"12/6 10/5":2,"8/2 12/7":11,"8/2 10/5":13},"middle-3-4":{"11/5 13/10":3,"9/3 6/3":8,"11/5 9/6":6},"end-1-1":{"6/off 5/off":3.85,"6/1 5/off":4.42},"end-1-2":{"4/off 3/off":2.45,"5/1 5/2":2.83,"4/off 5/2":2.7},"end-1-3":{"5/off 1/off":3.38,"5/off 4/3":3.68,"6/1 1/off":3.72},"end-1-4":{"8/2/off":6.4,"8/2 6/4":6.55,"8/2 5/3":6.62},"end-1-5":{"5/off 3/off":2.27,"6/1 6/3":2.65},"end-1-6":{"6/1/off":2.62,"6/1 6/5":2.84},"end-2-1":{"5/1/off":2.97,"6/2 5/4":3.07,"5/1 2/1":3.24},"end-2-2":{"4/off 2/1":4.56,"5/1/off":4.62,"6/2 4/3":4.79},"end-2-3":{"4/1/off":1.16,"6/3 2/1":1.35,"4/1 2/1":1.58},"end-2-4":{"6/off 6/3":0,"6/off 3/off":12,"6/off 5/2":20},"end-2-5":{"5/off 6/4":0,"5/off 5/3":13,"5/off 4/2":11},"end-2-6":{"9/4 4/2":11,"9/4 5/3":0,"9/4 6/4":0,"7/2 6/4":20},"end-3-1":{"6/off 3/2":5.28,"6/off 5/4":5.33,"6/off 4/3":5.33,"6/off 6/5":5.35},"end-3-2":{"4/off 2/1":2.38,"4/off 6/5":2.41,"5/1/off":2.42,"6/2 6/5":2.63},"end-3-3":{"6/4 5/4":2.04,"5/3 5/4":2.05,"6/4/3":2.05,"6/4 6/5":2.09},"end-3-4":{"6/2 6/3":11,"6/2 5/2":13,"4/off 5/2":13,"4/off 6/3":27},"end-3-5":{"6/off 6/4":11,"6/off 2/off":13,"6/off 5/3":20},"end-3-6":{"8/2 8/4":11,"8/2 7/3":13,"8/2 6/2":20},"middle-1-9":{"9/4 24/20":32,"13/8 8/4":4,"9/4 8/4":0,"13/8 13/9":14},"middle-2-7":{"13/7 10/7":2,"9/3 6/3":2,"10/4 9/6":0,"10/4 6/3":12},"middle-2-8":{"12/6 9/7":0,"8/2 9/7":11,"12/6 7/5":4},"middle-3-7":{"13/7 11/7":0,"11/5 13/9":1,"8/2 6/2":6},"middle-3-8":{"9/3 8/3":2,"13/7 9/4":0,"13/7 13/8":2,"12/6 9/4":0,"9/3 7/2":27},"end-1-7":{"6/off 4/off":3.46,"6/off 6/2":3.72},"end-1-8":{"5/off 2/off":2.58,"5/off 5/3":2.78},"end-1-9":{"6/3 3/off(3)":2.08,"6/3 5/2 3/off(2)":2.59},"end-1-10":{"6/1 4/off":3.29,"6/1 6/2":3.38},"end-2-7":{"6/off 5/4":2.46,"6/off 3/2":2.48,"6/off 6/5":2.53},"end-2-8":{"6/2 6/3":2.93,"5/1 6/3":3.02,"6/2 5/2":3.17},"end-2-9":{"4/off(4)":0,"6/2(2) 4/off(2)":0,"6/2 4/off(3)":20},"end-2-10":{"5/off 5/2":0,"5/off 6/3":11,"5/off 3/off":20},"end-3-7":{"6/1/off":2.82,"5/off 5/4":2.85,"6/1 6/5":3.01},"end-3-8":{"4/2(2) 2/off(2)":1.58,"6/4 4/2(2) 2/off":1.65,"6/4 4/2(3)":1.99},"end-3-9":{"4/off 3/1":1.74,"4/off 4/2":1.75},"end-3-10":{"6/off 6/2":11,"6/off 4/off":20},"middle-1-12":{"8/3 7/5":0,"8/3 6/4":11,"6/1 7/5":13,"6/1 5/3":20},"middle-1-15":{"8/3 8/5":0,"6/1 6/3":11,"6/1 8/5":13,"8/3 6/3":22},"middle-1-18":{"9/3 8/6":0,"9/3 6/4":13},"middle-1-21":{"9/5 7/6":0,"9/5 6/5":11,"11/7 9/8":13,"11/7 11/10":15},"middle-1-24":{"5/1 12/10":0,"5/1 6/4":10,"12/8 10/8":11,"12/8 8/6":15},"middle-1-27":{"9/6 8/5 4/1(2)":0,"9/6 8/5 5/2(2)":11,"8/5 5/2 4/1(2)":15,"8/5 5/2(3)":16},"middle-1-30":{"11/7 7/4":0,"9/5 9/6":13,"9/5 11/8":15,"11/7 9/6":20},"middle-2-12":{"9/5 6/3":9,"13/9 6/3":16,"5/1 12/9":18,"12/8 8/5":19},"middle-2-15":{"13/7 7/6":3,"13/7 6/5":12,"13/7 13/12":13},"middle-2-18":{"8/2 9/5":4,"11/5 8/4":11,"11/5 9/5":13,"8/2 11/7":20},"middle-2-21":{"12/7 7/5":4,"6/1 4/2":11,"6/1 12/10":19,"6/1 6/4":20},"middle-2-24":{"12/7 7/6":2,"12/7 6/5":13,"12/7 12/11":20,"12/7 5/4":27},"middle-2-27":{"9/3 11/6":14,"10/4 11/6":21,"9/3 10/5":23,"13/7 7/2":24},"middle-2-30":{"8/4 6/2(2) 5/1":12,"8/4 6/2(3)":20,"6/2(3) 5/1":23,"6/2(4)":32},"middle-3-12":{"13/10 5/4":0,"4/1 10/9":3,"5/2 5/4":7,"4/1 13/12":8},"middle-3-15":{"13/8 8/5":0,"6/1 5/2":3,"13/8 5/2":13,"7/2 7/4":14},"middle-3-18":{"12/8 4/3":0,"8/4 4/3":3,"12/8 6/5":11,"8/4 6/5":14},"middle-3-21":{"12/6 8/3":11,"12/6 10/5":15,"10/4 10/5":14,"10/4 8/3":16},"middle-3-24":{"12/7 6/5":4,"6/1 7/6":7,"12/7 9/8":13,"9/4 7/6":14},"middle-3-27":{"11/5 13/10":0,"13/7 10/7":4,"10/4 4/1":8,"11/5 5/2":9},"middle-3-30":{"11/5 13/12":0,"11/5 3/2":3,"12/6 6/5":4,"11/5 5/4":14},"end-1-11":{"5/off 3/off":3.97,"5/off 6/3":4.22},"end-1-12":{"5/off 1/off":2.16,"5/off 4/3":2.61},"end-1-13":{"5/off 5/3":0,"5/off 2/off":20},"end-1-14":{"7/5 6/off":2.93,"7/1 4/2":3.18},"end-1-15":{"5/off 4/off":2.47,"6/1 4/off":2.75},"end-1-16":{"5/off 5/4":0,"5/off 6/5":11},"end-1-17":{"5/off 4/off":4.4,"5/off 5/1":4.66},"end-1-18":{"6/1(2) 5/off(2)":3.08,"6/1(3) 5/off":3.29},"end-1-19":{"6/off 3/2":0,"6/off 6/5":11},"end-1-20":{"5/off 3/off":3.04,"5/off 4/1":3.53},"end-1-21":{"7/1 1/off":5.59,"7/1 6/5":5.81},"end-1-22":{"5/2 4/3":0,"3/off 5/4":11},"end-1-23":{"6/off 3/off":2.77,"6/off 5/2":2.98},"end-1-24":{"5/off 2/off":0.06,"5/off 4/2":0.28},"end-1-25":{"6/off 2/off":0,"6/off 4/2":11},"end-1-26":{"6/off 3/off":3.87,"6/off 4/1":4.16},"end-1-27":{"6/off 4/off":3.39,"6/off 5/1":3.63},"end-1-28":{"7/1 1/off":1.21,"7/1 5/4":1.58},"end-1-29":{"6/1 1/off":0.36,"6/1 4/3":0.86},"end-1-30":{"4/off 6/3":1.08,"6/2 6/3":1.34},"end-2-11":{"5/off 4/off":3.89,"5/off 6/2":3.96},"end-2-12":{"7/5 3/off":5.6,"4/1 7/5":5.68},"end-2-13":{"5/2 4/2":4,"8/5 4/2":11,"8/6 3/off":23},"end-2-14":{"6/off 4/off":6.35,"6/off 5/1":6.53},"end-2-15":{"3/off 2/off":2.73,"5/2 2/off":2.83},"end-2-16":{"6/off 6/4":12,"6/off 5/3":22,"6/off 2/off":23},"end-2-17":{"8/2 7/4":4.68,"7/1 8/5":4.78,"8/2 6/3":4.85},"end-2-18":{"5/off 2/off":3.63,"6/1 2/off":3.69},"end-2-19":{"5/2 4/3":5,"9/6 5/4":11},"end-2-20":{"5/off 2/off":4.06,"5/off 6/4":4.13},"end-2-21":{"6/off 4/off":5.83,"6/off 6/2":5.98},"end-2-22":{"9/7 7/6":0,"6/4 9/8":4},"end-2-23":{"6/4 4/2 3/1 2/off":1.44,"6/4 5/3 4/2 2/off":1.57,"6/4 4/2 3/1(2)":1.76},"end-2-24":{"9/6 1/off":8.03,"9/6 5/4":8.13},"end-2-25":{"5/off 6/5":11,"5/off 5/4":20},"end-2-26":{"4/off 3/off":2.77,"5/1 3/off":2.86},"end-2-27":{"5/off 3/off":4.93,"5/off 6/3":4.99},"end-2-28":{"6/off 6/3":13,"6/off 3/off":24},"end-2-29":{"5/off 3/off":4.07,"5/off 6/3":4.14},"end-2-30":{"5/off 4/2":14,"5/off 6/4":21,"5/off 2/off":24},"end-3-11":{"6/off 4/3":4.29,"6/off 2/1":4.33,"6/off 3/2":4.4},"end-3-12":{"7/5(2) 6/4 5/3":4.61,"7/5(2) 5/3(2)":4.64,"7/5 6/4(2) 5/3":4.64,"7/5 6/4 5/3(2)":4.65},"end-3-13":{"5/off 6/4":12,"5/off 5/3":11,"5/off 2/off":21},"end-3-14":{"6/2 3/off":5.11,"5/1 3/off":5.13,"5/1 6/3":5.26},"end-3-15":{"5/off 6/4":4.87,"5/off 4/2":4.89,"6/1 6/4":5.04,"5/off 3/1":4.94},"end-3-16":{"6/2 3/off":11,"4/off 6/3":11,"4/off 3/off":22},"end-3-17":{"4/off 4/2":1.08,"4/off 3/1":1.1,"6/2 2/off":1.12,"6/2 3/1":1.3},"end-3-18":{"7/5 4/off":3.1,"7/3 2/off":3.13,"7/3 3/1":3.26},"end-3-19":{"5/2(2) 3/off(2)":11,"6/3 5/2(2) 3/off":11,"6/3 3/off(3)":20},"end-3-20":{"8/6 3/2":2.99,"8/6 6/5":3.03,"8/6 5/4":3.07},"end-3-21":{"3/off 2/off":6.01,"6/3 2/off":6.06},"end-3-22":{"6/2 6/5":0,"6/2 5/4":0,"4/off 6/5":11},"end-3-23":{"3/off 5/4":2.04,"4/1 1/off":2.05,"3/off 6/5":2.09,"5/2 2/1":2.16},"end-3-24":{"2/off 1/off":6.64,"6/4 1/off":6.69},"end-3-25":{"8/2 3/off":11,"8/2 6/3":11,"8/5 6/off":20},"end-3-26":{"6/1 1/off":7.58,"6/1 6/5":7.62,"5/off 4/3":7.63},"end-3-27":{"6/off 4/off":5.4,"6/off 6/2":5.42},"end-3-28":{"6/2 2/off":0,"6/2 4/2":0,"4/off 2/off":11},"end-3-29":{"5/off 3/off":5.69,"5/off 6/3":5.74},"end-3-30":{"6/off 4/2":13,"6/off 6/4":11,"6/off 2/off":24}};
+const STATS = {"middle-2-3":{"10/4 8/4":0,"8/2 6/2":0,"10/4 10/6":14},"middle-2-4":{"9/3 8/3":6,"11/5 13/8":2,"13/7 13/8":16},"middle-3-3":{"12/6 10/5":2,"8/2 12/7":11,"8/2 10/5":13},"middle-3-4":{"11/5 13/10":3,"9/3 6/3":8,"11/5 9/6":6},"end-1-1":{"6/off 5/off":3.85,"6/1 5/off":4.42},"end-1-2":{"4/off 3/off":2.45,"5/1 5/2":2.83,"4/off 5/2":2.7},"end-1-3":{"5/off 1/off":3.38,"5/off 4/3":3.68,"6/1 1/off":3.72},"end-1-4":{"8/2/off":6.4,"8/2 6/4":6.55,"8/2 5/3":6.62},"end-1-5":{"5/off 3/off":2.27,"6/1 6/3":2.65},"end-1-6":{"6/1/off":2.62,"6/1 6/5":2.84},"end-2-1":{"5/1/off":2.97,"6/2 5/4":3.07,"5/1 2/1":3.24},"end-2-2":{"4/off 2/1":4.56,"5/1/off":4.62,"6/2 4/3":4.79},"end-2-3":{"4/1/off":1.16,"6/3 2/1":1.35,"4/1 2/1":1.58},"end-2-4":{"6/off 6/3":0,"6/off 3/off":12,"6/off 5/2":20},"end-2-5":{"5/off 6/4":0,"5/off 5/3":13,"5/off 4/2":11},"end-2-6":{"9/4 4/2":11,"9/4 5/3":0,"9/4 6/4":0,"7/2 6/4":20},"end-3-1":{"6/off 3/2":5.28,"6/off 5/4":5.33,"6/off 4/3":5.33,"6/off 6/5":5.35},"end-3-2":{"4/off 2/1":2.38,"4/off 6/5":2.41,"5/1/off":2.42,"6/2 6/5":2.63},"end-3-3":{"6/4 5/4":2.04,"5/3 5/4":2.05,"6/4/3":2.05,"6/4 6/5":2.09},"end-3-4":{"6/2 6/3":11,"6/2 5/2":13,"4/off 5/2":13,"4/off 6/3":27},"end-3-5":{"6/off 6/4":11,"6/off 2/off":13,"6/off 5/3":20},"end-3-6":{"8/2 8/4":11,"8/2 7/3":13,"8/2 6/2":20},"middle-1-33":{"10/9* 8/4":4,"13/9* 10/9":20,"8/4 6/5":23},"middle-1-34":{"8/2 6/2":0,"13/7 7/3":13,"9/3 9/5":12},"middle-2-7":{"13/7 10/7":2,"9/3 6/3":2,"10/4 9/6":0,"10/4 6/3":12},"middle-2-8":{"12/6 9/7":0,"8/2 9/7":11,"12/6 7/5":4},"middle-3-7":{"13/7 11/7":0,"11/5 13/9":1,"8/2 6/2":6},"middle-3-8":{"9/3 8/3":2,"13/7 9/4":0,"13/7 13/8":2,"12/6 9/4":0,"9/3 7/2":27},"end-1-7":{"6/off 4/off":3.46,"6/off 6/2":3.72},"end-1-8":{"5/off 2/off":2.58,"5/off 5/3":2.78},"end-1-9":{"6/3 3/off(3)":2.08,"6/3 5/2 3/off(2)":2.59},"end-1-10":{"6/1 4/off":3.29,"6/1 6/2":3.38},"end-2-7":{"6/off 5/4":2.46,"6/off 3/2":2.48,"6/off 6/5":2.53},"end-2-8":{"6/2 6/3":2.93,"5/1 6/3":3.02,"6/2 5/2":3.17},"end-2-9":{"4/off(4)":0,"6/2(2) 4/off(2)":0,"6/2 4/off(3)":20},"end-2-10":{"5/off 5/2":0,"5/off 6/3":11,"5/off 3/off":20},"end-3-7":{"6/1/off":2.82,"5/off 5/4":2.85,"6/1 6/5":3.01},"end-3-8":{"4/2(2) 2/off(2)":1.58,"6/4 4/2(2) 2/off":1.65,"6/4 4/2(3)":1.99},"end-3-9":{"4/off 3/1":1.74,"4/off 4/2":1.75},"end-3-10":{"6/off 6/2":11,"6/off 4/off":20},"middle-1-12":{"8/3 7/5":0,"8/3 6/4":11,"6/1 7/5":13,"6/1 5/3":20},"middle-1-15":{"8/3 8/5":0,"6/1 6/3":11,"6/1 8/5":13,"8/3 6/3":22},"middle-1-18":{"9/3 8/6":0,"9/3 6/4":13},"middle-1-21":{"9/5 7/6":0,"9/5 6/5":11,"11/7 9/8":13,"11/7 11/10":15},"middle-1-24":{"5/1 12/10":0,"5/1 6/4":10,"12/8 10/8":11,"12/8 8/6":15},"middle-1-27":{"9/6 8/5 4/1(2)":0,"9/6 8/5 5/2(2)":11,"8/5 5/2 4/1(2)":15,"8/5 5/2(3)":16},"middle-1-30":{"11/7 7/4":0,"9/5 9/6":13,"9/5 11/8":15,"11/7 9/6":20},"middle-2-12":{"9/5 6/3":9,"13/9 6/3":16,"5/1 12/9":18,"12/8 8/5":19},"middle-2-15":{"13/7 7/6":3,"13/7 6/5":12,"13/7 13/12":13},"middle-2-18":{"8/2 9/5":4,"11/5 8/4":11,"11/5 9/5":13,"8/2 11/7":20},"middle-2-21":{"12/7 7/5":4,"6/1 4/2":11,"6/1 12/10":19,"6/1 6/4":20},"middle-2-24":{"12/7 7/6":2,"12/7 6/5":13,"12/7 12/11":20,"12/7 5/4":27},"middle-2-27":{"9/3 11/6":14,"10/4 11/6":21,"9/3 10/5":23,"13/7 7/2":24},"middle-2-30":{"8/4 6/2(2) 5/1":12,"8/4 6/2(3)":20,"6/2(3) 5/1":23,"6/2(4)":32},"middle-3-12":{"13/10 5/4":0,"4/1 10/9":3,"5/2 5/4":7,"4/1 13/12":8},"middle-3-15":{"13/8 8/5":0,"6/1 5/2":3,"13/8 5/2":13,"7/2 7/4":14},"middle-3-18":{"12/8 4/3":0,"8/4 4/3":3,"12/8 6/5":11,"8/4 6/5":14},"middle-3-21":{"12/6 8/3":11,"12/6 10/5":15,"10/4 10/5":14,"10/4 8/3":16},"middle-3-24":{"12/7 6/5":4,"6/1 7/6":7,"12/7 9/8":13,"9/4 7/6":14},"middle-3-27":{"11/5 13/10":0,"13/7 10/7":4,"10/4 4/1":8,"11/5 5/2":9},"middle-3-30":{"11/5 13/12":0,"11/5 3/2":3,"12/6 6/5":4,"11/5 5/4":14},"end-1-11":{"5/off 3/off":3.97,"5/off 6/3":4.22},"end-1-12":{"5/off 1/off":2.16,"5/off 4/3":2.61},"end-1-13":{"5/off 5/3":0,"5/off 2/off":20},"end-1-14":{"7/5 6/off":2.93,"7/1 4/2":3.18},"end-1-15":{"5/off 4/off":2.47,"6/1 4/off":2.75},"end-1-16":{"5/off 5/4":0,"5/off 6/5":11},"end-1-17":{"5/off 4/off":4.4,"5/off 5/1":4.66},"end-1-18":{"6/1(2) 5/off(2)":3.08,"6/1(3) 5/off":3.29},"end-1-19":{"6/off 3/2":0,"6/off 6/5":11},"end-1-20":{"5/off 3/off":3.04,"5/off 4/1":3.53},"end-1-21":{"7/1 1/off":5.59,"7/1 6/5":5.81},"end-1-22":{"5/2 4/3":0,"3/off 5/4":11},"end-1-23":{"6/off 3/off":2.77,"6/off 5/2":2.98},"end-1-24":{"5/off 2/off":0.06,"5/off 4/2":0.28},"end-1-25":{"6/off 2/off":0,"6/off 4/2":11},"end-1-26":{"6/off 3/off":3.87,"6/off 4/1":4.16},"end-1-27":{"6/off 4/off":3.39,"6/off 5/1":3.63},"end-1-28":{"7/1 1/off":1.21,"7/1 5/4":1.58},"end-1-29":{"6/1 1/off":0.36,"6/1 4/3":0.86},"end-1-30":{"4/off 6/3":1.08,"6/2 6/3":1.34},"end-2-11":{"5/off 4/off":3.89,"5/off 6/2":3.96},"end-2-12":{"7/5 3/off":5.6,"4/1 7/5":5.68},"end-2-13":{"5/2 4/2":4,"8/5 4/2":11,"8/6 3/off":23},"end-2-14":{"6/off 4/off":6.35,"6/off 5/1":6.53},"end-2-15":{"3/off 2/off":2.73,"5/2 2/off":2.83},"end-2-16":{"6/off 6/4":12,"6/off 5/3":22,"6/off 2/off":23},"end-2-17":{"8/2 7/4":4.68,"7/1 8/5":4.78,"8/2 6/3":4.85},"end-2-18":{"5/off 2/off":3.63,"6/1 2/off":3.69},"end-2-19":{"5/2 4/3":5,"9/6 5/4":11},"end-2-20":{"5/off 2/off":4.06,"5/off 6/4":4.13},"end-2-21":{"6/off 4/off":5.83,"6/off 6/2":5.98},"end-2-22":{"9/7 7/6":0,"6/4 9/8":4},"end-2-23":{"6/4 4/2 3/1 2/off":1.44,"6/4 5/3 4/2 2/off":1.57,"6/4 4/2 3/1(2)":1.76},"end-2-24":{"9/6 1/off":8.03,"9/6 5/4":8.13},"end-2-25":{"5/off 6/5":11,"5/off 5/4":20},"end-2-26":{"4/off 3/off":2.77,"5/1 3/off":2.86},"end-2-27":{"5/off 3/off":4.93,"5/off 6/3":4.99},"end-2-28":{"6/off 6/3":13,"6/off 3/off":24},"end-2-29":{"5/off 3/off":4.07,"5/off 6/3":4.14},"end-2-30":{"5/off 4/2":14,"5/off 6/4":21,"5/off 2/off":24},"end-3-11":{"6/off 4/3":4.29,"6/off 2/1":4.33,"6/off 3/2":4.4},"end-3-12":{"7/5(2) 6/4 5/3":4.61,"7/5(2) 5/3(2)":4.64,"7/5 6/4(2) 5/3":4.64,"7/5 6/4 5/3(2)":4.65},"end-3-13":{"5/off 6/4":12,"5/off 5/3":11,"5/off 2/off":21},"end-3-14":{"6/2 3/off":5.11,"5/1 3/off":5.13,"5/1 6/3":5.26},"end-3-15":{"5/off 6/4":4.87,"5/off 4/2":4.89,"6/1 6/4":5.04,"5/off 3/1":4.94},"end-3-16":{"6/2 3/off":11,"4/off 6/3":11,"4/off 3/off":22},"end-3-17":{"4/off 4/2":1.08,"4/off 3/1":1.1,"6/2 2/off":1.12,"6/2 3/1":1.3},"end-3-18":{"7/5 4/off":3.1,"7/3 2/off":3.13,"7/3 3/1":3.26},"end-3-19":{"5/2(2) 3/off(2)":11,"6/3 5/2(2) 3/off":11,"6/3 3/off(3)":20},"end-3-20":{"8/6 3/2":2.99,"8/6 6/5":3.03,"8/6 5/4":3.07},"end-3-21":{"3/off 2/off":6.01,"6/3 2/off":6.06},"end-3-22":{"6/2 6/5":0,"6/2 5/4":0,"4/off 6/5":11},"end-3-23":{"3/off 5/4":2.04,"4/1 1/off":2.05,"3/off 6/5":2.09,"5/2 2/1":2.16},"end-3-24":{"2/off 1/off":6.64,"6/4 1/off":6.69},"end-3-25":{"8/2 3/off":11,"8/2 6/3":11,"8/5 6/off":20},"end-3-26":{"6/1 1/off":7.58,"6/1 6/5":7.62,"5/off 4/3":7.63},"end-3-27":{"6/off 4/off":5.4,"6/off 6/2":5.42},"end-3-28":{"6/2 2/off":0,"6/2 4/2":0,"4/off 2/off":11},"end-3-29":{"5/off 3/off":5.69,"5/off 6/3":5.74},"end-3-30":{"6/off 4/2":13,"6/off 6/4":11,"6/off 2/off":24}};
 </script>
 <script>
 /* ===== Mahalach – app ===== */
@@ -2320,6 +2364,9 @@ const I = {
   next: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
   hand: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V5a2 2 0 0 1 4 0v6"/><path d="M13 10a2 2 0 0 1 4 0v3"/><path d="M17 12a2 2 0 0 1 4 0v3a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3l-3-5a2 2 0 0 1 3-2l2 2V8a2 2 0 0 1 4 0"/></svg>',
   eye: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',
+  skip: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17l-5-5 5-5M19 17l-5-5 5-5"/></svg>',
+  plus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+  minus: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg>',
   shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>'
 };
 
@@ -2362,8 +2409,27 @@ const GLOSS = [
   ['גמון', 'Gammon', 'ניצחון כפול: המנצח סיים להוציא את כל החיילים לפני שהיריב הוציא אפילו חייל אחד.'],
   ['כלל 8-9-12', 'Race rule', 'כלל אצבע למרוץ: מכפילים מהובלה של 8%, מכפילים שוב מ-9%, ומקבלים הכפלה עד פיגור של 12%.'],
   ['ריצת הנוסע', "Lover's leap", '6-5 בפתיחה: חייל עובר מנקודה 24 ישר לנקודה 13.'],
-  ['סימון מהלכים', 'Notation', '8/5 = חייל מנקודה 8 לנקודה 5. כוכבית (*) = פגיעה, (2) = פעמיים, bar = כניסה מהבר, off = הוצאה.']
+  ['סימון מהלכים', 'Notation', '8/5 = חייל מנקודה 8 לנקודה 5. כוכבית (*) = פגיעה, ×2 = אותו מהלך פעמיים, בר = כניסה מהבר, החוצה = הוצאת חייל מהלוח.']
 ];
+// key points: the principles to play by (shown in every explanation and in their own list)
+const KEYS = [
+  ['five', 'נקודת החמש קודם', 'נקודה 5 בבית שלכם היא החשובה ביותר: היא חוסמת את היריב ומשמשת בסיס לבית חזק. כשאפשר לבנות אותה – כמעט תמיד זה המהלך.'],
+  ['points', 'בונים נקודות, לא בליטות', 'שני חיילים על נקודה = נקודה בטוחה שהיריב לא יכול לנחות עליה. מהלך שבונה נקודה עדיף בדרך כלל על מהלך שמפזר חיילים בודדים.'],
+  ['prime', 'נקודות רצופות יוצרות חומה', 'כמה נקודות צמודות חוסמות את היריב. שש רצופות (פריים) עוצרות אותו לגמרי. לכן נקודות 7, 8 ו-4 חשובות – הן מחברות את הבלוק.'],
+  ['hit', 'פגיעה מרוויחה זמן', 'חייל שנפגע חוזר להתחלה ומאבד צעדים, והיריב חייב לבזבז הטלה כדי להיכנס מהבר. פגיעה בדרך כלל שווה סיכון קטן.'],
+  ['pointhit', 'פגיעה + נקודה = מהלך מושלם', 'הכי טוב לפגוע ובאותו מהלך לבנות נקודה עם שני חיילים. ככה פוגעים בלי להשאיר בליטה.'],
+  ['homeblots', 'היריב על הבר? סוגרים את הבית', 'חייל בבר חייב להיכנס לבית שלכם. בליטה בבית היא המטרה הראשונה שלו, וכל נקודה סגורה מקשה עליו להיכנס.'],
+  ['safety', 'לא מסתכנים בלי סיבה', 'כשאין מה להרוויח מבליטה – משחקים בטוח. סופרים כמה הטלות של היריב פוגעות (מתוך 36) ובוחרים את המהלך עם הכי מעט.'],
+  ['timing', 'מסתכנים כשהיריב חלש', 'כשהיריב על הבר או שהבית שלו חלש, פגיעה בכם עולה מעט. זה הזמן לפצל, להביא בונים או להשאיר בליטה כדי לבנות.'],
+  ['back', 'לא משאירים חיילים מאחור', 'חיילים בבית של היריב עלולים להיתקע מאחורי חומה. מחלצים אותם מוקדם, כל עוד הדרך פתוחה.'],
+  ['anchor', 'עוגן – בסיס בטוח מאחור', 'שני חיילים על נקודה בבית של היריב הם עוגן: אי אפשר לפגוע בהם, והם מחכים להזדמנות. עוגן גבוה (נקודות 20–21) הכי טוב.'],
+  ['builders', 'מביאים בונים', 'חיילים במרחק עד 6 צעדים מנקודה שרוצים לבנות נקראים בונים. ככל שיש יותר בונים מגוונים, יותר הטלות יבנו את הנקודה בתור הבא.'],
+  ['race', 'במרוץ סופרים צעדים', 'כשאין יותר מגע, המשחק הוא מרוץ. מי שהפיפ קאונט שלו נמוך יותר מוביל. מביאים את החיילים הביתה בלי לבזבז צעדים.'],
+  ['bearoff', 'בהוצאה – כמה שיותר חיילים', 'מוציאים חייל בכל פעם שאפשר. כשאי אפשר – ממלאים נקודות ריקות בבית, כדי שבתורות הבאים לא יהיו פספוסים.'],
+  ['safebear', 'הוצאה מול חיילים של היריב', 'כשליריב עוד יש חיילים בבית שלכם, בליטה אחת יכולה להפוך ניצחון להפסד. מעדיפים מהלך בטוח גם אם הוא מוציא פחות חיילים.'],
+  ['cube', 'מתי מכפילים ומתי מקבלים', 'מכפילים כשהיתרון גדול אבל המשחק עוד לא גמור. מקבלים הכפלה כשיש לכם בערך 25% סיכוי לנצח או יותר.']
+];
+const KEY = Object.fromEntries(KEYS.map(k => [k[0], k]));
 // words in explanations that link to the glossary
 const TERM_FORMS = [['פיפ קאונט', 'פיפ קאונט'], ['נקודת החמש', 'נקודת החמש'], ['נקודת הבר', 'נקודת הבר'], ['נקודת האמצע', 'נקודת האמצע'],
   ['קוביית הכפלה', 'קוביית הכפלה'], ['כלל 8-9-12', 'כלל 8-9-12'], ['ריצת הנוסע', 'ריצת הנוסע'], ['בליטות', 'בליטה'], ['בליטה', 'בליטה'],
@@ -2376,14 +2442,15 @@ const Store = {
   load() {
     try { this.d = JSON.parse(localStorage.getItem(this.k)); } catch (e) { this.d = null; }
     if (!this.d || typeof this.d !== 'object') this.d = {};
-    this.d = Object.assign({ res: {}, days: [], missed: [], lvl: 1, homeRight: true }, this.d);
+    this.d = Object.assign({ res: {}, days: [], missed: [], skip: [], last: null, lvl: 1, homeRight: true }, this.d);
   },
   save() { try { localStorage.setItem(this.k, JSON.stringify(this.d)); } catch (e) { /* private mode */ } },
   today() { const t = new Date(); return t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0'); },
   record(id, result) {
     const r = this.d.res[id] || (this.d.res[id] = { a: 0, c: 0, solved: false, last: null });
     r.a++; if (result === 'correct') { r.c++; r.solved = true; }
-    r.last = result;
+    r.last = result; this.d.last = id;
+    const si = this.d.skip.indexOf(id); if (si >= 0) this.d.skip.splice(si, 1);
     const t = this.today(); if (!this.d.days.includes(t)) this.d.days.push(t);
     if (this.d.days.length > 400) this.d.days = this.d.days.slice(-400);
     const i = this.d.missed.indexOf(id);
@@ -2398,6 +2465,8 @@ const Store = {
     while (set.has(fmt(d))) { n++; d.setDate(d.getDate() - 1); }
     return n;
   },
+  // skipped: not solved, not counted as a try
+  skipEx(id) { if (!this.d.skip.includes(id)) this.d.skip.push(id); this.d.last = id; this.save(); },
   catStats(cat, lvl) {
     let a = 0, c = 0, solved = 0, total = 0;
     for (const ex of EXERCISES) {
@@ -2641,7 +2710,7 @@ function loadExercise() {
   if (ex.type === 'cube') $('#exQ').textContent = ex.q;
   else $('#exQ').innerHTML = `הטלתם <span class="ltr">${ex.d[0]}-${ex.d[1]}</span>. מה הכי טוב? <small style="display:inline;font-weight:500;color:var(--muted)">(אתם בלבן)</small>`;
   const ctx = $('#exCtx'); ctx.hidden = !ex.ctx; ctx.textContent = ex.ctx || '';
-  closeModal('expl');
+  closeModal('expl'); setShown('');
   draw(); renderPanel();
 }
 
@@ -2720,10 +2789,14 @@ function finishCheck() {
   if (SES.res[SES.i] === undefined) SES.res[SES.i] = X.result; // first attempt counts in the summary
   draw(); renderPanel();
 }
-function showCorrect() {
-  if (!X || !X.checked || X.ex.type === 'cube' || X.busy) return;
-  clearTimeout(animTimer);
-  X.busy = true; const me = X; let s = Engine.clone(X.start); X.view = s; const seq = X.bestSeq; const used = [];
+function setShown(label) { const el = $('#shownMv'); el.hidden = !label; el.innerHTML = label || ''; }
+function showCorrect() { playSeq(X.bestSeq, X.ex.best[0]); }
+// replay any play (a step sequence) from the starting position
+function playSeq(seq, label) {
+  if (!X || !X.checked || X.ex.type === 'cube') return;
+  clearTimeout(animTimer); board.cancel(); X.busy = false;
+  setShown(label ? 'מוצג: ' + nota(label) : '');
+  X.busy = true; const me = X; let s = Engine.clone(X.start); X.view = s; const used = [];
   board.render(s, { dice: X.ex.d, used: diceList(X.ex.d).map(() => false) }); updatePips(s);
   const ds = diceList(X.ex.d);
   const stepOne = i => {
@@ -2735,26 +2808,47 @@ function showCorrect() {
   };
   animTimer = setTimeout(() => stepOne(0), 350);
 }
-function showMine() { if (X.busy) return; clearTimeout(animTimer); board.cancel(); X.view = X.userState; draw(); renderPanel(); }
 function retry() { clearTimeout(animTimer); loadExercise(); }
+// skip: move on without solving (not counted as a try)
+function skipEx() {
+  if (!X || X.checked || X.busy) return;
+  Store.skipEx(X.ex.id);
+  if (SES.res[SES.i] === undefined) SES.res[SES.i] = 'skip';
+  nextEx();
+}
 function nextEx() {
   clearTimeout(animTimer);
   if (SES.i + 1 >= SES.ids.length) return showSummary();
   SES.i++; loadExercise();
 }
 
-// wrap glossary words in explanations with a clickable term
-function glossify(text) {
-  let out = esc(text); const used = new Set(); const parts = []; let count = 0;
-  for (const [form, term] of TERM_FORMS) {
-    if (used.has(term) || count >= 3) continue;
-    const i = out.indexOf(form); if (i < 0) continue;
-    parts.push(`<button class="term" data-term="${esc(term)}">${esc(form)}</button>`);
-    out = out.slice(0, i) + '\u0001' + (parts.length - 1) + '\u0002' + out.slice(i + form.length);
-    used.add(term); count++;
+// move notation for display: 13/8 -> 13→8, bar -> בר, off -> החוצה, (2) -> ×2
+const MV_TOK = '(?:bar|\\d{1,2})(?:\\/(?:\\d{1,2}|off)\\*?)+(?:\\(\\d\\))?';
+const MV_RE = new RegExp(`(^|[^\\w/])(${MV_TOK}(?: ${MV_TOK})*)(?![\\w/])`, 'g');
+function fmtTok(t) {
+  const m = t.match(/^(.*?)(?:\((\d)\))?$/);
+  let s = m[1].replace(/bar/g, 'בר').replace(/off/g, 'החוצה').split('/').join('→');
+  if (m[2]) s += ' ×' + m[2];
+  return s;
+}
+const fmtMove = str => String(str).trim().split(/\s+/).map(fmtTok).join(', ');
+const nota = m => `<span class="mv">${esc(fmtMove(m))}</span>`;
+// text with moves shown as arrows, and (optionally) glossary words as clickable terms
+function rich(text, terms = true) {
+  const parts = [], ph = html => { parts.push(html); return '\u0001' + (parts.length - 1) + '\u0002'; };
+  let out = esc(String(text).replace(MV_RE, (all, pre, mv) => pre + ph(nota(mv))));
+  if (terms) {
+    const used = new Set(); let count = 0;
+    for (const [form, term] of TERM_FORMS) {
+      if (used.has(term) || count >= 3) continue;
+      const i = out.indexOf(form); if (i < 0) continue;
+      out = out.slice(0, i) + ph(`<button class="term" data-term="${esc(term)}">${esc(form)}</button>`) + out.slice(i + form.length);
+      used.add(term); count++;
+    }
   }
   return out.replace(/\u0001(\d+)\u0002/g, (_, n) => parts[+n]);
 }
+const glossify = t => rich(t);
 function metric(m, live) {
   const ex = X.ex; if (!ex.flag) return '';
   let v = STATS[ex.id] && STATS[ex.id][m];
@@ -2767,49 +2861,140 @@ const RES = {
   near: { cls: 'near', icon: 'half', t: 'כמעט' },
   wrong: { cls: 'wrong', icon: 'xx', t: 'לא מדויק' }
 };
-const nota = m => `<span class="ltr">${esc(m)}</span>`;
+
+/* ---------- What a move does (plain facts, computed from the board) ---------- */
+// contact = some white checker still has to pass a black checker
+function contact(s) {
+  let wMax = s.wb ? 25 : 0, bMin = s.bb ? 0 : 25;
+  for (let i = 24; i >= 1; i--) if (s.pts[i] > 0) { wMax = Math.max(wMax, i); break; }
+  for (let i = 1; i <= 24; i++) if (s.pts[i] < 0) { bMin = Math.min(bMin, i); break; }
+  return wMax > bMin;
+}
+const blotsOf = s => { const a = []; for (let p = 24; p >= 1; p--) if (s.pts[p] === 1) a.push(p); return a; };
+const madeOf = (a, b) => { const m = []; for (let p = 1; p <= 24; p++) if (b.pts[p] >= 2 && a.pts[p] < 2) m.push(p); return m; };
+const backOf = s => { let n = s.wb; for (let p = 19; p <= 24; p++) if (s.pts[p] > 0) n += s.pts[p]; return n; };
+const andList = a => a.length === 1 ? String(a[0]) : a.slice(0, -1).join(', ') + ' ו-' + a[a.length - 1];
+const ptName = p => p === 5 ? 'נקודת החמש (5)' : p === 7 ? 'נקודת הבר (7)' : 'נקודה ' + p;
+function facts(a, b) {
+  const F = [], cont = contact(a);
+  const hits = b.bb - a.bb;
+  if (hits > 0) F.push(['+', hits > 1 ? 'פוגע בשני חיילים של היריב' : 'פוגע בחייל של היריב ושולח אותו לבר']);
+  for (const p of madeOf(a, b)) F.push(['+', p >= 19 ? `בונה עוגן על נקודה ${p}` : `בונה את ${ptName(p)}`]);
+  const esc1 = backOf(a) - backOf(b);
+  if (esc1 > 0 && cont) F.push(['+', esc1 > 1 ? 'מחלץ חיילים מהבית של היריב' : 'מחלץ חייל מהבית של היריב']);
+  const off = Engine.counts(b).wOff - Engine.counts(a).wOff;
+  if (off > 0) F.push(['+', off === 1 ? 'מוציא חייל אחד מהלוח' : `מוציא ${off} חיילים מהלוח`]);
+  if (contact(b)) {
+    const bl = blotsOf(b);
+    if (!bl.length) F.push(['+', 'לא משאיר אף בליטה']);
+    else {
+      const sh = Engine.shots(b);
+      F.push([sh ? '-' : '+', `משאיר ${bl.length === 1 ? 'בליטה' : 'בליטות'} על ${andList(bl)} – ` + (sh ? `${sh} מתוך 36 הטלות של היריב פוגעות` : 'אף הטלה של היריב לא פוגעת')]);
+    }
+  } else if (cont) F.push(['+', 'מנתק את המגע – מעכשיו זה מרוץ']);
+  if (!F.length) F.push(['+', 'מקדם את החיילים הביתה בלי לבזבז צעדים']);
+  return F;
+}
+function factsHtml(F) {
+  return `<ul class="facts">${F.map(([k, t]) => `<li class="${k === '-' ? 'minus' : 'plus'}">${k === '-' ? I.minus : I.plus}<span>${esc(t)}</span></li>`).join('')}</ul>`;
+}
+// which key points this exercise teaches (max 3)
+function keysFor() {
+  const ex = X.ex, s = X.start, out = [];
+  const add = k => { if (KEY[k] && !out.includes(k) && out.length < 3) out.push(k); };
+  if (ex.type === 'cube') { add('cube'); if (!contact(s)) add('race'); }
+  else {
+    const b = Engine.applyNotation(s, ex.best[0]), cont = contact(s), made = madeOf(s, b), hit = b.bb > s.bb;
+    const blots = st => contact(st) ? blotsOf(st).length : 0;
+    const alts = [...(ex.near || []), ...(ex.bad || [])].map(x => Engine.applyNotation(s, x[0]));
+    const run = p => { let n = 1; for (let q = p + 1; q <= 24 && b.pts[q] >= 2; q++) n++; for (let q = p - 1; q >= 1 && b.pts[q] >= 2; q--) n++; return n; };
+    if (!cont && Engine.allHome(s)) add('bearoff');
+    if (cont && Engine.allHome(s)) add('safebear');
+    if (hit && made.some(p => s.pts[p] === -1)) add('pointhit'); else if (hit) add('hit');
+    if (made.includes(5)) add('five');
+    if (s.bb > 0 && cont && (made.some(p => p <= 6) || blotsOf(b).filter(p => p <= 6).length < blotsOf(s).filter(p => p <= 6).length)) add('homeblots');
+    if (made.some(p => p >= 19)) add('anchor');
+    if (made.some(p => p <= 18 && run(p) >= 3)) add('prime');
+    if (cont && backOf(b) < backOf(s)) add('back');
+    if (cont && !blots(b) && alts.some(x => blots(x) > 0)) add('safety');
+    if (cont && blots(b) > 0 && (s.bb > 0 || hit)) add('timing');
+    if (made.some(p => p <= 18)) add('points');
+    if (!cont && !Engine.allHome(s)) add('race');
+    if (cont && !made.length && !hit) { for (let p = 7; p <= 11; p++) if (b.pts[p] > Math.max(0, s.pts[p])) { add('builders'); break; } }
+  }
+  // too few? add the stage's basics (up to 2 key points in total)
+  for (const k of { opening: ['five', 'points'], early: ['points', 'prime'], middle: ['safety', 'points'], end: ['race', 'bearoff'] }[ex.c]) if (out.length < 2) add(k);
+  return out;
+}
+function keyHtml(id, attr) {
+  const k = KEY[id];
+  return `<li><button class="keyitem" ${attr}><b><i>${KEYS.indexOf(k) + 1}</i>${esc(k[1])}</b><span>${esc(k[2])}</span></button></li>`;
+}
+
 function renderPanel() {
   const ex = X.ex, P = $('#panel'); let h = '';
   if (!X.checked) {
     if (ex.type === 'cube') {
       h += '<div class="opts">' + ex.opts.map((o, i) => `<button class="opt" data-opt="${i}">${esc(o[0])}</button>`).join('') + '</div>';
+      h += `<button class="btn btn-ghost skipbtn" data-act="skip">${I.skip}דילוג</button>`;
     } else {
       const left = X.maxLen - X.hist.length;
       h += `<div class="moves-line">${X.hist.length ? nota(Engine.notate(X.hist)) + (left > 0 ? ` · עוד ${left === 1 ? 'קובייה' : left + ' קוביות'}` : '') : 'לחצו על חייל מסומן, או גררו אותו'}</div>`;
-      h += `<div class="actions"><button class="btn btn-ghost" data-act="undo" ${X.hist.length ? '' : 'disabled'}>${I.undo}ביטול</button>` +
+      h += `<div class="actions three"><button class="btn btn-ghost" data-act="undo" ${X.hist.length ? '' : 'disabled'}>${I.undo}ביטול</button>` +
+        `<button class="btn btn-ghost" data-act="skip" ${X.busy ? 'disabled' : ''}>${I.skip}דילוג</button>` +
         `<button class="btn btn-primary" data-act="check" ${X.hist.length >= X.maxLen && !X.busy ? '' : 'disabled'}>${I.check}בדיקה</button></div>`;
     }
   } else {
     const r = RES[X.result];
     if (ex.type === 'cube') h += '<div class="opts" style="margin-bottom:8px">' + ex.opts.map((o, i) => `<button class="opt ${o[1] ? 'right' : (i === X.choice ? 'wrong' : '')}" disabled>${esc(o[0])}</button>`).join('') + '</div>';
-    h += `<div class="fb ${r.cls}" role="status"><span class="ico">${I[r.icon]}</span><div><b>${r.t}</b><p>${esc(ex.p)}</p></div></div>`;
+    h += `<div class="fb ${r.cls}" role="status"><span class="ico">${I[r.icon]}</span><div><b>${r.t}</b><p>${rich(ex.p, false)}</p></div></div>`;
     h += `<div class="after"><button class="btn btn-ghost" data-act="explain">${I.bulb}הסבר</button>` +
       `<button class="btn btn-primary" data-act="next">${SES.i + 1 >= SES.ids.length ? 'סיום' : 'הבא'}${I.next}</button></div>`;
   }
   P.innerHTML = h;
 }
 function openExplain() {
-  const ex = X.ex; let h = `<div class="principle">${I.bulb}<span>${esc(ex.p)}</span></div><p class="why">${glossify(ex.why)}</p>`;
+  const ex = X.ex; let h = '';
+  X.showMap = {};
+  if (ex.type !== 'cube') {
+    X.showMap[X.best[0]] = ex.best[0];
+    h += `<div class="ex-hero"><small>המהלך הנכון · לחצו כדי לראות על הלוח</small><button class="mv-big" data-show="${esc(X.best[0])}">${nota(ex.best[0])}${I.play}</button>${factsHtml(facts(X.start, Engine.applyNotation(X.start, ex.best[0])))}</div>`;
+    if (X.result !== 'correct') {
+      const uk = Engine.key(X.userState); X.showMap[uk] = Engine.notate(X.hist);
+      h += `<div class="mine" data-show="${esc(uk)}" style="cursor:pointer"><small>המהלך שלכם: ${nota(Engine.notate(X.hist))}</small>${factsHtml(facts(X.start, X.userState))}</div>`;
+    }
+  }
+  h += `<h3 class="sec">למה?</h3><div class="principle">${I.bulb}<span>${rich(ex.p, false)}</span></div><p class="why">${rich(ex.why)}</p>`;
+  h += `<h3 class="sec">נקודות מפתח <small>מה לקחת מהתרגיל הזה</small></h3><ul class="keys">${keysFor().map(id => keyHtml(id, `data-key="${id}"`)).join('')}</ul><button class="linkbtn" data-keys>כל נקודות המפתח ←</button>`;
   if (ex.type === 'cube') {
-    h += '<ul class="alts">' + ex.opts.map(o => `<li><div class="row"><span class="tag ${o[1] ? 'best' : 'bad'}">${o[1] ? 'נכון' : 'שגוי'}</span><b>${esc(o[0])}</b></div><p>${esc(o[2])}</p></li>`).join('') + '</ul>';
+    h += '<h3 class="sec">האפשרויות</h3><ul class="alts">' + ex.opts.map(o => `<li><div class="row"><span class="tag ${o[1] ? 'best' : 'bad'}">${o[1] ? 'נכון' : 'שגוי'}</span><b>${esc(o[0])}</b></div><p>${rich(o[2])}</p></li>`).join('') + '</ul>';
   } else {
     const userKey = Engine.key(X.userState); const listed = [...X.best, ...X.near, ...X.bad].includes(userKey);
     const you = k => k === userKey ? '<span class="tag you">שלכם</span>' : '';
-    let li = ex.best.map((m, i) => `<li><div class="row"><span class="tag best">הכי טוב</span>${nota(m)}${you(X.best[i])}${metric(m)}</div></li>`).join('');
-    li += (ex.near || []).map((x, i) => `<li><div class="row"><span class="tag near">כמעט</span>${nota(x[0])}${you(X.near[i])}${metric(x[0])}</div><p>${esc(x[1])}</p></li>`).join('');
-    li += (ex.bad || []).map((x, i) => `<li><div class="row"><span class="tag bad">חלש</span>${nota(x[0])}${you(X.bad[i])}${metric(x[0])}</div><p>${esc(x[1])}</p></li>`).join('');
-    if (!listed) li += `<li><div class="row"><span class="tag you">שלכם</span>${nota(Engine.notate(X.hist))}${metric('__', X.userState)}</div></li>`;
-    h += `<ul class="alts">${li}</ul>`;
+    const row = (k, m, tag, cls, why) => { X.showMap[k] = m; return `<li data-show="${esc(k)}" class="${k === userKey ? 'isyou' : ''}"><div class="row"><span class="tag ${cls}">${tag}</span>${nota(m)}${you(k)}${metric(m)}<span class="go">${I.play}</span></div>${why ? `<p>${rich(why)}</p>` : ''}</li>`; };
+    let li = ex.best.map((m, i) => row(X.best[i], m, 'הכי טוב', 'best')).join('');
+    li += (ex.near || []).map((x, i) => row(X.near[i], x[0], 'כמעט', 'near', x[1])).join('');
+    li += (ex.bad || []).map((x, i) => row(X.bad[i], x[0], 'חלש', 'bad', x[1])).join('');
+    if (!listed) { X.showMap[userKey] = Engine.notate(X.hist); li += `<li data-show="${esc(userKey)}" class="isyou"><div class="row"><span class="tag you">שלכם</span>${nota(Engine.notate(X.hist))}${metric('__', X.userState)}<span class="go">${I.play}</span></div></li>`; }
+    h += `<h3 class="sec">כל המהלכים <small>לחצו על מהלך כדי לראות אותו על הלוח</small></h3><ul class="alts">${li}</ul>`;
   }
-  h += '<div class="sheet-actions">';
-  if (ex.type !== 'cube') {
-    h += `<button class="btn btn-soft" data-act="replay">${I.play}הצגה על הלוח</button>`;
-    if (X.result !== 'correct') h += `<button class="btn btn-ghost" data-act="mine">${I.eye}המהלך שלי</button>`;
-  }
-  if (X.result !== 'correct') h += `<button class="btn btn-ghost" data-act="retry">${I.reset}שוב</button>`;
-  h += '</div>';
+  if (X.result !== 'correct') h += `<div class="sheet-actions"><button class="btn btn-ghost" data-act="retry">${I.reset}לנסות שוב</button></div>`;
   $('#explTitle').textContent = ex.t; $('#explBody').innerHTML = h; $('#explBody').scrollTop = 0;
   $('#expl').classList.add('on');
+}
+// play a move from the explanation on the board
+function showKey(k) {
+  if (!X || X.ex.type === 'cube') return;
+  const seq = k === Engine.key(X.userState) ? X.hist : (X.plays.find(p => Engine.key(p.final) === k) || {}).seq;
+  if (!seq) return;
+  playSeq(seq, (X.showMap && X.showMap[k]) || Engine.notate(seq));
+}
+/* ---------- Key points list ---------- */
+function openKeys(id) {
+  $('#keysList').innerHTML = KEYS.map(k => keyHtml(k[0], `data-k="${k[0]}" tabindex="-1"`)).join('');
+  $('#keysM').classList.add('on');
+  const el = id && $(`#keysList [data-k="${id}"]`);
+  if (el) { el.classList.add('flash'); el.scrollIntoView({ block: 'center' }); } else $('#keysM .sheet-body').scrollTop = 0;
 }
 function closeModal(id) { $('#' + id).classList.remove('on'); }
 
@@ -2820,7 +3005,8 @@ function startSession(cat, lvl, fromStart) {
   let i = 0;
   if (!fromStart) {
     const R = id => Store.d.res[id];
-    i = ids.findIndex(id => !R(id));
+    i = ids.findIndex(id => !R(id) && !Store.d.skip.includes(id));
+    if (i < 0) i = ids.findIndex(id => !R(id));
     if (i < 0) i = ids.findIndex(id => !R(id).solved);
     if (i < 0) i = 0;
   }
@@ -2835,12 +3021,15 @@ function startReview() {
   return true;
 }
 function showSummary() {
-  const n = SES.ids.length - (SES.start || 0), c = SES.res.filter(r => r === 'correct').length, nr = SES.res.filter(r => r === 'near').length, w = n - c - nr;
+  const sk = SES.res.filter(r => r === 'skip').length;
+  const n = SES.ids.length - (SES.start || 0) - sk, c = SES.res.filter(r => r === 'correct').length, nr = SES.res.filter(r => r === 'near').length, w = Math.max(0, n - c - nr);
   const pct = n ? Math.round(c / n * 100) : 0, C = 2 * Math.PI * 60;
-  let h = `<div class="score-ring"><svg viewBox="0 0 140 140"><circle cx="70" cy="70" r="60" fill="none" stroke="#dbe6fb" stroke-width="14"/><circle cx="70" cy="70" r="60" fill="none" stroke="url(#sg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - c / n)}"/><defs><linearGradient id="sg"><stop offset="0" stop-color="#2350d0"/><stop offset="1" stop-color="#00a492"/></linearGradient></defs></svg><b>${pct}%</b></div>`;
+  let h = `<div class="score-ring"><svg viewBox="0 0 140 140"><circle cx="70" cy="70" r="60" fill="none" stroke="#dbe6fb" stroke-width="14"/><circle cx="70" cy="70" r="60" fill="none" stroke="url(#sg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - (n ? c / n : 0))}"/><defs><linearGradient id="sg"><stop offset="0" stop-color="#2350d0"/><stop offset="1" stop-color="#00a492"/></linearGradient></defs></svg><b>${pct}%</b></div>`;
   h += `<h2>${pct >= 85 ? 'מצוין!' : pct >= 50 ? 'עבודה טובה' : 'ממשיכים ללמוד'}</h2><p style="color:var(--muted);font-weight:600">${SES.mode === 'review' ? 'סבב חזרה' : catName(SES.cat) + ' · ' + LV[SES.lvl].name}</p>`;
-  h += `<div class="sum-split"><span style="background:var(--green-50);color:#076b44">${c} נכון</span><span style="background:var(--amber-50);color:#7a4a00">${nr} כמעט</span><span style="background:var(--rose-50);color:#9a1530">${w} לא</span></div><div class="sum-actions">`;
+  h += `<div class="sum-split"><span style="background:var(--green-50);color:#076b44">${c} נכון</span><span style="background:var(--amber-50);color:#7a4a00">${nr} כמעט</span><span style="background:var(--rose-50);color:#9a1530">${w} לא</span>${sk ? `<span style="background:var(--card-2);color:var(--ink-2)">${sk} דילגתם</span>` : ''}</div><div class="sum-actions">`;
+  const rc = SES.mode === 'cat' && SES.lvl === 3 ? recommendation() : null;
   if (SES.mode === 'cat' && SES.lvl < 3) h += `<button class="btn btn-primary" data-sum="next">לרמה הבאה: ${LV[SES.lvl + 1].name}</button>`;
+  else if (rc && rc.cat.id !== SES.cat) h += `<button class="btn btn-primary" data-start="${rc.cat.id}:${rc.lvl}">לשלב הבא: ${rc.cat.name} · ${LV[rc.lvl].name}</button>`;
   else if (SES.mode === 'cat') h += `<button class="btn btn-primary" data-sum="again">שוב</button>`;
   h += `<button class="btn btn-ghost" data-go="#/practice">לתפריט</button></div>`;
   $('#sumCard').innerHTML = h;
@@ -2848,14 +3037,24 @@ function showSummary() {
 }
 
 /* ---------- Practice selection screen ---------- */
+// Recommended next: continue the stage you're on at its lowest unfinished level;
+// when that stage is finished, move to the next stage in game order, starting at beginner.
 function recommendation() {
-  const st = CATS.map(cat => ({ cat, s: Store.catStats(cat.id) }));
-  const tried = st.filter(x => x.s.a >= 3);
-  let pick, why;
-  if (tried.length) { tried.sort((a, b) => a.s.c / a.s.a - b.s.c / b.s.a || a.s.solved - b.s.solved); pick = tried[0]; why = pick.s.acc >= 90 ? 'הדיוק שלכם גבוה בכל השלבים – שווה לחזור על הרמה המתקדמת כדי לשמור על כושר.' : `הדיוק שלכם כאן ${pick.s.acc}% – הנמוך ביותר מבין הקטגוריות.`; }
-  else { st.sort((a, b) => a.s.a - b.s.a); pick = st[0]; why = pick.s.a ? 'עוד לא צברתם מספיק תרגילים כאן כדי למדוד דיוק.' : 'עוד לא התחלתם את השלב הזה – מקום מצוין להתחיל.'; }
-  let lvl = 3; for (const l of [1, 2, 3]) { if (Store.catStats(pick.cat.id, l).solved < TOT(pick.cat.id, l)) { lvl = l; break; } }
-  return { cat: pick.cat, lvl, why };
+  const order = CATS.map(c => c.id);
+  const done = c => Store.catStats(c).solved >= TOT(c);
+  let cur = Store.d.last && byId[Store.d.last] ? byId[Store.d.last].c : null;
+  if (!cur) { // older saves: the last finished stage, else the most practiced one
+    const fin = order.filter(done);
+    if (fin.length) cur = fin[fin.length - 1];
+    else { const tried = order.filter(c => Store.catStats(c).a > 0).sort((a, b) => Store.catStats(b).a - Store.catStats(a).a); cur = tried[0] || null; }
+  }
+  let pick = null;
+  if (cur && !done(cur)) pick = cur;
+  else if (cur) { const i = order.indexOf(cur); for (let k = 1; k < order.length; k++) { const c = order[(i + k) % order.length]; if (!done(c)) { pick = c; break; } } }
+  else pick = order.find(c => !done(c)) || null;
+  if (!pick) return null;
+  let lvl = 3; for (const l of [1, 2, 3]) { if (Store.catStats(pick, l).solved < TOT(pick, l)) { lvl = l; break; } }
+  return { cat: CATS.find(c => c.id === pick), lvl };
 }
 function renderPractice() {
   const all = EXERCISES.length; let a = 0, c = 0, solved = 0;
@@ -2866,8 +3065,8 @@ function renderPractice() {
     `<div class="kpi"><b>${solved}/${all}</b><span>הושלמו</span></div>` +
     `<div class="kpi"><b>${a ? Math.round(c / a * 100) + '%' : '–'}</b><span>דיוק</span></div>`;
   const rc = recommendation();
-  $('#reco').innerHTML = solved >= all
-    ? `<div class="allDone">סיימתם את כל ${all} התרגילים. סט חדש בדרך.</div>`
+  $('#reco').innerHTML = solved >= all || !rc
+    ?`<div class="allDone">סיימתם את כל ${all} התרגילים. סט חדש בדרך.</div>`
     : `<button class="reco" data-start="${rc.cat.id}:${rc.lvl}"><span class="ico">${I[rc.cat.icon]}</span><div><small>מומלץ עכשיו</small><b>${rc.cat.name} · ${LV[rc.lvl].name}</b></div>${I.next}</button>`;
   const L = Store.d.lvl;
   $('#lvlSeg').innerHTML = [1, 2, 3].map(l => `<button role="tab" aria-selected="${l === L}" class="${l === L ? 'on' : ''}" data-lvl="${l}"><span class="bars l${l}"><i></i><i></i><i></i></span>${LV[l].name}</button>`).join('');
@@ -2899,7 +3098,7 @@ function heroLoop() {
 function renderGloss(filter = '', flash = '') {
   const f = filter.trim();
   $('#glist').innerHTML = GLOSS.filter(g => !f || g[0].includes(f) || g[2].includes(f) || g[1].toLowerCase().includes(f.toLowerCase()))
-    .map(g => `<div class="gitem ${g[0] === flash ? 'flash' : ''}" data-g="${esc(g[0])}"><b>${esc(g[0])}</b><small class="ltr">${esc(g[1])}</small><p>${esc(g[2])}</p></div>`).join('') || '<p style="color:var(--muted)">לא נמצא מושג.</p>';
+    .map(g => `<div class="gitem ${g[0] === flash ? 'flash' : ''}" data-g="${esc(g[0])}"><b>${esc(g[0])}</b><small class="ltr">${esc(g[1])}</small><p>${rich(g[2], false)}</p></div>`).join('') || '<p style="color:var(--muted)">לא נמצא מושג.</p>';
 }
 function openGloss(term) {
   $('#gloss').classList.add('on'); $('#gsearch').value = ''; renderGloss('', term || '');
@@ -2916,7 +3115,7 @@ function show(v) {
 }
 function route() {
   const h = location.hash || '#/';
-  closeModal('expl'); closeModal('gloss');
+  closeModal('expl'); closeModal('gloss'); closeModal('keysM');
   clearTimeout(animTimer);
   if (h === '#/practice') { renderPractice(); show('practice'); }
   else if (h === '#/review') {
@@ -2939,9 +3138,12 @@ function init() {
   svg.addEventListener('pointerup', onUp);
   svg.addEventListener('pointercancel', () => { drag = null; if (X) draw(); });
   document.addEventListener('click', e => {
-    const t = e.target.closest('[data-go],[data-scroll],[data-glossary],[data-start],[data-lvl],[data-act],[data-opt],[data-sum],.term');
+    const t = e.target.closest('[data-go],[data-scroll],[data-glossary],[data-keys],[data-key],[data-show],[data-start],[data-lvl],[data-act],[data-opt],[data-sum],.term');
     if (!t) return;
     if (t.dataset.go) return go(t.dataset.go);
+    if (t.hasAttribute('data-keys')) return openKeys();
+    if (t.dataset.key) return openKeys(t.dataset.key);
+    if (t.dataset.show) { closeModal('expl'); return showKey(t.dataset.show); }
     if (t.dataset.scroll) return $(t.dataset.scroll).scrollIntoView({ behavior: 'smooth' });
     if (t.hasAttribute('data-glossary')) return openGloss();
     if (t.classList.contains('term')) return openGloss(t.dataset.term);
@@ -2951,16 +3153,16 @@ function init() {
     if (t.dataset.sum === 'next') return startSession(SES.cat, SES.lvl + 1);
     if (t.dataset.sum === 'again') return startSession(SES.cat, SES.lvl, true);
     const a = t.dataset.act;
-    if (['replay', 'mine', 'retry'].includes(a)) closeModal('expl');
+    if (['replay', 'retry'].includes(a)) closeModal('expl');
     if (a === 'undo') undo(); else if (a === 'reset') resetEx(); else if (a === 'check') check(); else if (a === 'explain') openExplain();
-    else if (a === 'replay') showCorrect(); else if (a === 'mine') showMine(); else if (a === 'retry') retry(); else if (a === 'next') nextEx();
+    else if (a === 'replay') showCorrect(); else if (a === 'retry') retry(); else if (a === 'next') nextEx(); else if (a === 'skip') skipEx();
   });
   $('#exBack').addEventListener('click', () => go('#/practice'));
   $('#flipBtn').addEventListener('click', () => { Store.d.homeRight = !Store.d.homeRight; Store.save(); board.homeRight = Store.d.homeRight; if (X && !X.busy) draw(); });
   $$('[data-close]').forEach(b => b.addEventListener('click', () => closeModal(b.dataset.close)));
   $$('.modal').forEach(m => m.addEventListener('click', e => { if (e.target === m) m.classList.remove('on'); }));
   $('#gsearch').addEventListener('input', e => renderGloss(e.target.value));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal('gloss'); closeModal('expl'); } });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal('gloss'); closeModal('keysM'); closeModal('expl'); } });
   window.addEventListener('hashchange', route);
   route();
 }
