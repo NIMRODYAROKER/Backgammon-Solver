@@ -15,4 +15,12 @@ for (const e of EXERCISES) {
   for (const r of rows) if (top - r[0] <= N && !listed.includes(r[1])) out.push(`missing ${r[2]} (loses ${(top - r[0]).toFixed(3)})`);
   if (out.length) { n++; console.log('FIX ' + e.id + ' | GNU top: ' + rows[0][2] + '\n   ' + out.join('\n   ')); }
 }
-console.log(n ? n + ' exercises need fixing' : 'all checker exercises agree with GNU BG');
+// Middle game must be a real middle game: contact between the sides (no pure races - those belong to the endgame).
+for (const e of EXERCISES) {
+  if (e.c !== 'middle') continue;
+  const s = Engine.fromDef(e); let wMax = s.wb ? 25 : 0, bMin = s.bb ? 0 : 25;
+  for (let i = 24; i >= 1; i--) if (s.pts[i] > 0) { wMax = Math.max(wMax, i); break; }
+  for (let i = 1; i <= 24; i++) if (s.pts[i] < 0) { bMin = Math.min(bMin, i); break; }
+  if (wMax <= bMin) { n++; console.log('FIX ' + e.id + ' | middle game without contact (a race) - move it to the endgame or replace it'); }
+}
+console.log(n ? n + ' exercises need fixing' : 'all checker exercises agree with GNU BG, and every middle-game exercise has contact');

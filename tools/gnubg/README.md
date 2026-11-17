@@ -16,4 +16,5 @@ Rules used:
   best = within 0.01 of the top move; near ("כמעט") = within 0.04; worse = wrong.
 - Pure bear-off with no contact (`flag:'bear'`): fewest expected rolls, from GNU BG's one-sided bear-off database.
 - Cube: GNU BG cube decision at 2-ply in a 25-point match (close to money play).
+- Middle game (`c:'middle'`) must have contact - no pure races (verify.js flags them). Races belong to the endgame.
 - When GNU BG's answer differs from a rule of thumb (8-9-12 etc.), the explanation says why in plain words.
