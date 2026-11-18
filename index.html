@@ -3414,6 +3414,7 @@ function init() {
   $('#gsearch').addEventListener('input', e => renderGloss(e.target.value));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal('gloss'); closeModal('keysM'); closeModal('expl'); closeModal('acctM'); } });
   window.addEventListener('hashchange', route);
+  if (Auth.user && (!location.hash || location.hash === '#/')) history.replaceState(null, '', '#/practice');
   route();
 }
 init();
