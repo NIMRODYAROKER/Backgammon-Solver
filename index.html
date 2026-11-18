@@ -6,6 +6,7 @@
 <title>Backgammon Solver – אימון שש בש</title>
 <meta name="description" content="120 תרגילי שש בש על לוח אמיתי, עם הסבר לכל מהלך.">
 <meta name="theme-color" content="#3a22dc">
+<meta name="app-version" content="2026-11-18a">
 <link rel="icon" type="image/svg+xml" href="logo.svg">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
@@ -3410,6 +3411,20 @@ function init() {
   route();
 }
 init();
+
+/* ---------- Auto-update: home-screen apps keep an old copy, so check for a newer version on open ---------- */
+function checkUpdate() {
+  const cur = (document.querySelector('meta[name=app-version]') || {}).content;
+  if (!cur || !window.fetch) return;
+  fetch(location.pathname, { cache: 'reload' }).then(r => r.ok ? r.text() : '').then(t => {
+    const m = t.match(/<meta name="app-version" content="([^"]+)"/);
+    if (!m || m[1] === cur) return;
+    try { if (sessionStorage.getItem('bgs.upd') === m[1]) return; sessionStorage.setItem('bgs.upd', m[1]); } catch (e) { }
+    location.reload();
+  }).catch(() => { });
+}
+checkUpdate();
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') checkUpdate(); });
 })();
 
 </script>
