@@ -112,11 +112,12 @@ body.home .logo-mark{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1.5
 .aura.a2{width:70vmax;height:70vmax;bottom:-35vmax;left:-30vmax;background:radial-gradient(closest-side,#00c2a8,transparent);animation:auraB 19s ease-in-out infinite alternate}
 @keyframes auraA{to{transform:translate(-12vmax,10vmax) scale(1.15)}}
 @keyframes auraB{to{transform:translate(10vmax,-12vmax) scale(1.1)}}
-#v-home .screen.hero{position:relative;z-index:1;justify-content:space-between;gap:12px;
+#v-home .screen.hero{position:relative;z-index:1;justify-content:center;gap:26px;
   padding-top:calc(var(--hdr) + env(safe-area-inset-top) + var(--top-x) + 14px);padding-bottom:calc(18px + env(safe-area-inset-bottom))}
 .hero-head{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:auto}
 .hero-cta{width:100%;display:flex;justify-content:center;margin-bottom:auto}
-@media (max-width:719px){.hero-head{margin-top:2vh}.hero-cta{margin-bottom:0}}
+.hero-foot{text-align:center;font-size:.68rem;line-height:1.6;color:rgba(195,205,240,.55);text-shadow:0 1px 8px rgba(0,0,0,.8)}
+.hero-foot p{margin:0}
 #v-home h1{color:#fff;font-size:clamp(2.2rem,10vw,3.6rem);line-height:1.08;text-shadow:0 6px 40px rgba(0,0,0,.75)}
 #v-home .grad{background:linear-gradient(90deg,#a492ff,#3ee6d0,#a492ff);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
 @keyframes shine{to{background-position:-200% 0}}
@@ -129,11 +130,10 @@ body.home .logo-mark{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1.5
 .btn-hero::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:sweep 3.2s ease-in-out infinite}
 @keyframes sweep{0%,55%{left:-60%}100%{left:130%}}
 @keyframes pulseGlow{50%{box-shadow:0 14px 46px -6px rgba(62,230,208,.85),0 0 0 1px rgba(255,255,255,.28) inset}}
-#v-home.on .hero-head,#v-home.on .preview-wrap,#v-home.on .hero-cta{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
-#v-home.on .preview-wrap{animation-delay:.12s}
-#v-home.on .hero-cta{animation-delay:.24s}
+#v-home.on .hero-head,#v-home.on .hero-cta,#v-home.on .hero-foot{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+#v-home.on .hero-cta{animation-delay:.15s}
+#v-home.on .hero-foot{animation-delay:.3s}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-.preview-wrap{width:100%;display:flex;justify-content:center;min-height:0}
 .hs-cone{animation:hsFlick 7s ease-in-out infinite}
 .hs-dust circle{animation:hsDrift 14s linear infinite}
 @keyframes hsFlick{0%,100%{opacity:1}45%{opacity:.82}50%{opacity:.95}55%{opacity:.86}}
@@ -353,12 +353,13 @@ body.home .logo-mark{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1.5
       <h1>תפסיקו לנחש.<br><span class="grad">תתחילו להבין.</span></h1>
       <p class="lead">120 תרגילי שש בש על לוח אמיתי, עם הסבר לכל מהלך.</p>
     </div>
-    <div class="preview-wrap"><div class="preview">
-      <svg id="heroBoard" viewBox="0 0 814 608" role="img" aria-label="לוח שש בש: הפתיחה 3-1"></svg>
-      <span class="toast-ok" id="heroToast"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M20 6 9 17l-5-5"/></svg>נכון! נקודת החמש</span>
-    </div></div>
     <div class="hero-cta"><button class="btn btn-lg btn-hero" data-go="#/practice">התחילו לתרגל
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button></div>
+    <footer class="hero-foot">
+      <p>4 שלבי משחק · 3 רמות קושי · הסבר לכל תרגיל</p>
+      <p>התשובות נבדקו עם GNU Backgammon · ההתקדמות נשמרת אצלכם בדפדפן</p>
+      <p dir="ltr">© 2026 Backgammon Solver</p>
+    </footer>
   </div>
 </section>
 
@@ -3175,23 +3176,6 @@ function renderPractice() {
 }
 
 /* ---------- Landing ---------- */
-let heroTimer = 0, heroBoard;
-function heroLoop() {
-  clearTimeout(heroTimer);
-  if (!$('#v-home').classList.contains('on')) return;
-  const s0 = Engine.fromDef({ w: { 24: 2, 13: 5, 8: 3, 6: 5 }, b: { 1: 2, 12: 5, 17: 3, 19: 5 } });
-  const toast = $('#heroToast'); toast.classList.remove('show');
-  heroBoard.render(s0, { dice: [3, 1], movable: new Set([8, 6]) });
-  const st1 = { from: 8, to: 5, die: 3, hit: false }, s1 = Engine.apply(s0, st1);
-  const st2 = { from: 6, to: 5, die: 1, hit: false }, s2 = Engine.apply(s1, st2);
-  heroTimer = setTimeout(() => {
-    heroBoard.animate(s0, st1, s1, { dice: [3, 1], used: [true, false] }, 520, () => {
-      heroTimer = setTimeout(() => heroBoard.animate(s1, st2, s2, { dice: [3, 1], used: [true, true] }, 520, () => {
-        toast.classList.add('show'); heroTimer = setTimeout(heroLoop, 2600);
-      }), 250);
-    });
-  }, 1300);
-}
 /* ---------- Glossary ---------- */
 function renderGloss(filter = '', flash = '') {
   const f = filter.trim();
@@ -3224,14 +3208,13 @@ function route() {
   }
   else if (h === '#/play') { if (!SES) return go('#/practice'); show('play'); if (!X || X.ex.id !== SES.ids[SES.i]) loadExercise(); }
   else if (h === '#/summary') { if (!SES) return go('#/practice'); show('summary'); }
-  else { show('home'); heroLoop(); }
+  else { show('home'); }
 }
 
 /* ---------- Wiring ---------- */
 function init() {
   Store.load(); updateBadge();
   board = new Board($('#board'), { homeRight: Store.d.homeRight });
-  heroBoard = new Board($('#heroBoard'));
   const svg = $('#board');
   svg.addEventListener('pointerdown', onDown);
   svg.addEventListener('pointermove', onMove);
