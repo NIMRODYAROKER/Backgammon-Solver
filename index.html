@@ -6,7 +6,7 @@
 <title>Backgammon Solver – אימון שש בש</title>
 <meta name="description" content="120 תרגילי שש בש על לוח אמיתי, עם הסבר לכל מהלך.">
 <meta name="theme-color" content="#3a22dc">
-<meta name="app-version" content="2026-11-18a">
+<meta name="app-version" content="2026-11-18b">
 <link rel="icon" type="image/svg+xml" href="logo.svg">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
@@ -70,19 +70,20 @@ button{font:inherit;cursor:pointer;color:inherit}
 /* ===== Header ===== */
 /* phones: extra room under the status bar so the browser's top blur doesn't cover the header row */
 @media (hover:none) and (pointer:coarse){:root{--top-x:14px}}
-.top{position:fixed;top:0;left:0;right:0;z-index:40;height:calc(var(--hdr) + env(safe-area-inset-top) + var(--top-x));padding-top:calc(env(safe-area-inset-top) + var(--top-x));background:linear-gradient(90deg,#3a22dc,#1f5cc4 55%,#00a492);color:#fff;box-shadow:0 4px 14px -8px rgba(15,40,110,.7)}
+.top{position:fixed;top:0;left:0;right:0;z-index:40;height:calc(var(--hdr) + env(safe-area-inset-top) + var(--top-x));padding-top:calc(env(safe-area-inset-top) + var(--top-x));background:linear-gradient(100deg,#13205e,#1a2a78);color:#fff;box-shadow:0 6px 18px -10px rgba(10,20,70,.8)}
 .top .wrap{display:flex;align-items:center;gap:8px;height:100%}
 .wrap{width:100%;max-width:1100px;margin:0 auto;padding:0 14px}
 .logo{display:flex;align-items:center;gap:9px;font-family:var(--font-h);font-weight:800;font-size:1.12rem;color:#fff;white-space:nowrap;background:none;border:0;padding:0}
 .logo-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#3a22dc,#00a492);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35);display:grid;place-items:center}
-.nav{margin-inline-start:auto;display:flex;gap:2px;align-items:center}
-.nav button{background:none;border:0;padding:.45em .6em;border-radius:10px;font-weight:600;color:#fff;display:flex;align-items:center;gap:.4em;font-size:.95rem;min-height:40px;position:relative}
-.nav button.on{background:rgba(255,255,255,.2)}
-.nav svg{width:20px;height:20px}
+.nav{margin-inline-start:auto;display:flex;gap:6px;align-items:center}
+.nav button{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.26);padding:0 .55em;border-radius:10px;font-weight:600;color:#fff;display:flex;align-items:center;justify-content:center;gap:.4em;font-size:.95rem;min-height:38px;min-width:38px;position:relative;transition:background .2s}
+.nav button:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.45)}
+.nav button.on{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.55)}
+.nav svg{width:19px;height:19px;flex:none}
 .nav .lbl{display:none}
-.badge{min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:#ff3d63;color:#fff;font-size:.7rem;display:inline-grid;place-items:center;font-weight:700;position:absolute;top:2px;inset-inline-end:0}
+.badge{min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:#ff3d63;color:#fff;font-size:.7rem;display:inline-grid;place-items:center;font-weight:700;position:absolute;top:-5px;inset-inline-end:-5px;box-shadow:0 0 0 2px #16246a}
 @media (min-width:720px){.nav .lbl{display:inline}.badge{position:static}}
-@media (max-width:400px){.nav button{padding:.45em .4em}.logo{font-size:1rem;gap:7px}}
+@media (max-width:400px){.nav{gap:5px}.nav button{min-width:36px;min-height:36px;padding:0 .45em}.logo{font-size:1rem}}
 
 /* ===== App shell: every view fits the screen ===== */
 main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top) + var(--top-x));left:0;right:0;bottom:0}
@@ -105,7 +106,7 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top) + var(--top-x
 html:has(body.home),body.home{background:#03040f}
 body.home main{top:0}
 body.home .top{background:linear-gradient(180deg,rgba(3,4,15,.7),rgba(3,4,15,0));box-shadow:none}
-body.home .logo-mark{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.22)}
+body.home .nav button{background:rgba(255,255,255,.06)}
 #v-home{position:relative;overflow:hidden;background:#03040f}
 .hero-scene{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .aura{position:absolute;z-index:0;pointer-events:none;border-radius:50%;filter:blur(60px);mix-blend-mode:screen;opacity:.55}
@@ -152,8 +153,8 @@ body.home .logo-mark{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1.5
 .kpi{background:var(--card);border:1.5px solid var(--line);border-radius:var(--r);padding:8px 6px;text-align:center}
 .kpi b{font-family:var(--font-h);font-size:1.3rem;display:block;line-height:1.1;color:var(--brand-600)}
 .kpi span{color:var(--muted);font-size:.78rem;font-weight:600}
-.reco{display:flex;gap:10px;align-items:center;background:linear-gradient(135deg,#3a22dc,#00a492);color:#fff;border:0;border-radius:var(--r);padding:10px 12px;text-align:start;box-shadow:var(--shadow);width:100%}
-.reco .ico{background:rgba(255,255,255,.2);color:#fff}
+.reco{display:flex;gap:10px;align-items:center;background:linear-gradient(100deg,#13205e,#1a2a78);color:#fff;border:0;border-radius:var(--r);padding:10px 12px;text-align:start;box-shadow:var(--shadow);width:100%}
+.reco .ico{background:rgba(255,255,255,.14);color:#fff}
 .reco div{flex:1;min-width:0}
 .reco small{display:block;opacity:.85;font-size:.78rem;font-weight:600}
 .reco b{font-family:var(--font-h);font-size:1rem}
@@ -271,7 +272,7 @@ body.home .logo-mark{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1.5
 .actions.three{grid-template-columns:1fr 1fr 2fr}
 .pip #shownMv{color:var(--brand-600);font-weight:700}
 @media (max-width:370px){
-  .logo{font-size:.9rem;gap:6px}.logo-mark{width:30px;height:30px}.nav button{padding:.4em .3em}
+  .logo{font-size:.92rem}.nav{gap:4px}
   .ex-top{gap:6px}.ex-progress{min-width:20px}.iconbtn{width:36px;height:36px}
   .actions.three .btn{padding:.7em .4em;font-size:.92rem;gap:.3em}
   .actions.three .btn svg{display:none}
@@ -284,7 +285,10 @@ body.home .logo-mark{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1.5
 .acct-err{color:var(--rose);font-weight:700;font-size:.9rem;min-height:1.3em}
 .acct-note{color:var(--muted);font-size:.85rem}
 .acct-name{font-family:var(--font-h);font-size:1.25rem;color:var(--brand-600);margin-bottom:4px}
-.nav .acct-on{background:rgba(255,255,255,.2)}
+.acct-bar{margin-top:auto;align-self:center;display:flex;align-items:center;justify-content:center;gap:.5em;width:100%;max-width:420px;min-height:50px;border-radius:14px;border:0;background:linear-gradient(100deg,#13205e,#1a2a78);color:#fff;font-weight:700;font-size:1rem;box-shadow:var(--shadow)}
+.acct-bar svg{width:20px;height:20px;flex:none}
+.acct-bar #acctLbl{max-width:22ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acct-intro{background:var(--brand-50);color:#1c3fa8;border-radius:12px;padding:10px 12px;font-weight:700;font-size:.95rem;margin-bottom:12px}
 .gsearch{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:.65em 1em;font:inherit;margin-bottom:8px;background:#f8fbff}
 .gitem{padding:10px 0;border-bottom:1px solid var(--line)}
 .gitem:last-child{border:0}
@@ -308,14 +312,12 @@ body.home .logo-mark{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1.5
 <header class="top">
   <div class="wrap">
     <button class="logo" data-go="#/" aria-label="דף הבית">
-<span class="logo-mark"><svg width="32" height="32" viewBox="0 0 64 64"><path d="M14 13h16l-8 27z" fill="#fff"/><path d="M34 51h16l-8-27z" fill="#fff"/><circle cx="22" cy="48" r="5" fill="#fff" fill-opacity=".6"/><circle cx="42" cy="16" r="5" fill="#fff" fill-opacity=".6"/></svg></span>
       <span dir="ltr">Backgammon Solver</span>
     </button>
     <nav class="nav" aria-label="ניווט ראשי">
       <button data-go="#/review" data-nav="review" aria-label="חזרה על טעויות"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg><span class="lbl">טעויות</span><span class="badge" id="missBadge" hidden>0</span></button>
       <button data-keys aria-label="נקודות מפתח"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg><span class="lbl">נקודות מפתח</span></button>
       <button data-glossary aria-label="מילון מושגים"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg><span class="lbl">מילון</span></button>
-      <button id="acctBtn" aria-label="חשבון"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span class="lbl" id="acctLbl">כניסה</span></button>
     </nav>
   </div>
 </header>
@@ -363,7 +365,7 @@ body.home .logo-mark{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1.5
       <h1>תפסיקו לנחש.<br><span class="grad">תתחילו להבין.</span></h1>
       <p class="lead">120 תרגילי שש בש על לוח אמיתי, עם הסבר לכל מהלך.</p>
     </div>
-    <div class="hero-cta"><button class="btn btn-lg btn-hero" data-go="#/practice">התחילו לתרגל
+    <div class="hero-cta"><button class="btn btn-lg btn-hero" id="heroStart">התחילו לתרגל
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button></div>
     <footer class="hero-foot">
       <p>4 שלבי משחק · 3 רמות קושי · הסבר לכל תרגיל</p>
@@ -379,6 +381,7 @@ body.home .logo-mark{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1.5
     <div class="kpis" id="kpis"></div>
     <div id="reco"></div>
     <div class="cats" id="catCards"></div>
+    <button class="acct-bar" id="acctBtn" aria-label="חשבון"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span id="acctLbl">כניסה / הרשמה</span></button>
   </div>
 </section>
 
@@ -3191,10 +3194,10 @@ function openKeys(id) {
 }
 
 /* ---------- Account screen ---------- */
-let acctTab = 'login';
+let acctTab = 'login', acctIntro = false;
 function acctLabel() {
   const u = Auth.user && Auth.users()[Auth.user];
-  $('#acctLbl').textContent = u ? u.n : 'כניסה';
+  $('#acctLbl').textContent = u ? u.n : 'כניסה / הרשמה';
   $('#acctBtn').classList.toggle('acct-on', !!u);
 }
 function renderAcct() {
@@ -3213,15 +3216,16 @@ function renderAcct() {
   } else {
     $('#acctTitle').textContent = 'חשבון';
     const L = acctTab === 'login';
-    body.innerHTML = `<div class="seg acct-tabs"><button data-acctact="tab-login" class="${L ? 'on' : ''}">כניסה</button><button data-acctact="tab-signup" class="${L ? '' : 'on'}">הרשמה</button></div>
+    body.innerHTML = `${acctIntro ? '<p class="acct-intro">הירשמו כדי לשמור את השלבים שעברתם.</p>' : ''}<div class="seg acct-tabs"><button data-acctact="tab-login" class="${L ? 'on' : ''}">כניסה</button><button data-acctact="tab-signup" class="${L ? '' : 'on'}">הרשמה</button></div>
       <form class="acct-form" data-form="${L ? 'login' : 'signup'}">
       <input name="u" placeholder="שם משתמש" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="20" required>
       <input type="password" name="p" placeholder="סיסמה" autocomplete="${L ? 'current-password' : 'new-password'}" ${L ? '' : 'minlength="6"'} maxlength="128" required>
       <div class="acct-err"></div><button class="btn btn-primary" type="submit">${L ? 'כניסה' : 'יצירת חשבון'}</button></form>
-      <p class="acct-note" style="margin-top:10px">${L ? 'אפשר גם להמשיך בלי חשבון.' : 'החשבון נשמר במכשיר הזה בלבד. אין שחזור סיסמה.'}</p>`;
+      ${acctIntro ? '<button class="btn btn-ghost" data-acctact="guest" style="width:100%;margin-top:8px">המשך כאורח</button>' : ''}
+      <p class="acct-note" style="margin-top:10px">${L ? (acctIntro ? '' : 'אפשר גם להמשיך בלי חשבון.') : 'החשבון נשמר במכשיר הזה בלבד. אין שחזור סיסמה.'}</p>`;
   }
 }
-function openAcct() { acctTab = 'login'; renderAcct(); $('#acctM').classList.add('on'); }
+function openAcct(intro) { acctIntro = intro === true; acctTab = acctIntro ? 'signup' : 'login'; renderAcct(); $('#acctM').classList.add('on'); }
 function switchedUser() {
   closeModal('acctM'); acctLabel();
   Store.load(); updateBadge(); board.homeRight = Store.d.homeRight;
@@ -3391,12 +3395,14 @@ function init() {
     if (a === 'undo') undo(); else if (a === 'reset') resetEx(); else if (a === 'check') check(); else if (a === 'explain') openExplain();
     else if (a === 'replay') showCorrect(); else if (a === 'retry') retry(); else if (a === 'next') nextEx(); else if (a === 'skip') skipEx();
   });
-  $('#acctBtn').addEventListener('click', openAcct);
+  $('#acctBtn').addEventListener('click', () => openAcct());
+  $('#heroStart').addEventListener('click', () => { history.pushState(null, '', '#/practice'); route(); if (!Auth.user) openAcct(true); });
   $('#acctM').addEventListener('submit', onAcctSubmit);
   $('#acctM').addEventListener('click', e => {
     const a = e.target.closest('[data-acctact]'); if (!a) return;
     const t = a.dataset.acctact;
-    if (t === 'tab-login' || t === 'tab-signup') { acctTab = t.slice(4); renderAcct(); }
+    if (t === 'guest') closeModal('acctM');
+    else if (t === 'tab-login' || t === 'tab-signup') { acctTab = t.slice(4); renderAcct(); }
     else if (t === 'logout') { Auth.setUser(null); switchedUser(); }
     else if (t === 'del') { const f = $('form[data-form=del]'); f.hidden = !f.hidden; }
   });
