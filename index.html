@@ -100,16 +100,40 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top) + var(--top-x
 .preview svg{display:block;width:100%;height:auto;max-height:42vh}
 .toast-ok{position:absolute;bottom:14px;left:50%;transform:translate(-50%,6px);display:inline-flex;align-items:center;gap:6px;background:var(--green);color:#fff;padding:.35em .8em;border-radius:10px;font-weight:700;font-size:.88rem;opacity:0;transition:.35s;white-space:nowrap}
 .toast-ok.show{opacity:1;transform:translate(-50%,0)}
-/* Landing: dramatic match scene behind the content */
+/* Landing: full-bleed match scene, edge to edge on phones */
+html:has(body.home),body.home{background:#03040f}
+body.home main{top:0}
+body.home .top{background:linear-gradient(180deg,rgba(3,4,15,.7),rgba(3,4,15,0));box-shadow:none}
+body.home .logo-mark{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.22)}
 #v-home{position:relative;overflow:hidden;background:#03040f}
 .hero-scene{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
-#v-home .screen{position:relative;z-index:1}
-#v-home h1{color:#fff;text-shadow:0 6px 40px rgba(0,0,0,.75)}
-#v-home .grad{background:linear-gradient(90deg,#a492ff,#3ee6d0)}
-#v-home .grad{-webkit-background-clip:text;background-clip:text;color:transparent}
-#v-home .lead{color:#c3cdf0;text-shadow:0 2px 14px rgba(0,0,0,.8)}
-#v-home .btn-primary{box-shadow:0 10px 30px -8px rgba(62,230,208,.55)}
-#v-home .preview{background:rgba(8,10,34,.6);border-color:rgba(150,165,255,.28);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:0 34px 70px -24px #000,0 0 50px -14px rgba(62,230,208,.45)}
+.aura{position:absolute;z-index:0;pointer-events:none;border-radius:50%;filter:blur(60px);mix-blend-mode:screen;opacity:.55}
+.aura.a1{width:80vmax;height:80vmax;top:-35vmax;right:-30vmax;background:radial-gradient(closest-side,#5b3cff,transparent);animation:auraA 16s ease-in-out infinite alternate}
+.aura.a2{width:70vmax;height:70vmax;bottom:-35vmax;left:-30vmax;background:radial-gradient(closest-side,#00c2a8,transparent);animation:auraB 19s ease-in-out infinite alternate}
+@keyframes auraA{to{transform:translate(-12vmax,10vmax) scale(1.15)}}
+@keyframes auraB{to{transform:translate(10vmax,-12vmax) scale(1.1)}}
+#v-home .screen.hero{position:relative;z-index:1;justify-content:space-between;gap:12px;
+  padding-top:calc(var(--hdr) + env(safe-area-inset-top) + var(--top-x) + 14px);padding-bottom:calc(18px + env(safe-area-inset-bottom))}
+.hero-head{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:auto}
+.hero-cta{width:100%;display:flex;justify-content:center;margin-bottom:auto}
+@media (max-width:719px){.hero-head{margin-top:2vh}.hero-cta{margin-bottom:0}}
+#v-home h1{color:#fff;font-size:clamp(2.2rem,10vw,3.6rem);line-height:1.08;text-shadow:0 6px 40px rgba(0,0,0,.75)}
+#v-home .grad{background:linear-gradient(90deg,#a492ff,#3ee6d0,#a492ff);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:-200% 0}}
+#v-home .lead{color:#c3cdf0;text-wrap:balance;max-width:30ch;text-shadow:0 2px 14px rgba(0,0,0,.8);margin:0}
+#v-home .preview{background:rgba(8,10,34,.55);border-color:rgba(150,165,255,.3);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  box-shadow:0 34px 70px -24px #000,0 0 60px -12px rgba(123,97,255,.55),0 0 40px -16px rgba(62,230,208,.6);animation:floaty 6s ease-in-out infinite}
+@keyframes floaty{50%{transform:translateY(-7px)}}
+.btn-hero{position:relative;overflow:hidden;width:100%;max-width:420px;min-height:60px;font-size:1.2rem;border-radius:18px;color:#fff;border:0;
+  background:linear-gradient(100deg,#5b3cff,#2f6bf0 55%,#00b8a0);box-shadow:0 14px 36px -10px rgba(62,230,208,.65),0 0 0 1px rgba(255,255,255,.18) inset;animation:pulseGlow 2.6s ease-in-out infinite}
+.btn-hero::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:sweep 3.2s ease-in-out infinite}
+@keyframes sweep{0%,55%{left:-60%}100%{left:130%}}
+@keyframes pulseGlow{50%{box-shadow:0 14px 46px -6px rgba(62,230,208,.85),0 0 0 1px rgba(255,255,255,.28) inset}}
+#v-home.on .hero-head,#v-home.on .preview-wrap,#v-home.on .hero-cta{animation:rise .7s cubic-bezier(.2,.8,.2,1) both}
+#v-home.on .preview-wrap{animation-delay:.12s}
+#v-home.on .hero-cta{animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.preview-wrap{width:100%;display:flex;justify-content:center;min-height:0}
 .hs-cone{animation:hsFlick 7s ease-in-out infinite}
 .hs-dust circle{animation:hsDrift 14s linear infinite}
 @keyframes hsFlick{0%,100%{opacity:1}45%{opacity:.82}50%{opacity:.95}55%{opacity:.86}}
@@ -322,15 +346,19 @@ main{position:fixed;top:calc(var(--hdr) + env(safe-area-inset-top) + var(--top-x
     </g>
     <rect width="1000" height="1000" fill="url(#hsVig)"/>
   </svg>
+  <div class="aura a1" aria-hidden="true"></div>
+  <div class="aura a2" aria-hidden="true"></div>
   <div class="screen hero">
-    <h1>תפסיקו לנחש.<br><span class="grad">תתחילו להבין.</span></h1>
-    <p class="lead">120 תרגילי שש בש על לוח אמיתי, עם הסבר לכל מהלך.</p>
-    <button class="btn btn-primary btn-lg" data-go="#/practice">התחילו לתרגל
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-    <div class="preview">
+    <div class="hero-head">
+      <h1>תפסיקו לנחש.<br><span class="grad">תתחילו להבין.</span></h1>
+      <p class="lead">120 תרגילי שש בש על לוח אמיתי, עם הסבר לכל מהלך.</p>
+    </div>
+    <div class="preview-wrap"><div class="preview">
       <svg id="heroBoard" viewBox="0 0 814 608" role="img" aria-label="לוח שש בש: הפתיחה 3-1"></svg>
       <span class="toast-ok" id="heroToast"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8"><path d="M20 6 9 17l-5-5"/></svg>נכון! נקודת החמש</span>
-    </div>
+    </div></div>
+    <div class="hero-cta"><button class="btn btn-lg btn-hero" data-go="#/practice">התחילו לתרגל
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button></div>
   </div>
 </section>
 
@@ -3180,6 +3208,8 @@ function openGloss(term) {
 /* ---------- Router ---------- */
 function go(h) { if (location.hash === h) route(); else location.hash = h; }
 function show(v) {
+  document.body.classList.toggle('home', v === 'home');
+  const tc = $('meta[name="theme-color"]'); if (tc) tc.content = v === 'home' ? '#03040f' : '#3a22dc';
   $$('.view').forEach(x => x.classList.toggle('on', x.id === 'v-' + v));
   $$('.nav [data-nav]').forEach(b => b.classList.toggle('on', b.dataset.nav === v || (v === 'play' && SES && SES.mode === 'review' && b.dataset.nav === 'review')));
 }
