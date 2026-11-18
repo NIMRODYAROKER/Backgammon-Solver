@@ -276,6 +276,14 @@ body.home .logo-mark{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1.5
   .actions.three .btn svg{display:none}
 }
 .term{background:none;border:0;padding:0;color:inherit;border-bottom:2px dotted #6f97e6;cursor:help;font:inherit}
+.acct-tabs{margin-bottom:12px}
+.acct-form{display:flex;flex-direction:column;gap:8px}
+.acct-form input{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:.7em 1em;font:inherit;background:#f8fbff;color:var(--ink)}
+.acct-form input:focus{outline:2px solid var(--brand);outline-offset:1px}
+.acct-err{color:var(--rose);font-weight:700;font-size:.9rem;min-height:1.3em}
+.acct-note{color:var(--muted);font-size:.85rem}
+.acct-name{font-family:var(--font-h);font-size:1.25rem;color:var(--brand-600);margin-bottom:4px}
+.nav .acct-on{background:rgba(255,255,255,.2)}
 .gsearch{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:.65em 1em;font:inherit;margin-bottom:8px;background:#f8fbff}
 .gitem{padding:10px 0;border-bottom:1px solid var(--line)}
 .gitem:last-child{border:0}
@@ -306,6 +314,7 @@ body.home .logo-mark{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1.5
       <button data-go="#/review" data-nav="review" aria-label="חזרה על טעויות"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg><span class="lbl">טעויות</span><span class="badge" id="missBadge" hidden>0</span></button>
       <button data-keys aria-label="נקודות מפתח"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg><span class="lbl">נקודות מפתח</span></button>
       <button data-glossary aria-label="מילון מושגים"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg><span class="lbl">מילון</span></button>
+      <button id="acctBtn" aria-label="חשבון"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span class="lbl" id="acctLbl">כניסה</span></button>
     </nav>
   </div>
 </header>
@@ -357,7 +366,7 @@ body.home .logo-mark{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1.5
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button></div>
     <footer class="hero-foot">
       <p>4 שלבי משחק · 3 רמות קושי · הסבר לכל תרגיל</p>
-      <p>התשובות נבדקו עם GNU Backgammon · ההתקדמות נשמרת אצלכם בדפדפן</p>
+      <p>התשובות נבדקו עם GNU Backgammon · ההתקדמות נשמרת אצלכם במכשיר, עם או בלי חשבון</p>
       <p dir="ltr">© 2026 Backgammon Solver</p>
     </footer>
   </div>
@@ -407,6 +416,13 @@ body.home .logo-mark{background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1.5
   <div class="sheet">
     <div class="sheet-head"><h2 id="keysTitle">נקודות מפתח</h2><button class="x" data-close="keysM" aria-label="סגירה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
     <div class="sheet-body"><p style="color:var(--muted);margin-bottom:10px">העקרונות שכדאי לשחק לפיהם. כל הסבר בתרגילים מציין אילו מהם רלוונטיים.</p><ul class="keys" id="keysList"></ul></div>
+  </div>
+</div>
+
+<div class="modal" id="acctM" role="dialog" aria-modal="true" aria-labelledby="acctTitle">
+  <div class="sheet">
+    <div class="sheet-head"><h2 id="acctTitle">חשבון</h2><button class="x" data-close="acctM" aria-label="סגירה"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+    <div class="sheet-body" id="acctBody"></div>
   </div>
 </div>
 
@@ -2521,10 +2537,87 @@ const TERM_FORMS = [['פיפ קאונט', 'פיפ קאונט'], ['נקודת ה�
   ['חשיפה', 'חשיפה'], ['בלוק', 'בלוק'], ['פריים', 'פריים'], ['עוגן', 'עוגן'], ['מרוץ', 'מרוץ'], ['בונים', 'בונים'], ['בונה', 'בונים'],
   ['גמון', 'גמון'], ['סלוט', 'סלוט'], ['פספוס', 'פספוס'], ['מגע', 'מגע']];
 
+
+/* ---------- Accounts (on this device only; passwords stored as salted PBKDF2 hashes) ---------- */
+const Auth = {
+  UK: 'bgs.users', SK: 'bgs.user', LK: 'bgs.lock', ITER: 210000,
+  user: null,
+  users() { try { const u = JSON.parse(localStorage.getItem(this.UK)); return u && typeof u === 'object' ? u : {}; } catch (e) { return {}; } },
+  saveUsers(u) { localStorage.setItem(this.UK, JSON.stringify(u)); },
+  init() {
+    let u = null; try { u = localStorage.getItem(this.SK); } catch (e) { }
+    this.user = u && this.users()[u] ? u : null;
+  },
+  norm(n) { return String(n || '').trim().toLowerCase(); },
+  validName(n) { n = String(n || '').trim(); return /^[A-Za-z0-9א-ת_.-]{3,20}$/.test(n) && !n.startsWith('__'); },
+  b64(buf) { return btoa(String.fromCharCode(...new Uint8Array(buf))); },
+  unb64(s) { return Uint8Array.from(atob(s), c => c.charCodeAt(0)); },
+  async hash(pw, salt, iter) {
+    const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveBits']);
+    return this.b64(await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt, iterations: iter }, key, 256));
+  },
+  async make(pw) { const salt = crypto.getRandomValues(new Uint8Array(16)); return { s: this.b64(salt), i: this.ITER, h: await this.hash(pw, salt, this.ITER) }; },
+  same(a, b) { if (a.length !== b.length) return false; let r = 0; for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i); return r === 0; },
+  async check(rec, pw) { return this.same(await this.hash(pw, this.unb64(rec.s), rec.i), rec.h); },
+  // slow down repeated wrong passwords: 5 failures -> 30s wait, doubling after that
+  lock() { try { return JSON.parse(localStorage.getItem(this.LK)) || { f: 0, until: 0 }; } catch (e) { return { f: 0, until: 0 }; } },
+  setLock(l) { try { localStorage.setItem(this.LK, JSON.stringify(l)); } catch (e) { } },
+  waitLeft() { return Math.max(0, Math.ceil((this.lock().until - Date.now()) / 1000)); },
+  waitMsg() { const w = this.waitLeft(); return w ? `יותר מדי ניסיונות. נסו שוב בעוד ${w} שניות` : null; },
+  fail() { const l = this.lock(); l.f++; if (l.f >= 5) l.until = Date.now() + 30000 * Math.pow(2, Math.min(l.f - 5, 6)); this.setLock(l); },
+  ok() { this.setLock({ f: 0, until: 0 }); },
+  pwBad(pw) { pw = String(pw); return pw.length < 6 ? 'סיסמה: לפחות 6 תווים' : pw.length > 128 ? 'הסיסמה ארוכה מדי' : null; },
+  async signup(name, pw) {
+    if (!this.validName(name)) return 'שם משתמש: 3–20 אותיות או מספרים';
+    const bad = this.pwBad(pw); if (bad) return bad;
+    const u = this.users(), id = this.norm(name);
+    if (Object.prototype.hasOwnProperty.call(u, id)) return 'שם המשתמש תפוס';
+    const first = !Object.keys(u).length;
+    u[id] = Object.assign({ n: String(name).trim() }, await this.make(pw));
+    try { this.saveUsers(u); } catch (e) { return 'לא ניתן לשמור בדפדפן הזה'; }
+    // first account on this device takes over the progress saved before accounts existed
+    if (first) {
+      try {
+        const g = localStorage.getItem('mahalach.v1');
+        if (g) { localStorage.setItem('mahalach.v1:u:' + id, g); localStorage.removeItem('mahalach.v1'); }
+      } catch (e) { }
+    }
+    this.setUser(id); return null;
+  },
+  async login(name, pw) {
+    const w = this.waitMsg(); if (w) return w;
+    const u = this.users(), id = this.norm(name);
+    const rec = Object.prototype.hasOwnProperty.call(u, id) ? u[id] : null;
+    let good = false;
+    if (rec) good = await this.check(rec, String(pw));
+    else await this.hash(String(pw), new Uint8Array(16), this.ITER); // same delay either way
+    if (!good) { this.fail(); return 'שם משתמש או סיסמה שגויים'; }
+    this.ok(); this.setUser(id); return null;
+  },
+  async changePw(oldPw, newPw) {
+    const u = this.users(), rec = u[this.user]; if (!rec) return 'לא מחוברים';
+    const w = this.waitMsg(); if (w) return w;
+    if (!(await this.check(rec, String(oldPw)))) { this.fail(); return 'הסיסמה הנוכחית שגויה'; }
+    this.ok();
+    const bad = this.pwBad(newPw); if (bad) return bad;
+    Object.assign(rec, await this.make(newPw)); this.saveUsers(u); return null;
+  },
+  async remove(pw) {
+    const u = this.users(), rec = u[this.user]; if (!rec) return 'לא מחוברים';
+    const w = this.waitMsg(); if (w) return w;
+    if (!(await this.check(rec, String(pw)))) { this.fail(); return 'הסיסמה שגויה'; }
+    this.ok(); delete u[this.user]; this.saveUsers(u);
+    try { localStorage.removeItem('mahalach.v1:u:' + this.user); } catch (e) { }
+    this.setUser(null); return null;
+  },
+  setUser(id) { this.user = id; try { if (id) localStorage.setItem(this.SK, id); else localStorage.removeItem(this.SK); } catch (e) { } }
+};
+
 /* ---------- Storage (localStorage, fails safely) ---------- */
 const Store = {
   k: 'mahalach.v1', d: null,
   load() {
+    this.k = Auth.user ? 'mahalach.v1:u:' + Auth.user : 'mahalach.v1';
     try { this.d = JSON.parse(localStorage.getItem(this.k)); } catch (e) { this.d = null; }
     if (!this.d || typeof this.d !== 'object') this.d = {};
     this.d = Object.assign({ res: {}, days: [], missed: [], skip: [], last: null, lvl: 1, homeRight: true }, this.d);
@@ -3095,6 +3188,63 @@ function openKeys(id) {
   const el = id && $(`#keysList [data-k="${id}"]`);
   if (el) { el.classList.add('flash'); el.scrollIntoView({ block: 'center' }); } else $('#keysM .sheet-body').scrollTop = 0;
 }
+
+/* ---------- Account screen ---------- */
+let acctTab = 'login';
+function acctLabel() {
+  const u = Auth.user && Auth.users()[Auth.user];
+  $('#acctLbl').textContent = u ? u.n : 'כניסה';
+  $('#acctBtn').classList.toggle('acct-on', !!u);
+}
+function renderAcct() {
+  const u = Auth.user && Auth.users()[Auth.user];
+  const body = $('#acctBody');
+  if (u) {
+    $('#acctTitle').textContent = 'החשבון שלי';
+    body.innerHTML = `<div class="acct-name">${esc(u.n)}</div><p class="acct-note" style="margin-bottom:12px">התרגילים שפתרתם נשמרים בחשבון הזה, במכשיר הזה.</p>
+      <form class="acct-form" data-form="pw"><input type="password" name="o" placeholder="סיסמה נוכחית" autocomplete="current-password" required>
+      <input type="password" name="n" placeholder="סיסמה חדשה" autocomplete="new-password" minlength="6" maxlength="128" required>
+      <div class="acct-err"></div><button class="btn btn-ghost" type="submit">שינוי סיסמה</button></form>
+      <div class="sheet-actions"><button class="btn btn-primary" data-acctact="logout">יציאה</button></div>
+      <button class="linkbtn" data-acctact="del" style="color:var(--rose);margin-top:10px">מחיקת החשבון</button>
+      <form class="acct-form" data-form="del" hidden style="margin-top:8px"><input type="password" name="p" placeholder="סיסמה לאישור" autocomplete="current-password" required>
+      <div class="acct-err"></div><button class="btn btn-ghost" type="submit" style="color:var(--rose)">למחוק את החשבון וההתקדמות</button></form>`;
+  } else {
+    $('#acctTitle').textContent = 'חשבון';
+    const L = acctTab === 'login';
+    body.innerHTML = `<div class="seg acct-tabs"><button data-acctact="tab-login" class="${L ? 'on' : ''}">כניסה</button><button data-acctact="tab-signup" class="${L ? '' : 'on'}">הרשמה</button></div>
+      <form class="acct-form" data-form="${L ? 'login' : 'signup'}">
+      <input name="u" placeholder="שם משתמש" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="20" required>
+      <input type="password" name="p" placeholder="סיסמה" autocomplete="${L ? 'current-password' : 'new-password'}" ${L ? '' : 'minlength="6"'} maxlength="128" required>
+      <div class="acct-err"></div><button class="btn btn-primary" type="submit">${L ? 'כניסה' : 'יצירת חשבון'}</button></form>
+      <p class="acct-note" style="margin-top:10px">${L ? 'אפשר גם להמשיך בלי חשבון.' : 'החשבון נשמר במכשיר הזה בלבד. אין שחזור סיסמה.'}</p>`;
+  }
+}
+function openAcct() { acctTab = 'login'; renderAcct(); $('#acctM').classList.add('on'); }
+function switchedUser() {
+  closeModal('acctM'); acctLabel();
+  Store.load(); updateBadge(); board.homeRight = Store.d.homeRight;
+  if (location.hash === '#/play' || location.hash === '#/summary') go('#/practice'); else route();
+}
+async function onAcctSubmit(e) {
+  const f = e.target.closest('form[data-form]'); if (!f) return;
+  e.preventDefault();
+  const err = $('.acct-err', f), btn = $('button[type=submit]', f), k = f.dataset.form, v = n => f.elements[n] ? f.elements[n].value : '';
+  if (!(window.crypto && crypto.subtle)) { err.textContent = 'הדפדפן הזה לא תומך בחשבונות'; return; }
+  btn.disabled = true; err.textContent = ''; err.style.color = '';
+  let r;
+  try {
+    if (k === 'login') r = await Auth.login(v('u'), v('p'));
+    else if (k === 'signup') r = await Auth.signup(v('u'), v('p'));
+    else if (k === 'pw') r = await Auth.changePw(v('o'), v('n'));
+    else if (k === 'del') r = await Auth.remove(v('p'));
+  } catch (x) { r = 'משהו השתבש, נסו שוב'; }
+  btn.disabled = false;
+  if (r) { err.textContent = r; return; }
+  if (k === 'pw') { f.reset(); err.style.color = 'var(--teal)'; err.textContent = 'הסיסמה עודכנה'; return; }
+  switchedUser();
+}
+
 function closeModal(id) { $('#' + id).classList.remove('on'); }
 
 /* ---------- Sessions ---------- */
@@ -3199,7 +3349,7 @@ function show(v) {
 }
 function route() {
   const h = location.hash || '#/';
-  closeModal('expl'); closeModal('gloss'); closeModal('keysM');
+  closeModal('expl'); closeModal('gloss'); closeModal('keysM'); closeModal('acctM');
   clearTimeout(animTimer);
   if (h === '#/practice') { renderPractice(); show('practice'); }
   else if (h === '#/review') {
@@ -3213,7 +3363,7 @@ function route() {
 
 /* ---------- Wiring ---------- */
 function init() {
-  Store.load(); updateBadge();
+  Auth.init(); Store.load(); updateBadge(); acctLabel();
   board = new Board($('#board'), { homeRight: Store.d.homeRight });
   const svg = $('#board');
   svg.addEventListener('pointerdown', onDown);
@@ -3240,13 +3390,22 @@ function init() {
     if (a === 'undo') undo(); else if (a === 'reset') resetEx(); else if (a === 'check') check(); else if (a === 'explain') openExplain();
     else if (a === 'replay') showCorrect(); else if (a === 'retry') retry(); else if (a === 'next') nextEx(); else if (a === 'skip') skipEx();
   });
+  $('#acctBtn').addEventListener('click', openAcct);
+  $('#acctM').addEventListener('submit', onAcctSubmit);
+  $('#acctM').addEventListener('click', e => {
+    const a = e.target.closest('[data-acctact]'); if (!a) return;
+    const t = a.dataset.acctact;
+    if (t === 'tab-login' || t === 'tab-signup') { acctTab = t.slice(4); renderAcct(); }
+    else if (t === 'logout') { Auth.setUser(null); switchedUser(); }
+    else if (t === 'del') { const f = $('form[data-form=del]'); f.hidden = !f.hidden; }
+  });
   $('#exBack').addEventListener('click', () => go('#/practice'));
   $('#prevBtn').addEventListener('click', prevEx);
   $('#flipBtn').addEventListener('click', () => { Store.d.homeRight = !Store.d.homeRight; Store.save(); board.homeRight = Store.d.homeRight; if (X && !X.busy) draw(); });
   $$('[data-close]').forEach(b => b.addEventListener('click', () => closeModal(b.dataset.close)));
   $$('.modal').forEach(m => m.addEventListener('click', e => { if (e.target === m) m.classList.remove('on'); }));
   $('#gsearch').addEventListener('input', e => renderGloss(e.target.value));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal('gloss'); closeModal('keysM'); closeModal('expl'); } });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal('gloss'); closeModal('keysM'); closeModal('expl'); closeModal('acctM'); } });
   window.addEventListener('hashchange', route);
   route();
 }
