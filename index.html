@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Backgammon Solver – אימון שש בש</title>
 <meta name="description" content="120 תרגילי שש בש על לוח אמיתי, עם הסבר לכל מהלך.">
-<meta name="theme-color" content="#3a22dc">
-<meta name="app-version" content="2026-11-18b">
+<meta name="theme-color" content="#13205e">
+<meta name="app-version" content="2026-11-18c">
 <link rel="icon" type="image/svg+xml" href="logo.svg">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
@@ -32,11 +32,11 @@
 <style>
 /* ===== Design tokens ===== */
 :root{
-  --bg:#d6e5f5; --bg2:#c9efe8; --card:#f2f7fd; --card-2:#e2ecf9; --ink:#0e1a3a; --ink-2:#22335f; --muted:#52628a; --line:#bccfec;
-  --brand:#2350d0; --brand-600:#3a22dc; --brand-50:#dbe6fb; --brand-100:#c6d7f7;
+  --bg:#cdd6ea; --bg2:#bccae6; --card:#f1f4fb; --card-2:#dfe5f3; --ink:#0e1a3a; --ink-2:#1d2b5c; --muted:#4f5c82; --line:#bcc7e2;
+  --brand:#2a45b0; --brand-600:#1f3590; --brand-50:#dbe2f4; --brand-100:#c4cfeb;
   --teal:#00a492; --teal-50:#c9f0ea; --amber:#d27a00; --amber-50:#ffe7bd; --rose:#e12c50; --rose-50:#ffd6de; --green:#0b9b62; --green-50:#c8f1df;
   --shadow-sm:0 1px 2px rgba(14,26,58,.08),0 2px 6px rgba(14,26,58,.06);
-  --shadow:0 12px 30px -14px rgba(25,60,160,.45),0 4px 10px -6px rgba(14,26,58,.12);
+  --shadow:0 12px 30px -14px rgba(19,32,94,.45),0 4px 10px -6px rgba(14,26,58,.12);
   --r:14px; --r-lg:20px; --hdr:54px; --top-x:0px;
   --font:'Heebo',system-ui,-apple-system,'Segoe UI',Arial,sans-serif; --font-h:'Rubik','Heebo',system-ui,sans-serif;
 }
@@ -44,11 +44,11 @@
 html,body{height:100%}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;overflow:hidden;font-family:var(--font);color:var(--ink);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;
-  background:radial-gradient(70% 50% at 100% 0%,#bfd4f4 0%,transparent 70%),radial-gradient(60% 50% at 0% 100%,var(--bg2) 0%,transparent 70%),var(--bg)}
+  background:radial-gradient(70% 50% at 100% 0%,#b9c6e6 0%,transparent 70%),radial-gradient(60% 50% at 0% 100%,var(--bg2) 0%,transparent 70%),var(--bg)}
 h1,h2,h3{font-family:var(--font-h);line-height:1.2;margin:0;letter-spacing:-.01em}
 p{margin:0}
 button{font:inherit;cursor:pointer;color:inherit}
-:focus-visible{outline:3px solid #4f7fe8;outline-offset:2px;border-radius:8px}
+:focus-visible{outline:3px solid #4a62c4;outline-offset:2px;border-radius:8px}
 .ltr{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 [hidden]{display:none!important}
@@ -56,7 +56,7 @@ button{font:inherit;cursor:pointer;color:inherit}
 /* ===== Buttons ===== */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.45em;border:0;border-radius:12px;padding:.7em 1.1em;font-weight:700;font-size:1rem;transition:transform .15s ease,box-shadow .2s ease,background .2s ease;white-space:nowrap;min-height:46px}
 .btn:active{transform:translateY(1px) scale(.99)}
-.btn-primary{background:linear-gradient(135deg,#3a22dc,#1f5cc4 60%,#0b8fa0);color:#fff;box-shadow:0 8px 18px -8px rgba(35,80,208,.8)}
+.btn-primary{background:linear-gradient(100deg,#13205e,#22389a);color:#fff;box-shadow:0 8px 18px -8px rgba(19,32,94,.8)}
 .btn-lg{padding:.9em 1.6em;font-size:1.08rem;border-radius:14px;min-height:54px}
 .btn-ghost{background:var(--card);color:var(--ink-2);border:1.5px solid var(--line)}
 .btn-soft{background:var(--brand-50);color:var(--brand-600)}
@@ -168,7 +168,7 @@ body.home .nav button{background:rgba(255,255,255,.06)}
 .cat h3 span{font-family:var(--font);font-size:.85rem;color:var(--muted);font-weight:700}
 .cat.done h3 span{color:var(--green)}
 .progress{height:7px;background:var(--card-2);border-radius:99px;overflow:hidden;margin-top:6px}
-.progress i{display:block;height:100%;background:linear-gradient(90deg,#2350d0,#00a492);border-radius:99px;transition:width .6s ease}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,#1a2a78,#3552c4);border-radius:99px;transition:width .6s ease}
 .cat > svg{width:18px;height:18px;color:var(--muted);flex:none}
 .allDone{background:var(--green-50);color:#076b44;border-radius:var(--r);padding:10px 12px;font-weight:700;text-align:center}
 
@@ -226,7 +226,7 @@ body.home .nav button{background:rgba(255,255,255,.06)}
 .x{background:var(--card-2);border:0;border-radius:10px;width:38px;height:38px;display:grid;place-items:center}
 .x svg{width:18px;height:18px}
 .sheet-body{overflow:auto;padding:12px 16px 20px}
-.principle{display:flex;gap:8px;background:var(--brand-50);color:#1c3fa8;border-radius:12px;padding:9px 11px;font-weight:700;font-size:.93rem;margin-bottom:10px}
+.principle{display:flex;gap:8px;background:var(--brand-50);color:#1a2a78;border-radius:12px;padding:9px 11px;font-weight:700;font-size:.93rem;margin-bottom:10px}
 .principle svg{width:19px;height:19px;flex:none;margin-top:2px}
 .why{color:var(--ink-2);margin-bottom:10px}
 .alts{list-style:none;padding:0;margin:0;display:grid;gap:7px}
@@ -240,7 +240,7 @@ body.home .nav button{background:rgba(255,255,255,.06)}
 .sheet-actions .btn{flex:1;min-width:120px}
 .mv{direction:ltr;unicode-bidi:isolate;display:inline-block;font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
 .why .mv,.alts p .mv,.keyitem .mv,.gitem .mv{background:var(--card-2);border-radius:6px;padding:0 5px}
-.ex-hero{background:linear-gradient(135deg,#3a22dc,#1f5cc4 60%,#00a492);color:#fff;border-radius:16px;padding:12px 14px;margin-bottom:12px;box-shadow:var(--shadow)}
+.ex-hero{background:linear-gradient(100deg,#13205e,#22389a);color:#fff;border-radius:16px;padding:12px 14px;margin-bottom:12px;box-shadow:var(--shadow)}
 .ex-hero small{display:block;opacity:.85;font-weight:600;font-size:.8rem}
 .mv-big{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.18);border:0;border-radius:12px;padding:5px 12px;color:#fff;font-family:var(--font-h);font-size:1.35rem;font-weight:800;margin:4px 0 8px}
 .mv-big svg{width:18px;height:18px}
@@ -288,7 +288,7 @@ body.home .nav button{background:rgba(255,255,255,.06)}
 .acct-bar{margin-top:auto;align-self:center;display:flex;align-items:center;justify-content:center;gap:.5em;width:100%;max-width:420px;min-height:50px;border-radius:14px;border:0;background:linear-gradient(100deg,#13205e,#1a2a78);color:#fff;font-weight:700;font-size:1rem;box-shadow:var(--shadow)}
 .acct-bar svg{width:20px;height:20px;flex:none}
 .acct-bar #acctLbl{max-width:22ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.acct-intro{background:var(--brand-50);color:#1c3fa8;border-radius:12px;padding:10px 12px;font-weight:700;font-size:.95rem;margin-bottom:12px}
+.acct-intro{background:var(--brand-50);color:#1a2a78;border-radius:12px;padding:10px 12px;font-weight:700;font-size:.95rem;margin-bottom:12px}
 .gsearch{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:.65em 1em;font:inherit;margin-bottom:8px;background:#f8fbff}
 .gitem{padding:10px 0;border-bottom:1px solid var(--line)}
 .gitem:last-child{border:0}
@@ -2668,7 +2668,7 @@ function updateBadge() {
    Board renderer (SVG). Point numbers are always from white's side.
    =================================================================== */
 const G = { W: 814, H: 608, M: 14, PW: 56, BAR: 48, TRAY: 56, GAP: 10, NUM: 24, R: 25, PH: 236 };
-const COL = { frame: '#12234f', field: '#efe5cf', triA: '#2350d0', triB: '#a9c3ec', bar: '#1b3166', tray: '#0d1a3d',
+const COL = { frame: '#12234f', field: '#efe5cf', triA: '#22389a', triB: '#a9b8e0', bar: '#1b3166', tray: '#0d1a3d',
   num: '#aab1dd', numHome: '#ffffff', hl: '#12b8a6', sel: '#ffb020' };
 
 class Board {
@@ -2742,7 +2742,7 @@ class Board {
     const ax = this.homeRight ? fr - 14 : fl + 14, dir = this.homeRight ? 1 : -1;
     h += `<path d="M${ax} ${yB - 7} L${ax + 12 * dir} ${yB} L${ax} ${yB + 7}Z" fill="${COL.hl}" opacity=".8"/>`;
     h += `<text x="${homeHalfX}" y="${H / 2 - 6}" text-anchor="middle" direction="rtl" font-family="Heebo,Arial" font-size="14" font-weight="600" fill="#8a7f68">הבית של היריב</text>`;
-    h += `<text x="${homeHalfX}" y="${H / 2 + 18}" text-anchor="middle" direction="rtl" font-family="Heebo,Arial" font-size="14" font-weight="800" fill="#2350d0">הבית שלכם</text>`;
+    h += `<text x="${homeHalfX}" y="${H / 2 + 18}" text-anchor="middle" direction="rtl" font-family="Heebo,Arial" font-size="14" font-weight="800" fill="#22389a">הבית שלכם</text>`;
     // checkers on points
     for (let p = 1; p <= 24; p++) {
       const v = s.pts[p]; if (!v) continue;
@@ -2785,7 +2785,7 @@ class Board {
     const P = { 1: [[.5, .5]], 2: [[.27, .27], [.73, .73]], 3: [[.27, .27], [.5, .5], [.73, .73]], 4: [[.27, .27], [.73, .27], [.27, .73], [.73, .73]],
       5: [[.27, .27], [.73, .27], [.5, .5], [.27, .73], [.73, .73]], 6: [[.27, .25], [.73, .25], [.27, .5], [.73, .5], [.27, .75], [.73, .75]] }[v];
     let h = `<g opacity="${used ? .35 : 1}"><rect x="${x}" y="${y + 2}" width="${s}" height="${s}" rx="9" fill="rgba(0,0,0,.18)"/>` +
-      `<rect x="${x}" y="${y}" width="${s}" height="${s}" rx="9" fill="#3a22dc"/>`;
+      `<rect x="${x}" y="${y}" width="${s}" height="${s}" rx="9" fill="#1a2a78"/>`;
     for (const [a, b] of P) h += `<circle cx="${x + a * s}" cy="${y + b * s}" r="${s * .085}" fill="#fff"/>`;
     return h + '</g>';
   }
@@ -3278,7 +3278,7 @@ function showSummary() {
   const sk = SES.res.filter(r => r === 'skip').length;
   const n = SES.ids.length - (SES.start || 0) - sk, c = SES.res.filter(r => r === 'correct').length, nr = SES.res.filter(r => r === 'near').length, w = Math.max(0, n - c - nr);
   const pct = n ? Math.round(c / n * 100) : 0, C = 2 * Math.PI * 60;
-  let h = `<div class="score-ring"><svg viewBox="0 0 140 140"><circle cx="70" cy="70" r="60" fill="none" stroke="#dbe6fb" stroke-width="14"/><circle cx="70" cy="70" r="60" fill="none" stroke="url(#sg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - (n ? c / n : 0))}"/><defs><linearGradient id="sg"><stop offset="0" stop-color="#2350d0"/><stop offset="1" stop-color="#00a492"/></linearGradient></defs></svg><b>${pct}%</b></div>`;
+  let h = `<div class="score-ring"><svg viewBox="0 0 140 140"><circle cx="70" cy="70" r="60" fill="none" stroke="#dbe2f4" stroke-width="14"/><circle cx="70" cy="70" r="60" fill="none" stroke="url(#sg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - (n ? c / n : 0))}"/><defs><linearGradient id="sg"><stop offset="0" stop-color="#1a2a78"/><stop offset="1" stop-color="#3552c4"/></linearGradient></defs></svg><b>${pct}%</b></div>`;
   h += `<h2>${pct >= 85 ? 'מצוין!' : pct >= 50 ? 'עבודה טובה' : 'ממשיכים ללמוד'}</h2><p style="color:var(--muted);font-weight:600">${SES.mode === 'review' ? 'סבב חזרה' : catName(SES.cat) + ' · ' + LV[SES.lvl].name}</p>`;
   h += `<div class="sum-split"><span style="background:var(--green-50);color:#076b44">${c} נכון</span><span style="background:var(--amber-50);color:#7a4a00">${nr} כמעט</span><span style="background:var(--rose-50);color:#9a1530">${w} לא</span>${sk ? `<span style="background:var(--card-2);color:var(--ink-2)">${sk} דילגתם</span>` : ''}</div><div class="sum-actions">`;
   const rc = SES.mode === 'cat' && SES.lvl === 3 ? recommendation() : null;
@@ -3348,7 +3348,7 @@ function openGloss(term) {
 function go(h) { if (location.hash === h) route(); else location.hash = h; }
 function show(v) {
   document.body.classList.toggle('home', v === 'home');
-  const tc = $('meta[name="theme-color"]'); if (tc) tc.content = v === 'home' ? '#03040f' : '#3a22dc';
+  const tc = $('meta[name="theme-color"]'); if (tc) tc.content = v === 'home' ? '#03040f' : '#13205e';
   $$('.view').forEach(x => x.classList.toggle('on', x.id === 'v-' + v));
   $$('.nav [data-nav]').forEach(b => b.classList.toggle('on', b.dataset.nav === v || (v === 'play' && SES && SES.mode === 'review' && b.dataset.nav === 'review')));
 }
